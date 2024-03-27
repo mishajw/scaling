@@ -35,6 +35,26 @@ export const FLOP_FROM_TOKENS_AND_PARAMS: Inference<
   field: 'flops',
   requires: ['numTokens', 'numParams'],
   infer: model => {
-    return model.numTokens * model.numParams;
+    return model.numTokens * model.numParams * 6;
+  },
+};
+export const TOKENS_FROM_FLOPS_AND_PARAMS: Inference<
+  'numTokens',
+  'flops' | 'numParams'
+> = {
+  field: 'numTokens',
+  requires: ['flops', 'numParams'],
+  infer: model => {
+    return model.flops / (model.numParams * 6);
+  },
+};
+export const PARAMS_FROM_FLOPS_AND_TOKENS: Inference<
+  'numParams',
+  'flops' | 'numTokens'
+> = {
+  field: 'numParams',
+  requires: ['flops', 'numTokens'],
+  infer: model => {
+    return model.flops / (model.numTokens * 6);
   },
 };

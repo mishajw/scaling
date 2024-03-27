@@ -1,4 +1,9 @@
-import { FLOP_FROM_TOKENS_AND_PARAMS, Inference } from './inferences';
+import {
+  FLOP_FROM_TOKENS_AND_PARAMS,
+  Inference,
+  PARAMS_FROM_FLOPS_AND_TOKENS,
+  TOKENS_FROM_FLOPS_AND_PARAMS,
+} from './inferences';
 import Model from './model';
 
 export interface ParameterSpec {
@@ -13,6 +18,14 @@ export const PARAMETERS: Partial<Record<keyof Model, ParameterSpec>> = {
     default: 1e20,
     inferences: [FLOP_FROM_TOKENS_AND_PARAMS],
   },
-  numParams: { name: '# params', default: 1e9, inferences: [] },
-  numTokens: { name: '# tokens', default: 1e12, inferences: [] },
+  numParams: {
+    name: '# params',
+    default: 1e9,
+    inferences: [PARAMS_FROM_FLOPS_AND_TOKENS],
+  },
+  numTokens: {
+    name: '# tokens',
+    default: 1e12,
+    inferences: [TOKENS_FROM_FLOPS_AND_PARAMS],
+  },
 };

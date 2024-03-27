@@ -49,9 +49,7 @@ function Field<T extends keyof Model>({
             <Infer model={model} setModel={setModel} inference={inference} />
           );
         })}
-        {model[field] !== parameterSpec.default && (
-          <Default field={field} model={model} setModel={setModel} />
-        )}
+        <Default field={field} model={model} setModel={setModel} />
       </div>
     </div>
   );
