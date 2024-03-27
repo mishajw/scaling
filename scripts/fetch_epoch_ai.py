@@ -19,7 +19,7 @@ with _OUTPUT_PATH.open("w") as file:
         [
             {
                 "name": row["System"],
-                "flop": row["Training compute (FLOP)"],
+                "flops": row["Training compute (FLOP)"],
             }
             for row in data
             if row["Task"] == "Language modelling"

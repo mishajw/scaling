@@ -1,302 +1,302 @@
 [
     {
         "name": "Claude",
-        "flop": ""
+        "flops": ""
     },
     {
         "name": "Japanese-LM-3.6B",
-        "flop": ""
+        "flops": ""
     },
     {
         "name": "GPT-SW3",
-        "flop": "1.3e+21"
+        "flops": "1.3e+21"
     },
     {
         "name": "LLaMA-33B",
-        "flop": "2.7300000000001e+23"
+        "flops": "2.7300000000001e+23"
     },
     {
         "name": "LLaMA-65B",
-        "flop": "5.5e+23"
+        "flops": "5.5e+23"
     },
     {
         "name": "Falcon 180B",
-        "flop": "3.76e+24"
+        "flops": "3.76e+24"
     },
     {
         "name": "Sparse Non-negative Matrix (SNM) estimation",
-        "flop": ""
+        "flops": ""
     },
     {
         "name": "BloombergGPT",
-        "flop": "2.36e+23"
+        "flops": "2.36e+23"
     },
     {
         "name": "StableLM-Base-Alpha-7B",
-        "flop": "4.5e+22"
+        "flops": "4.5e+22"
     },
     {
         "name": "QMoE: compressed 1T model",
-        "flop": ""
+        "flops": ""
     },
     {
         "name": "Deep Multitask NLP Network",
-        "flop": ""
+        "flops": ""
     },
     {
         "name": "WizardLM-7B",
-        "flop": "4.02e+22"
+        "flops": "4.02e+22"
     },
     {
         "name": "RetNet",
-        "flop": "4.02e+21"
+        "flops": "4.02e+21"
     },
     {
         "name": "Gopher (280B)",
-        "flop": "6.31e+23"
+        "flops": "6.31e+23"
     },
     {
         "name": "OPT-30B",
-        "flop": ""
+        "flops": ""
     },
     {
         "name": "RNN for 1B words",
-        "flop": ""
+        "flops": ""
     },
     {
         "name": "BLUUMI",
-        "flop": ""
+        "flops": ""
     },
     {
         "name": "IDEFICS",
-        "flop": "1.1593580544e+23"
+        "flops": "1.1593580544e+23"
     },
     {
         "name": "OPT-2.7B (finetuned on PTB)",
-        "flop": ""
+        "flops": ""
     },
     {
         "name": "DeepNet",
-        "flop": ""
+        "flops": ""
     },
     {
         "name": "Llama 2-70B",
-        "flop": "8.1e+23"
+        "flops": "8.1e+23"
     },
     {
         "name": "Context-dependent RNN",
-        "flop": ""
+        "flops": ""
     },
     {
         "name": "InternLM",
-        "flop": ""
+        "flops": ""
     },
     {
         "name": "OPT-1.3B",
-        "flop": ""
+        "flops": ""
     },
     {
         "name": "PLATO-XL",
-        "flop": ""
+        "flops": ""
     },
     {
         "name": "AlexaTM 20B",
-        "flop": "2.04374016e+23"
+        "flops": "2.04374016e+23"
     },
     {
         "name": "OPT-1.3B (finetuned on PTB)",
-        "flop": ""
+        "flops": ""
     },
     {
         "name": "T0-XXL",
-        "flop": "1.792e+22"
+        "flops": "1.792e+22"
     },
     {
         "name": "Megatron-Turing NLG 530B",
-        "flop": "1.17e+24"
+        "flops": "1.17e+24"
     },
     {
         "name": "Llama 2-7B",
-        "flop": "8.4e+22"
+        "flops": "8.4e+22"
     },
     {
         "name": "OPT-1.3B (finetuned)",
-        "flop": ""
+        "flops": ""
     },
     {
         "name": "Chinchilla",
-        "flop": "5.76e+23"
+        "flops": "5.76e+23"
     },
     {
         "name": "ALM 1.0",
-        "flop": ""
+        "flops": ""
     },
     {
         "name": "BLOOM-176B",
-        "flop": "3.6e+23"
+        "flops": "3.6e+23"
     },
     {
         "name": "GPT-4",
-        "flop": "2.1e+25"
+        "flops": "2.1e+25"
     },
     {
         "name": "Transformer ELMo",
-        "flop": ""
+        "flops": ""
     },
     {
         "name": "JIANG",
-        "flop": "4.03e+22"
+        "flops": "4.03e+22"
     },
     {
         "name": "LSTM",
-        "flop": "21008000000000"
+        "flops": "21008000000000"
     },
     {
         "name": "mT5-XXL",
-        "flop": "7.8e+22"
+        "flops": "7.8e+22"
     },
     {
         "name": "RWKV-4 14B",
-        "flop": "2.78e+22"
+        "flops": "2.78e+22"
     },
     {
         "name": "Jais",
-        "flop": "3.08e+22"
+        "flops": "3.08e+22"
     },
     {
         "name": "ERNIE 3.5",
-        "flop": ""
+        "flops": ""
     },
     {
         "name": "Inflection-2",
-        "flop": "1.001e+25"
+        "flops": "1.001e+25"
     },
     {
         "name": "PaLM (540B)",
-        "flop": "2.5272e+24"
+        "flops": "2.5272e+24"
     },
     {
         "name": "GPT-4V",
-        "flop": ""
+        "flops": ""
     },
     {
         "name": "Palmyra Large 20B",
-        "flop": "9.6e+22"
+        "flops": "9.6e+22"
     },
     {
         "name": "Inflection-1",
-        "flop": "1.0001e+24"
+        "flops": "1.0001e+24"
     },
     {
         "name": "Persimmon-8B",
-        "flop": ""
+        "flops": ""
     },
     {
         "name": "ConSERT",
-        "flop": "280000000000000000000"
+        "flops": "280000000000000000000"
     },
     {
         "name": "ByT5-XXL",
-        "flop": "8.1e+22"
+        "flops": "8.1e+22"
     },
     {
         "name": "Claude 2",
-        "flop": "3.866e+24"
+        "flops": "3.866e+24"
     },
     {
         "name": "EXAONE 2.0",
-        "flop": ""
+        "flops": ""
     },
     {
         "name": "OPT-2.7B (finetuned on WT2)",
-        "flop": ""
+        "flops": ""
     },
     {
         "name": "Yuan 1.0",
-        "flop": "3.5380000000001e+23"
+        "flops": "3.5380000000001e+23"
     },
     {
         "name": "Skywork-13B",
-        "flop": "2.5e+23"
+        "flops": "2.5e+23"
     },
     {
         "name": "LaMDA",
-        "flop": "3.55e+23"
+        "flops": "3.55e+23"
     },
     {
         "name": "Galactica",
-        "flop": "3.24e+23"
+        "flops": "3.24e+23"
     },
     {
         "name": "OPT-175B",
-        "flop": "4.3e+23"
+        "flops": "4.3e+23"
     },
     {
         "name": "LLaMA-13B",
-        "flop": "4.55e+22"
+        "flops": "4.55e+22"
     },
     {
         "name": "OPT-125M (finetuned)",
-        "flop": ""
+        "flops": ""
     },
     {
         "name": "LLaMA-7B",
-        "flop": "4.02e+22"
+        "flops": "4.02e+22"
     },
     {
         "name": "Llama 2-13B",
-        "flop": "1.6e+23"
+        "flops": "1.6e+23"
     },
     {
         "name": "OPT-IML (175B)",
-        "flop": ""
+        "flops": ""
     },
     {
         "name": "OPT-13B",
-        "flop": ""
+        "flops": ""
     },
     {
         "name": "PAGnol-XL",
-        "flop": "259200000000000000000"
+        "flops": "259200000000000000000"
     },
     {
         "name": "Falcon-40B",
-        "flop": "2.4e+23"
+        "flops": "2.4e+23"
     },
     {
         "name": "GPT-3.5 (text-davinci-003)",
-        "flop": "2.578e+24"
+        "flops": "2.578e+24"
     },
     {
         "name": "OPT-6.7B",
-        "flop": ""
+        "flops": ""
     },
     {
         "name": "YaLM",
-        "flop": "2.2e+23"
+        "flops": "2.2e+23"
     },
     {
         "name": "OPT-66B",
-        "flop": "1.100000000001e+23"
+        "flops": "1.100000000001e+23"
     },
     {
         "name": "OPT-2.7B",
-        "flop": ""
+        "flops": ""
     },
     {
         "name": "OPT-125M (finetuned on PTB)",
-        "flop": ""
+        "flops": ""
     },
     {
         "name": "PaLM 2",
-        "flop": "7.34e+24"
+        "flops": "7.34e+24"
     },
     {
         "name": "Cerebras-GPT-13B",
-        "flop": "2.3e+22"
+        "flops": "2.3e+22"
     },
     {
         "name": "FLAN 137B",
-        "flop": "4.896e+22"
+        "flops": "4.896e+22"
     }
 ]
