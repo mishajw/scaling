@@ -19,7 +19,18 @@ with _OUTPUT_PATH.open("w") as file:
         [
             {
                 "name": row["System"],
-                "flops": row["Training compute (FLOP)"],
+                "flops": row["Training compute (FLOP)"] or None,
+                "numParams": row["Parameters"] or None,
+                "sequenceLength": None,
+                "numTokens": row["Training dataset size (datapoints)"] or None,
+                "batchSize": row["Batch size"] or None,
+                "costDollars": row["Training compute cost (2020 USD)"] or None,
+                "trainingTimeDays": row["Training time (hours)"] or None,
+                "gpuType": None,
+                "gpuCount": row["Hardware quantity"] or None,
+                "gpuUtilization": row["Hardware utilization"] or None,
+                "releaseDate": row["Publication date"] or None,
+                "isOpenWeights": None,
             }
             for row in data
             if row["Task"] == "Language modelling"
