@@ -13,11 +13,11 @@ export default function PlotView({ models }: Props) {
     name: 'Custom',
   });
   return (
-    <div>
+    <div className='max-w-screen-md'>
       <div>
         <ModelPlot customModel={customModel} models={models} />
       </div>
-      <div>
+      <div className='p-4'>
         <CustomModelEditor model={customModel} setModel={setCustomModel} />
       </div>
     </div>

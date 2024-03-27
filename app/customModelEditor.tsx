@@ -18,7 +18,7 @@ export default function CustomModelEditor({ model, setModel }: Props) {
   return (
     <div>
       <div className='text-lg'>Custom model</div>
-      <div className='flex flex-col'>
+      <div className='grid grid-cols-3'>
         <Field field={'flops'} model={model} setModel={setModel} />
         <Field field={'numParams'} model={model} setModel={setModel} />
         <Field field={'numTokens'} model={model} setModel={setModel} />
@@ -38,19 +38,19 @@ function Field<T extends keyof Model>({
 }) {
   const parameterSpec = PARAMETERS[field]!;
   return (
-    <div className='flex flex-row'>
-      <div>{parameterSpec.name}</div>
-      <div>
+    <div className='contents'>
+      <div className='m-2'>{parameterSpec.name}</div>
+      <div className='m-2 col-span-2'>
         <Input
           value={model[field]}
           setValue={value => setModel({ ...model, [field]: value })}
         />
-        {parameterSpec.inferences.map(inference => {
-          return (
+        <div className='ml-4'>
+          {parameterSpec.inferences.map(inference => (
             <Infer model={model} setModel={setModel} inference={inference} />
-          );
-        })}
-        <Default field={field} model={model} setModel={setModel} />
+          ))}
+          <Default field={field} model={model} setModel={setModel} />
+        </div>
       </div>
     </div>
   );
@@ -74,7 +74,7 @@ function Input({
   }
   return (
     <input
-      className={`border-2 ${tempValue === undefined ? '' : 'bg-red-200'}`}
+      className={`m-1 px-1 border-2 ${tempValue === undefined ? '' : 'bg-red-200'}`}
       onChange={e => {
         const valueNumber = siParse(e.target.value);
         if (valueNumber !== undefined) {
@@ -99,7 +99,7 @@ function Infer<T extends keyof Model>({
   const inferInput = constructInferInput(model, inference.requires);
   const inferredValue = inferInput ? inference.infer(inferInput) : undefined;
   return (
-    <div>
+    <div className='m-1'>
       <SetValueButton
         value={inferredValue}
         field={inference.field}
@@ -130,7 +130,7 @@ function Default<T extends keyof Model>({
 }) {
   const parameterSpec = PARAMETERS[field]!;
   return (
-    <div>
+    <div className='m-1'>
       <SetValueButton
         value={parameterSpec.default}
         field={field}
@@ -151,7 +151,7 @@ function ValueTag<T extends keyof Model, ValueT>({
 }) {
   const parameterSpec = PARAMETERS[field]!;
   return (
-    <span className='rounded m-1 p-1 bg-green-200'>
+    <span className='whitespace-nowrap rounded m-1 p-1 bg-green-200'>
       {parameterSpec.name}=<Value value={value} />
     </span>
   );
