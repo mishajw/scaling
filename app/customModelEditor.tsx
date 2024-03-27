@@ -5,6 +5,7 @@ import {
 } from '@/lib/inferences';
 import Model from '@/lib/model';
 import { siFormat, siParse } from '@/lib/numberFormat';
+import { PARAMETERS } from '@/lib/parameters';
 import { useState } from 'react';
 
 interface Props {
@@ -16,25 +17,36 @@ export default function CustomModelEditor({ model, setModel }: Props) {
   return (
     <div>
       <div className='text-lg'>Custom model</div>
-      <div className='grid grid-cols-2'>
-        <div>FLOPs</div>
-        <div>
-          <Input
-            value={model.flops}
-            setValue={value => setModel({ ...model, flops: value })}
-          />
-          <Infer model={model} inference={FLOP_FROM_TOKENS_AND_PARAMS} />
-        </div>
-        <div># params</div>
+      <div className='flex flex-col'>
+        <Field field={'flops'} model={model} setModel={setModel} />
+        <Field field={'numParams'} model={model} setModel={setModel} />
+        <Field field={'numTokens'} model={model} setModel={setModel} />
+      </div>
+    </div>
+  );
+}
+
+function Field<T extends keyof Model>({
+  field,
+  model,
+  setModel,
+}: {
+  field: T;
+  model: Model;
+  setModel: (model: Model) => void;
+}) {
+  const parameterSpec = PARAMETERS[field]!;
+  return (
+    <div className='flex flex-row'>
+      <div>{parameterSpec.name}</div>
+      <div>
         <Input
           value={model.numParams}
-          setValue={value => setModel({ ...model, numParams: value })}
+          setValue={value => setModel({ ...model, [field]: value })}
         />
-        <div># tokens</div>
-        <Input
-          value={model.numTokens}
-          setValue={value => setModel({ ...model, numTokens: value })}
-        />
+        {parameterSpec.inferences.map(inference => {
+          return <Infer model={model} inference={inference} />;
+        })}
       </div>
     </div>
   );
@@ -82,21 +94,34 @@ function Infer<T extends keyof Model>({
 
   return (
     <div>
-      <button className='bg-blue-500 text-white rounded px-1'>
-        Set to <Value value={inferredValue} />
+      <button
+        disabled={inferredValue !== undefined}
+        className={`rounded px-1 ${inferredValue !== undefined ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+      >
+        &#x2196; <Value value={inferredValue} />
       </button>
       <span className='text-sm ml-2'>
         based on&nbsp;
-        {inference.requires.map(requirement => {
-          return (
-            <span>
-              {requirement}=<Value value={model[requirement]} />
-              &nbsp;
-            </span>
-          );
-        })}
+        {inference.requires.map(requirement => (
+          <ValueTag field={requirement} value={model[requirement]} />
+        ))}
       </span>
     </div>
+  );
+}
+
+function ValueTag<T extends keyof Model, ValueT>({
+  field,
+  value,
+}: {
+  field: T;
+  value: ValueT | undefined;
+}) {
+  const parameterSpec = PARAMETERS[field]!;
+  return (
+    <span className='rounded m-1 p-1 bg-green-200'>
+      {parameterSpec.name}=<Value value={value} />
+    </span>
   );
 }
 
