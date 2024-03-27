@@ -10,7 +10,7 @@ interface Props {
   models: Model[];
 }
 
-export default async function ModelPlot({ customModel, models }: Props) {
+export default function ModelPlot({ customModel, models }: Props) {
   const plotModels = models.filter(model => model.flops);
   const [minDate, maxDate] = getMinMaxDates(
     plotModels.map(model => model.releaseDate!)

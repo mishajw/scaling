@@ -5,7 +5,7 @@ interface Props {
   setModel: (model: Model) => void;
 }
 
-export default async function CustomModelEditor({ model, setModel }: Props) {
+export default function CustomModelEditor({ model, setModel }: Props) {
   return (
     <div>
       <div className='text-lg'>Custom model</div>
