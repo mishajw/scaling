@@ -1,11 +1,11 @@
 import loadEpochAi from '@/lib/loadEpochAi';
-import ModelPlot from './modelPlot';
+import PlotView from './plotView';
 
 export default async function Home() {
-  const epochAi = await loadEpochAi();
+  const models = await loadEpochAi();
   return (
     <div>
-      <ModelPlot models={epochAi} />
+      <PlotView models={models} />
     </div>
   );
 }
