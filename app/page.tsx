@@ -1,18 +1,11 @@
 import loadEpochAi from '@/lib/loadEpochAi';
+import ModelPlot from './plot';
 
-interface Props {
-  name: string;
-  flops: number;
-}
-
-export default async function Home(props: Props) {
+export default async function Home() {
   const epochAi = await loadEpochAi();
   return (
     <div>
-      Scaling:{' '}
-      {epochAi.map(model => (
-        <div>{JSON.stringify(model)}</div>
-      ))}
+      <ModelPlot models={epochAi} />
     </div>
   );
 }

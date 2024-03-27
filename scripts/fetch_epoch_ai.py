@@ -33,7 +33,7 @@ with _OUTPUT_PATH.open("w") as file:
                 "isOpenWeights": None,
             }
             for row in data
-            if row["Task"] == "Language modelling"
+            if row["Task"] == "Language modelling" and row["System"] != "LSTM"
         ],
         file,
         indent=4,

@@ -555,21 +555,6 @@
     "isOpenWeights": null
   },
   {
-    "name": "LSTM",
-    "flops": "21008000000000",
-    "numParams": "10504.0",
-    "sequenceLength": null,
-    "numTokens": "1273000.0",
-    "batchSize": null,
-    "costDollars": null,
-    "trainingTimeDays": null,
-    "gpuType": null,
-    "gpuCount": null,
-    "gpuUtilization": null,
-    "releaseDate": "1997-11-15",
-    "isOpenWeights": null
-  },
-  {
     "name": "mT5-XXL",
     "flops": "7.8e+22",
     "numParams": "13000000000.0",
