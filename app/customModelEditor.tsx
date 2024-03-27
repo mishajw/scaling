@@ -41,7 +41,7 @@ function Field<T extends keyof Model>({
       <div>{parameterSpec.name}</div>
       <div>
         <Input
-          value={model.numParams}
+          value={model[field]}
           setValue={value => setModel({ ...model, [field]: value })}
         />
         {parameterSpec.inferences.map(inference => {
@@ -64,24 +64,26 @@ function Input({
   value?: number;
   setValue: (value: number) => void;
 }) {
-  const [state, setState] = useState<{
-    tempValue: string | undefined;
-    isValid: boolean;
-  }>({ tempValue: value?.toString(), isValid: true });
+  const [tempValue, setTempValue] = useState<string | undefined>(undefined);
+  if (
+    value !== undefined &&
+    tempValue !== undefined &&
+    siParse(tempValue) !== undefined &&
+    siParse(tempValue) !== value
+  ) {
+    setTempValue(undefined);
+  }
   return (
     <input
-      className={`border-2 ${state.isValid ? '' : 'bg-red-200'}`}
+      className={`border-2 ${tempValue === undefined ? '' : 'bg-red-200'}`}
       onChange={e => {
         const valueNumber = siParse(e.target.value);
-        setState({
-          tempValue: e.target.value,
-          isValid: valueNumber !== undefined,
-        });
         if (valueNumber !== undefined) {
           setValue(valueNumber);
         }
+        setTempValue(e.target.value);
       }}
-      value={state.tempValue}
+      value={tempValue ?? (value !== undefined ? siFormat(value) : '')}
     />
   );
 }

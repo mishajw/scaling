@@ -11,12 +11,13 @@ export function siFormat(n: number): string {
 }
 
 export function siParse(s: string): number | undefined {
-  const sciValue = sciParse(s);
-  if (sciValue !== undefined) {
-    return sciValue;
-  }
   const match = s.match(/([0-9.]+)([a-zA-Z]*)/);
   if (!match) {
+    // // TODO: Clean up!
+    // const sciValue = sciParse(s);
+    // if (sciValue !== undefined) {
+    //     return sciValue;
+    // }
     return undefined;
   }
   const value = parseFloat(match[1]);
