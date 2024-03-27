@@ -1,5 +1,5 @@
 import loadEpochAi from '@/lib/loadEpochAi';
-import ModelPlot from './plot';
+import ModelPlot from './modelPlot';
 
 export default async function Home() {
   const epochAi = await loadEpochAi();

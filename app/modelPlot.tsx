@@ -3,7 +3,6 @@
 import Model from '@/lib/model';
 import dynamic from 'next/dynamic';
 
-// const Plot = require('react-plotly.js');
 const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
 
 interface Props {
@@ -11,20 +10,24 @@ interface Props {
 }
 
 export default async function ModelPlot({ models }: Props) {
+  const plotModels = models.filter(model => model.flops);
   return (
     <div>
-      {models.length}
       <Plot
         data={[
           {
-            x: models.map(model => model.releaseDate),
-            y: models.map(model => model.flops),
+            x: plotModels.map(model => model.releaseDate),
+            y: plotModels.map(model => model.flops),
             mode: 'markers',
             type: 'scatter',
-            text: models.map(model => model.name),
+            text: plotModels.map(model => model.name),
           },
         ]}
-      ></Plot>
+        layout={{
+          xaxis: { type: 'date' },
+          yaxis: { type: 'log' },
+        }}
+      />
     </div>
   );
 }
