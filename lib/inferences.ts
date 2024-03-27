@@ -7,7 +7,11 @@ export interface Inference<
   field: FieldT;
   requires: RequiresT[];
   infer: (model: RemoveUndefined<Pick<Model, RequiresT>>) => number;
+  explanation: InferenceExplanation;
 }
+
+export type InferenceExplanation = 'simple-flops';
+
 type RemoveUndefined<T> = {
   [P in keyof T]-?: Exclude<T[P], undefined>;
 };
@@ -37,6 +41,7 @@ export const FLOP_FROM_TOKENS_AND_PARAMS: Inference<
   infer: model => {
     return model.numTokens * model.numParams * 6;
   },
+  explanation: 'simple-flops',
 };
 export const TOKENS_FROM_FLOPS_AND_PARAMS: Inference<
   'numTokens',
@@ -47,6 +52,7 @@ export const TOKENS_FROM_FLOPS_AND_PARAMS: Inference<
   infer: model => {
     return model.flops / (model.numParams * 6);
   },
+  explanation: 'simple-flops',
 };
 export const PARAMS_FROM_FLOPS_AND_TOKENS: Inference<
   'numParams',
@@ -57,4 +63,5 @@ export const PARAMS_FROM_FLOPS_AND_TOKENS: Inference<
   infer: model => {
     return model.flops / (model.numTokens * 6);
   },
+  explanation: 'simple-flops',
 };

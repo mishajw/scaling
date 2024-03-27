@@ -7,6 +7,7 @@ import Model from '@/lib/model';
 import { siFormat, siParse } from '@/lib/numberFormat';
 import { PARAMETERS } from '@/lib/parameters';
 import { useState } from 'react';
+import InferenceExplanation from './inferenceExplanation';
 
 interface Props {
   model: Model;
@@ -111,6 +112,9 @@ function Infer<T extends keyof Model>({
           <ValueTag field={requirement} value={model[requirement]} />
         ))}
       </span>
+      <Help>
+        <InferenceExplanation type={inference.explanation} />
+      </Help>
     </div>
   );
 }
@@ -185,4 +189,24 @@ function Value<T>({ value }: { value: T | undefined }) {
   } else {
     return <span className='bg-red-400'>???</span>;
   }
+}
+
+function Help({ children }: { children: JSX.Element }): JSX.Element {
+  const [show, setShow] = useState(false);
+  return (
+    <span
+      onMouseEnter={() => setShow(true)}
+      onMouseLeave={() => setShow(false)}
+      className='cursor-pointer'
+    >
+      &#9432;
+      <span
+        className={`absolute bg-white border border-gray-400 p-2 rounded max-w-80 ${
+          show ? '' : 'hidden'
+        }`}
+      >
+        {children}
+      </span>
+    </span>
+  );
 }
