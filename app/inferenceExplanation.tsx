@@ -1,4 +1,5 @@
 import { InferenceExplanation } from '@/lib/inferences';
+import Link from './link';
 
 export default function InferenceExplanation({
   type,
@@ -9,9 +10,7 @@ export default function InferenceExplanation({
     return (
       <div>
         The&nbsp;
-        <a href='https://arxiv.org/abs/1909.08053' target='_blank'>
-          Megatron-LM
-        </a>
+        <Link href='https://arxiv.org/abs/1909.08053'>Megatron-LM</Link>
         &nbsp;paper outlines a simple equation for calculating the number of
         FLOPs:
         <br />
