@@ -11,7 +11,6 @@ interface Props {
 export default function PlotView({ models }: Props) {
   const [customModel, setCustomModel] = useState<Model>({
     name: 'Custom',
-    flops: 1000000,
   });
   return (
     <div>
