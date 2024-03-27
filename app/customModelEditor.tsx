@@ -45,8 +45,13 @@ function Field<T extends keyof Model>({
           setValue={value => setModel({ ...model, [field]: value })}
         />
         {parameterSpec.inferences.map(inference => {
-          return <Infer model={model} inference={inference} />;
+          return (
+            <Infer model={model} setModel={setModel} inference={inference} />
+          );
         })}
+        {model[field] !== parameterSpec.default && (
+          <Default field={field} model={model} setModel={setModel} />
+        )}
       </div>
     </div>
   );
@@ -68,7 +73,6 @@ function Input({
       className={`border-2 ${state.isValid ? '' : 'bg-red-200'}`}
       onChange={e => {
         const valueNumber = siParse(e.target.value);
-        console.log(valueNumber);
         setState({
           tempValue: e.target.value,
           isValid: valueNumber !== undefined,
@@ -84,28 +88,52 @@ function Input({
 
 function Infer<T extends keyof Model>({
   model,
+  setModel,
   inference,
 }: {
   model: Model;
+  setModel: (model: Model) => void;
   inference: Inference<any, T>;
 }) {
   const inferInput = constructInferInput(model, inference.requires);
   const inferredValue = inferInput ? inference.infer(inferInput) : undefined;
-
   return (
     <div>
-      <button
-        disabled={inferredValue !== undefined}
-        className={`rounded px-1 ${inferredValue !== undefined ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
-      >
-        &#x2196; <Value value={inferredValue} />
-      </button>
+      <SetValueButton
+        value={inferredValue}
+        field={inference.field}
+        model={model}
+        setModel={setModel}
+      />
       <span className='text-sm ml-2'>
-        based on&nbsp;
+        inferred from&nbsp;
         {inference.requires.map(requirement => (
           <ValueTag field={requirement} value={model[requirement]} />
         ))}
       </span>
+    </div>
+  );
+}
+
+function Default<T extends keyof Model>({
+  field,
+  model,
+  setModel,
+}: {
+  field: T;
+  model: Model;
+  setModel: (model: Model) => void;
+}) {
+  const parameterSpec = PARAMETERS[field]!;
+  return (
+    <div>
+      <SetValueButton
+        value={parameterSpec.default}
+        field={field}
+        model={model}
+        setModel={setModel}
+      />
+      <span className='text-sm'>&nbsp;from default</span>
     </div>
   );
 }
@@ -122,6 +150,28 @@ function ValueTag<T extends keyof Model, ValueT>({
     <span className='rounded m-1 p-1 bg-green-200'>
       {parameterSpec.name}=<Value value={value} />
     </span>
+  );
+}
+
+function SetValueButton<T extends keyof Model>({
+  value,
+  field,
+  model,
+  setModel,
+}: {
+  value: number | undefined;
+  field: keyof Model;
+  model: Model;
+  setModel: (model: Model) => void;
+}) {
+  return (
+    <button
+      disabled={value === undefined}
+      className={`rounded px-1 ${value !== undefined ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+      onClick={() => setModel({ ...model, [field]: value })}
+    >
+      &#x2196; <Value value={value} />
+    </button>
   );
 }
 
