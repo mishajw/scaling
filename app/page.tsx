@@ -1,4 +1,4 @@
-import loadEpochAi from "@/lib/loadEpochAi";
+import loadEpochAi from '@/lib/loadEpochAi';
 
 interface Props {
   name: string;
@@ -7,5 +7,12 @@ interface Props {
 
 export default async function Home(props: Props) {
   const epochAi = await loadEpochAi();
-  return <div>Scaling: {epochAi.map((model) => <div>{JSON.stringify(model)}</div>)}</div>;
+  return (
+    <div>
+      Scaling:{' '}
+      {epochAi.map(model => (
+        <div>{JSON.stringify(model)}</div>
+      ))}
+    </div>
+  );
 }

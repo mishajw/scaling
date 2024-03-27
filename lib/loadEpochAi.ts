@@ -1,6 +1,5 @@
-import Model from "./model";
+import Model from './model';
 import { promises as fs } from 'fs';
-
 
 export default async function loadEpochAi(): Promise<Model[]> {
   const json = await fs.readFile('data/epoch_ai.json', 'utf8');
