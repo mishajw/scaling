@@ -18,8 +18,7 @@ interface Props {
 export default function CustomModelEditor({ model, setModel }: Props) {
   return (
     <div>
-      <div className='text-lg'>Custom model</div>
-      <div className='grid grid-cols-3'>
+      <div className='grid grid-cols-4'>
         <Field field={'flops'} model={model} setModel={setModel} />
         <Field field={'numParams'} model={model} setModel={setModel} />
         <Field field={'numTokens'} model={model} setModel={setModel} />
@@ -42,7 +41,7 @@ function Field<T extends keyof Model>({
   return (
     <div className='contents'>
       <div className='m-2'>{parameterSpec.name}</div>
-      <div className='m-2 col-span-2'>
+      <div className='m-2 col-span-3'>
         <NumberInput
           value={model[field]}
           setValue={value => setModel({ ...model, [field]: value })}
