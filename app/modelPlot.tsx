@@ -1,6 +1,6 @@
 'use client';
 
-import Model from '@/lib/model';
+import Model, { ModelFieldType } from '@/lib/model';
 import { PARAMETERS } from '@/lib/parameters';
 import dynamic from 'next/dynamic';
 
@@ -34,7 +34,7 @@ export default function ModelPlot({ customModel, models }: Props) {
   );
 }
 
-function ModelFieldPlot<T extends keyof Model>({
+function ModelFieldPlot<T extends ModelFieldType>({
   field,
   customModel,
   models,
@@ -44,9 +44,19 @@ function ModelFieldPlot<T extends keyof Model>({
   models: Model[];
 }) {
   const parameterSpec = PARAMETERS[field]!;
-  const plotModels = models.filter(model => model[field]);
+  const plotModels = models
+    .map(model => ({
+      releaseDate: model.fields.releaseDate?.value,
+      field: model.fields[field]?.value,
+      name: model.name,
+    }))
+    .filter(
+      model => model.releaseDate !== undefined && model.field !== undefined
+    ) as { releaseDate: Date; field: number; name: string }[];
+
+  console.log(plotModels);
   const [minDate, maxDate] = getMinMaxDates(
-    plotModels.map(model => model.releaseDate!)
+    plotModels.map(model => model.releaseDate)
   );
   return (
     <Plot
@@ -54,14 +64,17 @@ function ModelFieldPlot<T extends keyof Model>({
       data={[
         {
           x: plotModels.map(model => model.releaseDate),
-          y: plotModels.map(model => model[field]),
+          y: plotModels.map(model => model.field),
           mode: 'markers',
           type: 'scatter',
           text: plotModels.map(model => model.name),
         },
         {
           x: [minDate, maxDate],
-          y: [customModel[field], customModel[field]],
+          y: [
+            customModel.fields[field]?.value,
+            customModel.fields[field]?.value,
+          ],
           mode: 'lines',
           type: 'scatter',
           line: { color: 'orange', dash: 'dash' },

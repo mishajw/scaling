@@ -1,5 +1,5 @@
 import { Inference, constructInferInput } from '@/lib/inferences';
-import Model from '@/lib/model';
+import Model, { ModelField, ModelFieldType, ModelValueType } from '@/lib/model';
 import { siFormat, siParse } from '@/lib/numberFormat';
 import { PARAMETERS } from '@/lib/parameters';
 import { useState } from 'react';
@@ -25,7 +25,7 @@ export default function CustomModelEditor({ model, setModel }: Props) {
   );
 }
 
-function Field<T extends keyof Model>({
+function Field<T extends ModelFieldType>({
   field,
   model,
   setModel,
@@ -35,7 +35,7 @@ function Field<T extends keyof Model>({
   setModel: (model: Model) => void;
 }) {
   const parameterSpec = PARAMETERS[field]!;
-  const fieldValue = model[field];
+  const fieldValue = model.fields[field];
   return (
     <div className='contents'>
       <div className='m-2'>{parameterSpec.name}</div>
@@ -62,7 +62,7 @@ function Field<T extends keyof Model>({
   );
 }
 
-function Infer<T extends keyof Model>({
+function Infer<T extends ModelFieldType>({
   model,
   setModel,
   inference,
@@ -84,7 +84,11 @@ function Infer<T extends keyof Model>({
       <span className='text-sm ml-2'>
         inferred from&nbsp;
         {inference.requires.map((requirement, i) => (
-          <ValueTag key={i} field={requirement} value={model[requirement]} />
+          <ValueTag
+            key={i}
+            field={requirement}
+            value={model.fields[requirement]}
+          />
         ))}
       </span>
       <Help>
@@ -94,7 +98,7 @@ function Infer<T extends keyof Model>({
   );
 }
 
-function Default<T extends keyof Model>({
+function Default<T extends ModelFieldType>({
   field,
   model,
   setModel,
@@ -117,12 +121,12 @@ function Default<T extends keyof Model>({
   );
 }
 
-function ValueTag<T extends keyof Model, ValueT>({
+function ValueTag<T extends ModelFieldType, ValueT extends ModelValueType>({
   field,
   value,
 }: {
   field: T;
-  value: ValueT | undefined;
+  value: ModelField<ValueT> | undefined;
 }) {
   const parameterSpec = PARAMETERS[field]!;
   return (
@@ -132,14 +136,14 @@ function ValueTag<T extends keyof Model, ValueT>({
   );
 }
 
-function SetValueButton<T extends keyof Model>({
+function SetValueButton<T extends ModelFieldType>({
   value,
   field,
   model,
   setModel,
 }: {
-  value: number | undefined;
-  field: keyof Model;
+  value: ModelValueType | undefined;
+  field: T;
   model: Model;
   setModel: (model: Model) => void;
 }) {
@@ -147,14 +151,20 @@ function SetValueButton<T extends keyof Model>({
     <button
       disabled={value === undefined}
       className={`rounded px-1 ${value !== undefined ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
-      onClick={() => setModel({ ...model, [field]: value })}
+      onClick={() =>
+        setModel({ ...model, [field]: { value, source: 'manual' } })
+      }
     >
-      &#x2196; <Value value={value} />
+      &#x2196; <Value value={value ? { value, source: 'custom' } : undefined} />
     </button>
   );
 }
 
-function Value<T>({ value }: { value: T | undefined }) {
+function Value<T extends ModelValueType>({
+  value,
+}: {
+  value: ModelField<T> | undefined;
+}) {
   if (value !== undefined && value !== null) {
     if (typeof value === 'number') {
       return <span>{siFormat(value)}</span>;

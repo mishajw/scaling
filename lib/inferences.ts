@@ -1,12 +1,12 @@
-import Model from './model';
+import Model, { ModelFieldType, ModelFields } from './model';
 
 export interface Inference<
-  FieldT extends keyof Model,
-  RequiresT extends keyof Model,
+  FieldT extends ModelFieldType,
+  RequiresT extends ModelFieldType,
 > {
   field: FieldT;
   requires: RequiresT[];
-  infer: (model: RemoveUndefined<Pick<Model, RequiresT>>) => number;
+  infer: (fields: RemoveUndefined<Pick<ModelFields, RequiresT>>) => number;
   explanation: InferenceExplanationType;
 }
 
@@ -16,20 +16,20 @@ type RemoveUndefined<T> = {
   [P in keyof T]-?: Exclude<T[P], undefined>;
 };
 
-export function constructInferInput<T extends keyof Model>(
+export function constructInferInput<T extends ModelFieldType>(
   model: Model,
   fields: T[]
-): RemoveUndefined<Pick<Model, T>> | undefined {
+): RemoveUndefined<Pick<ModelFields, T>> | undefined {
   const result: any = {};
   for (const field of fields) {
-    const value = model[field];
+    const value = model.fields[field];
     if (value === undefined) {
       return undefined;
     }
     result[field] = value;
   }
 
-  return result as RemoveUndefined<Pick<Model, T>>;
+  return result as RemoveUndefined<Pick<ModelFields, T>>;
 }
 
 export const FLOP_FROM_TOKENS_AND_PARAMS: Inference<
@@ -38,8 +38,8 @@ export const FLOP_FROM_TOKENS_AND_PARAMS: Inference<
 > = {
   field: 'flops',
   requires: ['numTokens', 'numParams'],
-  infer: model => {
-    return model.numTokens * model.numParams * 6;
+  infer: fields => {
+    return fields.numTokens.value * fields.numParams.value * 6;
   },
   explanation: 'simple-flops',
 };
@@ -49,8 +49,8 @@ export const TOKENS_FROM_FLOPS_AND_PARAMS: Inference<
 > = {
   field: 'numTokens',
   requires: ['flops', 'numParams'],
-  infer: model => {
-    return model.flops / (model.numParams * 6);
+  infer: fields => {
+    return fields.flops.value / (fields.numParams.value * 6);
   },
   explanation: 'simple-flops',
 };
@@ -60,8 +60,8 @@ export const PARAMS_FROM_FLOPS_AND_TOKENS: Inference<
 > = {
   field: 'numParams',
   requires: ['flops', 'numTokens'],
-  infer: model => {
-    return model.flops / (model.numTokens * 6);
+  infer: fields => {
+    return fields.flops.value / (fields.numTokens.value * 6);
   },
   explanation: 'simple-flops',
 };

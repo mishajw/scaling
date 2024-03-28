@@ -4,7 +4,7 @@ import {
   PARAMS_FROM_FLOPS_AND_TOKENS,
   TOKENS_FROM_FLOPS_AND_PARAMS,
 } from './inferences';
-import Model from './model';
+import { ModelFieldType } from './model';
 
 export interface ParameterSpec {
   name: string;
@@ -12,7 +12,7 @@ export interface ParameterSpec {
   inferences: Inference<any, any>[];
 }
 
-export const PARAMETERS: Partial<Record<keyof Model, ParameterSpec>> = {
+export const PARAMETERS: Partial<Record<ModelFieldType, ParameterSpec>> = {
   flops: {
     name: 'FLOPs',
     default: 1e20,
