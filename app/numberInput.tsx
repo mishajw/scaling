@@ -1,5 +1,5 @@
-import { siFormat, siParse } from "@/lib/numberFormat";
-import { useState } from "react";
+import { siFormat, siParse } from '@/lib/numberFormat';
+import { useState } from 'react';
 
 export default function NumberInput({
   value,
@@ -10,13 +10,13 @@ export default function NumberInput({
 }) {
   const [state, setState] = useState({
     numberValue: value,
-    stringValue: value ? siFormat(value) : "",
+    stringValue: value ? siFormat(value) : '',
     isValid: true,
   });
   if (state.numberValue !== value) {
     setState({
       numberValue: value,
-      stringValue: value ? siFormat(value) : "",
+      stringValue: value ? siFormat(value) : '',
       isValid: true,
     });
   }

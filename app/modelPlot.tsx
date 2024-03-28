@@ -13,7 +13,7 @@ interface Props {
 
 export default function ModelPlot({ customModel, models }: Props) {
   return (
-    <div className='flex flex-col' style={{width: 600}}>
+    <div className='flex flex-col' style={{ width: 600 }}>
       <ModelFieldPlot
         field={'flops'}
         customModel={customModel}

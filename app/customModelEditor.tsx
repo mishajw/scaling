@@ -1,7 +1,4 @@
-import {
-  Inference,
-  constructInferInput,
-} from '@/lib/inferences';
+import { Inference, constructInferInput } from '@/lib/inferences';
 import Model from '@/lib/model';
 import { siFormat, siParse } from '@/lib/numberFormat';
 import { PARAMETERS } from '@/lib/parameters';
@@ -23,7 +20,7 @@ export default function CustomModelEditor({ model, setModel }: Props) {
         <Field field={'numParams'} model={model} setModel={setModel} />
         <Field field={'numTokens'} model={model} setModel={setModel} />
       </div>
-      <ScaleExplanation/>
+      <ScaleExplanation />
     </div>
   );
 }
@@ -47,8 +44,13 @@ function Field<T extends keyof Model>({
           setValue={value => setModel({ ...model, [field]: value })}
         />
         <div className='ml-4'>
-          {parameterSpec.inferences.map(inference => (
-            <Infer model={model} setModel={setModel} inference={inference} />
+          {parameterSpec.inferences.map((inference, i) => (
+            <Infer
+              key={i}
+              model={model}
+              setModel={setModel}
+              inference={inference}
+            />
           ))}
           <Default field={field} model={model} setModel={setModel} />
         </div>
@@ -78,8 +80,8 @@ function Infer<T extends keyof Model>({
       />
       <span className='text-sm ml-2'>
         inferred from&nbsp;
-        {inference.requires.map(requirement => (
-          <ValueTag field={requirement} value={model[requirement]} />
+        {inference.requires.map((requirement, i) => (
+          <ValueTag key={i} field={requirement} value={model[requirement]} />
         ))}
       </span>
       <Help>
