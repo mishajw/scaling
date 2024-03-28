@@ -1,4 +1,5 @@
 'use client';
+
 import ModelPlot from './modelPlot';
 import { useState } from 'react';
 import Model from '@/lib/model';
@@ -13,11 +14,11 @@ export default function PlotView({ models }: Props) {
     name: 'Custom',
   });
   return (
-    <div className='max-w-screen-md'>
-      <div>
+    <div className='flex flex-row flex-wrap items-stretch justify-center'>
+      <div className='max-w-screen-md max-w-screen-md m-2 p-2 border-2'>
         <ModelPlot customModel={customModel} models={models} />
       </div>
-      <div className='p-4'>
+      <div className='max-w-screen-md m-2 p-2 border-2'>
         <CustomModelEditor model={customModel} setModel={setCustomModel} />
       </div>
     </div>
