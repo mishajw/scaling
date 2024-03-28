@@ -1,7 +1,4 @@
 import Model from './model';
-import { promises as fs } from 'fs';
+import _dataset from '@/data/all.json';
 
-export default async function loadDataset(): Promise<Model[]> {
-  const json = await fs.readFile('data/all.json', 'utf8');
-  return JSON.parse(json) as Model[];
-}
+export const MODELS: Model[] = _dataset;
