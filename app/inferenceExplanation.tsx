@@ -1,10 +1,10 @@
-import { InferenceExplanation } from '@/lib/inferences';
+import { InferenceExplanationType } from '@/lib/inferences';
 import Link from './link';
 
 export default function InferenceExplanation({
   type,
 }: {
-  type: InferenceExplanation;
+  type: InferenceExplanationType;
 }) {
   if (type === 'simple-flops') {
     return (

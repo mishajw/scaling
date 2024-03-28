@@ -7,10 +7,10 @@ export interface Inference<
   field: FieldT;
   requires: RequiresT[];
   infer: (model: RemoveUndefined<Pick<Model, RequiresT>>) => number;
-  explanation: InferenceExplanation;
+  explanation: InferenceExplanationType;
 }
 
-export type InferenceExplanation = 'simple-flops';
+export type InferenceExplanationType = 'simple-flops';
 
 type RemoveUndefined<T> = {
   [P in keyof T]-?: Exclude<T[P], undefined>;
