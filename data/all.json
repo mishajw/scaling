@@ -1,6 +1,6 @@
 [
   {
-    "model_name": "GPT-4",
+    "name": "GPT-4",
     "fields": {
       "isImportant": {
         "value": "TRUE",
@@ -45,7 +45,7 @@
     }
   },
   {
-    "model_name": "Claude 3",
+    "name": "Claude 3",
     "fields": {
       "isImportant": {
         "value": "TRUE",
@@ -55,7 +55,7 @@
     }
   },
   {
-    "model_name": "Claude",
+    "name": "Claude",
     "fields": {
       "releaseDate": {
         "value": "2023-03-14",
@@ -65,7 +65,7 @@
     }
   },
   {
-    "model_name": "Japanese-LM-3.6B",
+    "name": "Japanese-LM-3.6B",
     "fields": {
       "numParams": {
         "value": "3600000000",
@@ -90,7 +90,7 @@
     }
   },
   {
-    "model_name": "GPT-SW3",
+    "name": "GPT-SW3",
     "fields": {
       "flops": {
         "value": "1.30E+21",
@@ -125,7 +125,7 @@
     }
   },
   {
-    "model_name": "LLaMA-33B",
+    "name": "LLaMA-33B",
     "fields": {
       "flops": {
         "value": "2.73E+23",
@@ -150,7 +150,7 @@
     }
   },
   {
-    "model_name": "LLaMA-65B",
+    "name": "LLaMA-65B",
     "fields": {
       "flops": {
         "value": "5.50E+23",
@@ -205,7 +205,7 @@
     }
   },
   {
-    "model_name": "Falcon 180B",
+    "name": "Falcon 180B",
     "fields": {
       "flops": {
         "value": "3.76E+24",
@@ -255,7 +255,7 @@
     }
   },
   {
-    "model_name": "BloombergGPT",
+    "name": "BloombergGPT",
     "fields": {
       "flops": {
         "value": "2.36E+23",
@@ -305,7 +305,7 @@
     }
   },
   {
-    "model_name": "StableLM-Base-Alpha-7B",
+    "name": "StableLM-Base-Alpha-7B",
     "fields": {
       "flops": {
         "value": "4.50E+22",
@@ -340,7 +340,7 @@
     }
   },
   {
-    "model_name": "QMoE: compressed 1T model",
+    "name": "QMoE: compressed 1T model",
     "fields": {
       "numParams": {
         "value": "1600000000000",
@@ -355,7 +355,7 @@
     }
   },
   {
-    "model_name": "WizardLM-7B",
+    "name": "WizardLM-7B",
     "fields": {
       "flops": {
         "value": "4.02E+22",
@@ -390,7 +390,7 @@
     }
   },
   {
-    "model_name": "RetNet",
+    "name": "RetNet",
     "fields": {
       "flops": {
         "value": "4.02E+21",
@@ -420,7 +420,7 @@
     }
   },
   {
-    "model_name": "Gopher (280B)",
+    "name": "Gopher (280B)",
     "fields": {
       "flops": {
         "value": "6.31E+23",
@@ -475,7 +475,7 @@
     }
   },
   {
-    "model_name": "OPT-30B",
+    "name": "OPT-30B",
     "fields": {
       "numParams": {
         "value": "30000000000",
@@ -490,7 +490,7 @@
     }
   },
   {
-    "model_name": "BLUUMI",
+    "name": "BLUUMI",
     "fields": {
       "numParams": {
         "value": "176000000000",
@@ -515,7 +515,7 @@
     }
   },
   {
-    "model_name": "IDEFICS",
+    "name": "IDEFICS",
     "fields": {
       "flops": {
         "value": "1.16E+23",
@@ -535,7 +535,7 @@
     }
   },
   {
-    "model_name": "OPT-2.7B (finetuned on PTB)",
+    "name": "OPT-2.7B (finetuned on PTB)",
     "fields": {
       "numParams": {
         "value": "2700000000",
@@ -550,7 +550,7 @@
     }
   },
   {
-    "model_name": "DeepNet",
+    "name": "DeepNet",
     "fields": {
       "numParams": {
         "value": "3200000000",
@@ -570,7 +570,7 @@
     }
   },
   {
-    "model_name": "Llama 2-70B",
+    "name": "Llama 2-70B",
     "fields": {
       "flops": {
         "value": "8.10E+23",
@@ -625,7 +625,7 @@
     }
   },
   {
-    "model_name": "Context-dependent RNN",
+    "name": "Context-dependent RNN",
     "fields": {
       "releaseDate": {
         "value": "2012-07-27",
@@ -635,7 +635,7 @@
     }
   },
   {
-    "model_name": "InternLM",
+    "name": "InternLM",
     "fields": {
       "numParams": {
         "value": "100000000000",
@@ -660,7 +660,7 @@
     }
   },
   {
-    "model_name": "OPT-1.3B",
+    "name": "OPT-1.3B",
     "fields": {
       "numParams": {
         "value": "1300000000",
@@ -675,7 +675,7 @@
     }
   },
   {
-    "model_name": "PLATO-XL",
+    "name": "PLATO-XL",
     "fields": {
       "numParams": {
         "value": "11000000000",
@@ -695,7 +695,7 @@
     }
   },
   {
-    "model_name": "AlexaTM 20B",
+    "name": "AlexaTM 20B",
     "fields": {
       "flops": {
         "value": "2.04E+23",
@@ -740,7 +740,7 @@
     }
   },
   {
-    "model_name": "OPT-1.3B (finetuned on PTB)",
+    "name": "OPT-1.3B (finetuned on PTB)",
     "fields": {
       "numParams": {
         "value": "1300000000",
@@ -755,7 +755,7 @@
     }
   },
   {
-    "model_name": "T0-XXL",
+    "name": "T0-XXL",
     "fields": {
       "flops": {
         "value": "1.79E+22",
@@ -790,7 +790,7 @@
     }
   },
   {
-    "model_name": "Megatron-Turing NLG 530B",
+    "name": "Megatron-Turing NLG 530B",
     "fields": {
       "flops": {
         "value": "1.17E+24",
@@ -845,7 +845,7 @@
     }
   },
   {
-    "model_name": "Llama 2-7B",
+    "name": "Llama 2-7B",
     "fields": {
       "flops": {
         "value": "8.40E+22",
@@ -880,7 +880,7 @@
     }
   },
   {
-    "model_name": "OPT-1.3B (finetuned)",
+    "name": "OPT-1.3B (finetuned)",
     "fields": {
       "numParams": {
         "value": "1300000000",
@@ -895,7 +895,7 @@
     }
   },
   {
-    "model_name": "Chinchilla",
+    "name": "Chinchilla",
     "fields": {
       "flops": {
         "value": "5.76E+23",
@@ -935,7 +935,7 @@
     }
   },
   {
-    "model_name": "ALM 1.0",
+    "name": "ALM 1.0",
     "fields": {
       "releaseDate": {
         "value": "2022-11-28",
@@ -945,7 +945,7 @@
     }
   },
   {
-    "model_name": "BLOOM-176B",
+    "name": "BLOOM-176B",
     "fields": {
       "flops": {
         "value": "3.60E+23",
@@ -990,7 +990,7 @@
     }
   },
   {
-    "model_name": "Transformer ELMo",
+    "name": "Transformer ELMo",
     "fields": {
       "numParams": {
         "value": "56000000",
@@ -1005,7 +1005,7 @@
     }
   },
   {
-    "model_name": "JIANG",
+    "name": "JIANG",
     "fields": {
       "flops": {
         "value": "4.03E+22",
@@ -1040,7 +1040,7 @@
     }
   },
   {
-    "model_name": "mT5-XXL",
+    "name": "mT5-XXL",
     "fields": {
       "flops": {
         "value": "7.80E+22",
@@ -1070,7 +1070,7 @@
     }
   },
   {
-    "model_name": "RWKV-4 14B",
+    "name": "RWKV-4 14B",
     "fields": {
       "flops": {
         "value": "2.78E+22",
@@ -1100,7 +1100,7 @@
     }
   },
   {
-    "model_name": "Jais",
+    "name": "Jais",
     "fields": {
       "flops": {
         "value": "3.08E+22",
@@ -1135,7 +1135,7 @@
     }
   },
   {
-    "model_name": "ERNIE 3.5",
+    "name": "ERNIE 3.5",
     "fields": {
       "releaseDate": {
         "value": "2023-06-27",
@@ -1145,7 +1145,7 @@
     }
   },
   {
-    "model_name": "Inflection-2",
+    "name": "Inflection-2",
     "fields": {
       "flops": {
         "value": "1.00E+25",
@@ -1170,7 +1170,7 @@
     }
   },
   {
-    "model_name": "PaLM (540B)",
+    "name": "PaLM (540B)",
     "fields": {
       "flops": {
         "value": "2.53E+24",
@@ -1225,7 +1225,7 @@
     }
   },
   {
-    "model_name": "GPT-4V",
+    "name": "GPT-4V",
     "fields": {
       "releaseDate": {
         "value": "2023-09-25",
@@ -1235,7 +1235,7 @@
     }
   },
   {
-    "model_name": "Palmyra Large 20B",
+    "name": "Palmyra Large 20B",
     "fields": {
       "flops": {
         "value": "9.60E+22",
@@ -1260,7 +1260,7 @@
     }
   },
   {
-    "model_name": "Inflection-1",
+    "name": "Inflection-1",
     "fields": {
       "flops": {
         "value": "1.00E+24",
@@ -1280,7 +1280,7 @@
     }
   },
   {
-    "model_name": "Persimmon-8B",
+    "name": "Persimmon-8B",
     "fields": {
       "numParams": {
         "value": "9300000000",
@@ -1300,7 +1300,7 @@
     }
   },
   {
-    "model_name": "ConSERT",
+    "name": "ConSERT",
     "fields": {
       "flops": {
         "value": "2.8E+20",
@@ -1330,7 +1330,7 @@
     }
   },
   {
-    "model_name": "ByT5-XXL",
+    "name": "ByT5-XXL",
     "fields": {
       "flops": {
         "value": "8.10E+22",
@@ -1365,7 +1365,7 @@
     }
   },
   {
-    "model_name": "Claude 2",
+    "name": "Claude 2",
     "fields": {
       "flops": {
         "value": "3.87E+24",
@@ -1380,7 +1380,7 @@
     }
   },
   {
-    "model_name": "EXAONE 2.0",
+    "name": "EXAONE 2.0",
     "fields": {
       "numParams": {
         "value": "300000000000",
@@ -1395,7 +1395,7 @@
     }
   },
   {
-    "model_name": "OPT-2.7B (finetuned on WT2)",
+    "name": "OPT-2.7B (finetuned on WT2)",
     "fields": {
       "numParams": {
         "value": "2700000000",
@@ -1410,7 +1410,7 @@
     }
   },
   {
-    "model_name": "Yuan 1.0",
+    "name": "Yuan 1.0",
     "fields": {
       "flops": {
         "value": "3.54E+23",
@@ -1455,7 +1455,7 @@
     }
   },
   {
-    "model_name": "Skywork-13B",
+    "name": "Skywork-13B",
     "fields": {
       "flops": {
         "value": "2.50E+23",
@@ -1505,7 +1505,7 @@
     }
   },
   {
-    "model_name": "LaMDA",
+    "name": "LaMDA",
     "fields": {
       "flops": {
         "value": "3.55E+23",
@@ -1560,7 +1560,7 @@
     }
   },
   {
-    "model_name": "Galactica",
+    "name": "Galactica",
     "fields": {
       "flops": {
         "value": "3.24E+23",
@@ -1595,7 +1595,7 @@
     }
   },
   {
-    "model_name": "OPT-175B",
+    "name": "OPT-175B",
     "fields": {
       "flops": {
         "value": "4.30E+23",
@@ -1650,7 +1650,7 @@
     }
   },
   {
-    "model_name": "LLaMA-13B",
+    "name": "LLaMA-13B",
     "fields": {
       "flops": {
         "value": "4.55E+22",
@@ -1680,7 +1680,7 @@
     }
   },
   {
-    "model_name": "OPT-125M (finetuned)",
+    "name": "OPT-125M (finetuned)",
     "fields": {
       "numParams": {
         "value": "125000000",
@@ -1695,7 +1695,7 @@
     }
   },
   {
-    "model_name": "LLaMA-7B",
+    "name": "LLaMA-7B",
     "fields": {
       "flops": {
         "value": "4.02E+22",
@@ -1735,7 +1735,7 @@
     }
   },
   {
-    "model_name": "Llama 2-13B",
+    "name": "Llama 2-13B",
     "fields": {
       "flops": {
         "value": "1.60E+23",
@@ -1770,7 +1770,7 @@
     }
   },
   {
-    "model_name": "OPT-IML (175B)",
+    "name": "OPT-IML (175B)",
     "fields": {
       "numParams": {
         "value": "175000000000",
@@ -1790,7 +1790,7 @@
     }
   },
   {
-    "model_name": "OPT-13B",
+    "name": "OPT-13B",
     "fields": {
       "numParams": {
         "value": "13000000000",
@@ -1805,7 +1805,7 @@
     }
   },
   {
-    "model_name": "PAGnol-XL",
+    "name": "PAGnol-XL",
     "fields": {
       "flops": {
         "value": "2.592E+20",
@@ -1835,7 +1835,7 @@
     }
   },
   {
-    "model_name": "Falcon-40B",
+    "name": "Falcon-40B",
     "fields": {
       "flops": {
         "value": "2.40E+23",
@@ -1885,7 +1885,7 @@
     }
   },
   {
-    "model_name": "GPT-3.5 (text-davinci-003)",
+    "name": "GPT-3.5 (text-davinci-003)",
     "fields": {
       "flops": {
         "value": "2.58E+24",
@@ -1905,7 +1905,7 @@
     }
   },
   {
-    "model_name": "OPT-6.7B",
+    "name": "OPT-6.7B",
     "fields": {
       "numParams": {
         "value": "6700000000",
@@ -1920,7 +1920,7 @@
     }
   },
   {
-    "model_name": "YaLM",
+    "name": "YaLM",
     "fields": {
       "flops": {
         "value": "2.20E+23",
@@ -1960,7 +1960,7 @@
     }
   },
   {
-    "model_name": "OPT-66B",
+    "name": "OPT-66B",
     "fields": {
       "flops": {
         "value": "1.10E+23",
@@ -1980,7 +1980,7 @@
     }
   },
   {
-    "model_name": "OPT-2.7B",
+    "name": "OPT-2.7B",
     "fields": {
       "numParams": {
         "value": "2700000000",
@@ -1995,7 +1995,7 @@
     }
   },
   {
-    "model_name": "OPT-125M (finetuned on PTB)",
+    "name": "OPT-125M (finetuned on PTB)",
     "fields": {
       "numParams": {
         "value": "125000000",
@@ -2010,7 +2010,7 @@
     }
   },
   {
-    "model_name": "PaLM 2",
+    "name": "PaLM 2",
     "fields": {
       "flops": {
         "value": "7.34E+24",
@@ -2040,7 +2040,7 @@
     }
   },
   {
-    "model_name": "Cerebras-GPT-13B",
+    "name": "Cerebras-GPT-13B",
     "fields": {
       "flops": {
         "value": "2.30E+22",
@@ -2075,7 +2075,7 @@
     }
   },
   {
-    "model_name": "FLAN 137B",
+    "name": "FLAN 137B",
     "fields": {
       "flops": {
         "value": "4.90E+22",

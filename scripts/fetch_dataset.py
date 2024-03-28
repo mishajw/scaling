@@ -44,7 +44,7 @@ for source in _SHEET_IDS.keys():
 print("Processing data...")
 models = []
 for model_name, fields in model_data.items():
-    model: dict[str, Any] = {"model_name": model_name, "fields": {}}
+    model: dict[str, Any] = {"name": model_name, "fields": {}}
     for field_name, field_value in fields.items():
         model["fields"][field_name] = {
             "value": field_value.value,
