@@ -12,12 +12,8 @@ interface Props {
 }
 
 export default function ModelPlot({ customModel, models }: Props) {
-  const plotModels = models.filter(model => model.flops);
-  const [minDate, maxDate] = getMinMaxDates(
-    plotModels.map(model => model.releaseDate!)
-  );
   return (
-    <div className="flex flex-col">
+    <div className='flex flex-col'>
       <ModelFieldPlot
         field={'flops'}
         customModel={customModel}
