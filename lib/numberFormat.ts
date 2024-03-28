@@ -11,16 +11,15 @@ export function siFormat(n: number): string {
 }
 
 export function siParse(s: string): number | undefined {
+  const sciValue = sciParse(s);
+  if (sciValue !== undefined) {
+      return sciValue;
+  }
   const match = s.match(/([0-9.]+)([a-zA-Z]*)/);
   if (!match) {
-    // // TODO: Clean up!
-    // const sciValue = sciParse(s);
-    // if (sciValue !== undefined) {
-    //     return sciValue;
-    // }
     return undefined;
   }
-  const value = parseFloat(match[1]);
+  const value = strictParseFloat(match[1]);
   let symbol = match[2];
   if (symbol === 'B') {
     symbol = 'G';
@@ -37,9 +36,20 @@ export function sciFormat(n: number): string {
 }
 
 export function sciParse(s: string): number | undefined {
-  const result = parseFloat(s);
+  const result = strictParseFloat(s);
   if (Number.isNaN(result)) {
     return undefined;
   }
   return result;
+}
+
+function strictParseFloat(s: string): number | undefined {
+  if (!/^[-+]?(\d+|\d+\.\d*|\.\d+)([eE][-+]?\d+)?$/.test(s)) {
+    return undefined;
+  }
+  const float = parseFloat(s);
+  if (Number.isNaN(float)) {
+    return undefined;
+  }
+  return float;
 }
