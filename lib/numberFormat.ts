@@ -20,6 +20,9 @@ export function siParse(s: string): number | undefined {
     return undefined;
   }
   const value = strictParseFloat(match[1]);
+  if (value === undefined) {
+    return undefined;
+  }
   let symbol = match[2];
   if (symbol === 'B') {
     symbol = 'G';

@@ -1,5 +1,4 @@
 import {
-  FLOP_FROM_TOKENS_AND_PARAMS,
   Inference,
   constructInferInput,
 } from '@/lib/inferences';
@@ -8,6 +7,7 @@ import { siFormat, siParse } from '@/lib/numberFormat';
 import { PARAMETERS } from '@/lib/parameters';
 import { useState } from 'react';
 import InferenceExplanation from './inferenceExplanation';
+import NumberInput from './numberInput';
 
 interface Props {
   model: Model;
@@ -41,7 +41,7 @@ function Field<T extends keyof Model>({
     <div className='contents'>
       <div className='m-2'>{parameterSpec.name}</div>
       <div className='m-2 col-span-2'>
-        <Input
+        <NumberInput
           value={model[field]}
           setValue={value => setModel({ ...model, [field]: value })}
         />
@@ -53,37 +53,6 @@ function Field<T extends keyof Model>({
         </div>
       </div>
     </div>
-  );
-}
-
-function Input({
-  value,
-  setValue,
-}: {
-  value?: number;
-  setValue: (value: number) => void;
-}) {
-  const [tempValue, setTempValue] = useState<string | undefined>(undefined);
-  if (
-    value !== undefined &&
-    tempValue !== undefined &&
-    siParse(tempValue) !== undefined &&
-    siParse(tempValue) !== value
-  ) {
-    setTempValue(undefined);
-  }
-  return (
-    <input
-      className={`m-1 px-1 border-2 ${tempValue === undefined ? '' : 'bg-red-200'}`}
-      onChange={e => {
-        const valueNumber = siParse(e.target.value);
-        if (valueNumber !== undefined) {
-          setValue(valueNumber);
-        }
-        setTempValue(e.target.value);
-      }}
-      value={tempValue ?? (value !== undefined ? siFormat(value) : '')}
-    />
   );
 }
 
