@@ -24,6 +24,7 @@ class OutputRow:
 _URL = "https://epochai.org/data/epochdb/all_systems.csv"
 _OUTPUT_PATH = Path("data/epoch_ai.csv")
 _NAME_EPOCH_KEY = "System"
+_TASK_EPOCH_KEY = "Task"
 _ATTRIBUTES = [
     Attribute("flops", "Training compute (FLOP)", "Training compute notes"),
     Attribute("numParams", "Parameters", None),
@@ -44,6 +45,7 @@ IGNORE_MODELS = [
     "Deep Multitask NLP Network",
     "RNN for 1B words",
     "Sparse Non-negative Matrix (SNM) estimation",
+    "LSTM",
 ]
 
 print("Fetching data from EpochAI...")
@@ -54,7 +56,10 @@ data = [row for row in csv.DictReader(csv_text.splitlines())]
 print("Processing data...")
 output_rows = []
 for row in data:
-    if row[_NAME_EPOCH_KEY] in IGNORE_MODELS:
+    if (
+        row[_NAME_EPOCH_KEY] in IGNORE_MODELS
+        or row[_TASK_EPOCH_KEY] != "Language modelling"
+    ):
         continue
     for field in _ATTRIBUTES:
         assert field.epoch_key in row, f"Missing key: {field.epoch_key}"

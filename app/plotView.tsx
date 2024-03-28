@@ -14,7 +14,6 @@ export default function PlotView({ models }: Props) {
     name: 'Custom',
     fields: {},
   });
-  console.log(models);
   return (
     <div className='flex flex-row flex-wrap items-stretch justify-center'>
       <div className='max-w-screen-md m-2 p-2 border-2'>
