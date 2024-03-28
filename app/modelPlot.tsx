@@ -4,6 +4,7 @@ import Model from '@/lib/model';
 import { PARAMETERS } from '@/lib/parameters';
 import dynamic from 'next/dynamic';
 
+// @ts-ignore
 const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
 
 interface Props {
