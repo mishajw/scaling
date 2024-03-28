@@ -54,7 +54,6 @@ function ModelFieldPlot<T extends ModelFieldType>({
       model => model.releaseDate !== undefined && model.field !== undefined
     ) as { releaseDate: Date; field: number; name: string }[];
 
-  console.log(plotModels);
   const [minDate, maxDate] = getMinMaxDates(
     plotModels.map(model => model.releaseDate)
   );

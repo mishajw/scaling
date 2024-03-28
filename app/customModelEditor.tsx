@@ -40,12 +40,18 @@ function Field<T extends ModelFieldType>({
     <div className='contents'>
       <div className='m-2'>{parameterSpec.name}</div>
       <div className='m-2 col-span-3'>
-        {typeof fieldValue == 'number' && (
-          <NumberInput
-            value={fieldValue}
-            setValue={value => setModel({ ...model, [field]: value })}
-          />
-        )}
+        <NumberInput
+          value={fieldValue?.value}
+          setValue={value => {
+            setModel({
+              ...model,
+              fields: {
+                ...model.fields,
+                [field]: { ...model.fields[field], value },
+              },
+            });
+          }}
+        />
         <div className='ml-4'>
           {parameterSpec.inferences.map((inference, i) => (
             <Infer
@@ -131,7 +137,7 @@ function ValueTag<T extends ModelFieldType, ValueT extends ModelValueType>({
   const parameterSpec = PARAMETERS[field]!;
   return (
     <span className='whitespace-nowrap rounded m-1 p-1 bg-green-200'>
-      {parameterSpec.name}=<Value value={value} />
+      {parameterSpec.name}=<Value field={value} />
     </span>
   );
 }
@@ -152,24 +158,27 @@ function SetValueButton<T extends ModelFieldType>({
       disabled={value === undefined}
       className={`rounded px-1 ${value !== undefined ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
       onClick={() =>
-        setModel({ ...model, [field]: { value, source: 'manual' } })
+        setModel({
+          ...model,
+          fields: { ...model.fields, [field]: { value, source: 'manual' } },
+        })
       }
     >
-      &#x2196; <Value value={value ? { value, source: 'custom' } : undefined} />
+      &#x2196; <Value field={value ? { value, source: 'custom' } : undefined} />
     </button>
   );
 }
 
 function Value<T extends ModelValueType>({
-  value,
+  field,
 }: {
-  value: ModelField<T> | undefined;
+  field: ModelField<T> | undefined;
 }) {
-  if (value !== undefined && value !== null) {
-    if (typeof value === 'number') {
-      return <span>{siFormat(value)}</span>;
+  if (field !== undefined) {
+    if (typeof field.value === 'number') {
+      return <span>{siFormat(field.value)}</span>;
     } else {
-      return <span>{value.toString()}</span>;
+      return <span>{field.toString()}</span>;
     }
   } else {
     return <span className='bg-red-400'>???</span>;
