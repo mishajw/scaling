@@ -35,14 +35,17 @@ function Field<T extends keyof Model>({
   setModel: (model: Model) => void;
 }) {
   const parameterSpec = PARAMETERS[field]!;
+  const fieldValue = model[field];
   return (
     <div className='contents'>
       <div className='m-2'>{parameterSpec.name}</div>
       <div className='m-2 col-span-3'>
-        <NumberInput
-          value={model[field]}
-          setValue={value => setModel({ ...model, [field]: value })}
-        />
+        {typeof fieldValue == 'number' && (
+          <NumberInput
+            value={fieldValue}
+            setValue={value => setModel({ ...model, [field]: value })}
+          />
+        )}
         <div className='ml-4'>
           {parameterSpec.inferences.map((inference, i) => (
             <Infer
