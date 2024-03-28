@@ -50,6 +50,7 @@ function ModelFieldPlot<T extends keyof Model>({
   );
   return (
     <Plot
+      // @ts-ignore
       data={[
         {
           x: plotModels.map(model => model.releaseDate),
