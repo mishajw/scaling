@@ -1,4 +1,4 @@
-const SI_SYMBOLS = ['', 'k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y', 'R', 'Q'];
+export const SI_SYMBOLS = ['', 'k', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y', 'R', 'Q'];
 
 export function siFormat(n: number): string {
   const power = Math.floor(Math.log10(n) / 3);
@@ -27,7 +27,7 @@ export function siParse(s: string): number | undefined {
   if (symbol === 'B') {
     symbol = 'G';
   }
-  const power = SI_SYMBOLS.indexOf(symbol);
+  const power = SI_SYMBOLS.map(s => s.toLowerCase()).indexOf(symbol.toLowerCase());
   if (power === -1) {
     return undefined;
   }

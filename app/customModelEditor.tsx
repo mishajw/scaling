@@ -8,6 +8,7 @@ import { PARAMETERS } from '@/lib/parameters';
 import { useState } from 'react';
 import InferenceExplanation from './inferenceExplanation';
 import NumberInput from './numberInput';
+import ScaleExplanation from './scaleExplanation';
 
 interface Props {
   model: Model;
@@ -23,6 +24,7 @@ export default function CustomModelEditor({ model, setModel }: Props) {
         <Field field={'numParams'} model={model} setModel={setModel} />
         <Field field={'numTokens'} model={model} setModel={setModel} />
       </div>
+      <ScaleExplanation/>
     </div>
   );
 }
