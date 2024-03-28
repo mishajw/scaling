@@ -15,7 +15,7 @@ export default function PlotView({ models }: Props) {
   });
   return (
     <div className='flex flex-row flex-wrap items-stretch justify-center'>
-      <div className='max-w-screen-md max-w-screen-md m-2 p-2 border-2'>
+      <div className='max-w-screen-md m-2 p-2 border-2'>
         <ModelPlot customModel={customModel} models={models} />
       </div>
       <div className='max-w-screen-md m-2 p-2 border-2'>

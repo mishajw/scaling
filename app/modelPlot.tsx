@@ -1,6 +1,7 @@
 'use client';
 
 import Model from '@/lib/model';
+import { PARAMETERS } from '@/lib/parameters';
 import dynamic from 'next/dynamic';
 
 const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
@@ -16,30 +17,68 @@ export default function ModelPlot({ customModel, models }: Props) {
     plotModels.map(model => model.releaseDate!)
   );
   return (
-    <div>
-      <Plot
-        data={[
-          {
-            x: plotModels.map(model => model.releaseDate),
-            y: plotModels.map(model => model.flops),
-            mode: 'markers',
-            type: 'scatter',
-            text: plotModels.map(model => model.name),
-          },
-          {
-            x: [minDate, maxDate],
-            y: [customModel.flops, customModel.flops],
-            mode: 'lines',
-            type: 'scatter',
-            line: { color: 'orange', dash: 'dash' },
-          },
-        ]}
-        layout={{
-          xaxis: { type: 'date' },
-          yaxis: { type: 'log' },
-        }}
+    <div className="flex flex-col">
+      <ModelFieldPlot
+        field={'flops'}
+        customModel={customModel}
+        models={models}
+      />
+      <ModelFieldPlot
+        field={'numParams'}
+        customModel={customModel}
+        models={models}
+      />
+      <ModelFieldPlot
+        field={'numTokens'}
+        customModel={customModel}
+        models={models}
       />
     </div>
+  );
+}
+
+function ModelFieldPlot<T extends keyof Model>({
+  field,
+  customModel,
+  models,
+}: {
+  field: T;
+  customModel: Model;
+  models: Model[];
+}) {
+  const parameterSpec = PARAMETERS[field]!;
+  const plotModels = models.filter(model => model[field]);
+  const [minDate, maxDate] = getMinMaxDates(
+    plotModels.map(model => model.releaseDate!)
+  );
+  return (
+    <Plot
+      data={[
+        {
+          x: plotModels.map(model => model.releaseDate),
+          y: plotModels.map(model => model[field]),
+          mode: 'markers',
+          type: 'scatter',
+          text: plotModels.map(model => model.name),
+        },
+        {
+          x: [minDate, maxDate],
+          y: [customModel[field], customModel[field]],
+          mode: 'lines',
+          type: 'scatter',
+          line: { color: 'orange', dash: 'dash' },
+        },
+      ]}
+      layout={{
+        title: parameterSpec.name,
+        showlegend: false,
+        xaxis: { type: 'date' },
+        yaxis: { type: 'log' },
+        width: 600,
+        height: 400,
+        margin: { l: 40, r: 40, b: 40, t: 40 },
+      }}
+    />
   );
 }
 
