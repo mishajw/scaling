@@ -1,6 +1,6 @@
 'use client';
 
-import { FieldSource, Model, ModelFieldType } from '@/lib/model';
+import { FieldSource, Model, ModelFieldType, ModelFields } from '@/lib/model';
 import { siFormat } from '@/lib/numberFormat';
 import { PARAMETERS, ParameterSpec } from '@/lib/parameters';
 import dynamic from 'next/dynamic';
@@ -10,7 +10,7 @@ import { useState } from 'react';
 const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
 
 interface Props {
-  customModel: Model;
+  customFields: ModelFields;
   models: Model[];
 }
 interface ModelData {
@@ -21,22 +21,25 @@ interface ModelData {
   citation: string | undefined;
 }
 
-export default function ModelPlot({ customModel, models }: Props) {
+export default function ModelPlot({
+  customFields: customFields,
+  models,
+}: Props) {
   return (
     <div className='flex flex-col'>
       <ModelFieldPlot
         field={'flops'}
-        customModel={customModel}
+        customFields={customFields}
         models={models}
       />
       <ModelFieldPlot
         field={'numParams'}
-        customModel={customModel}
+        customFields={customFields}
         models={models}
       />
       <ModelFieldPlot
         field={'numTokens'}
-        customModel={customModel}
+        customFields={customFields}
         models={models}
       />
     </div>
@@ -45,11 +48,11 @@ export default function ModelPlot({ customModel, models }: Props) {
 
 function ModelFieldPlot<T extends ModelFieldType>({
   field,
-  customModel,
+  customFields,
   models,
 }: {
   field: T;
-  customModel: Model;
+  customFields: ModelFields;
   models: Model[];
 }) {
   const parameterSpec = PARAMETERS[field]!;
@@ -84,10 +87,7 @@ function ModelFieldPlot<T extends ModelFieldType>({
           },
           {
             x: [minDate, maxDate],
-            y: [
-              customModel.fields[field]?.value,
-              customModel.fields[field]?.value,
-            ],
+            y: [customFields[field]?.value, customFields[field]?.value],
             mode: 'lines',
             type: 'scatter',
             line: { color: 'orange', dash: 'dash' },

@@ -1,5 +1,11 @@
 import { Inference, constructInferInput } from '@/lib/inferences';
-import { Model, ModelField, ModelFieldType, ModelValueType } from '@/lib/model';
+import {
+  Model,
+  ModelField,
+  ModelFieldType,
+  ModelFields,
+  ModelValueType,
+} from '@/lib/model';
 import { siFormat, siParse } from '@/lib/numberFormat';
 import { PARAMETERS } from '@/lib/parameters';
 import { useState } from 'react';
@@ -8,17 +14,17 @@ import NumberInput from './numberInput';
 import ScaleExplanation from './scaleExplanation';
 
 interface Props {
-  model: Model;
-  setModel: (model: Model) => void;
+  fields: ModelFields;
+  setFields: (fields: ModelFields) => void;
 }
 
-export default function CustomModelEditor({ model, setModel }: Props) {
+export default function CustomModelEditor({ fields, setFields }: Props) {
   return (
     <div>
       <div className='grid grid-cols-4'>
-        <Field field={'flops'} model={model} setModel={setModel} />
-        <Field field={'numParams'} model={model} setModel={setModel} />
-        <Field field={'numTokens'} model={model} setModel={setModel} />
+        <Field field={'flops'} fields={fields} setFields={setFields} />
+        <Field field={'numParams'} fields={fields} setFields={setFields} />
+        <Field field={'numTokens'} fields={fields} setFields={setFields} />
       </div>
       <ScaleExplanation />
     </div>
@@ -27,15 +33,15 @@ export default function CustomModelEditor({ model, setModel }: Props) {
 
 function Field<T extends ModelFieldType>({
   field,
-  model,
-  setModel,
+  fields,
+  setFields,
 }: {
   field: T;
-  model: Model;
-  setModel: (model: Model) => void;
+  fields: ModelFields;
+  setFields: (fields: ModelFields) => void;
 }) {
   const parameterSpec = PARAMETERS[field]!;
-  const fieldValue = model.fields[field];
+  const fieldValue = fields[field];
   return (
     <div className='contents'>
       <div className='m-2'>{parameterSpec.name}</div>
@@ -43,12 +49,9 @@ function Field<T extends ModelFieldType>({
         <NumberInput
           value={fieldValue?.value}
           setValue={value => {
-            setModel({
-              ...model,
-              fields: {
-                ...model.fields,
-                [field]: { ...model.fields[field], value },
-              },
+            setFields({
+              ...fields,
+              [field]: { ...fields[field], value },
             });
           }}
         />
@@ -56,12 +59,12 @@ function Field<T extends ModelFieldType>({
           {parameterSpec.inferences.map((inference, i) => (
             <Infer
               key={i}
-              model={model}
-              setModel={setModel}
+              fields={fields}
+              setFields={setFields}
               inference={inference}
             />
           ))}
-          <Default field={field} model={model} setModel={setModel} />
+          <Default fieldType={field} fields={fields} setFields={setFields} />
         </div>
       </div>
     </div>
@@ -69,32 +72,28 @@ function Field<T extends ModelFieldType>({
 }
 
 function Infer<T extends ModelFieldType>({
-  model,
-  setModel,
+  fields,
+  setFields: setModel,
   inference,
 }: {
-  model: Model;
-  setModel: (model: Model) => void;
+  fields: ModelFields;
+  setFields: (model: ModelFields) => void;
   inference: Inference<any, T>;
 }) {
-  const inferInput = constructInferInput(model, inference.requires);
+  const inferInput = constructInferInput(fields, inference.requires);
   const inferredValue = inferInput ? inference.infer(inferInput) : undefined;
   return (
     <div className='m-1'>
       <SetValueButton
         value={inferredValue}
         field={inference.field}
-        model={model}
-        setModel={setModel}
+        fields={fields}
+        setFields={setModel}
       />
       <span className='text-sm ml-2'>
         inferred from&nbsp;
         {inference.requires.map((requirement, i) => (
-          <ValueTag
-            key={i}
-            field={requirement}
-            value={model.fields[requirement]}
-          />
+          <ValueTag key={i} field={requirement} value={fields[requirement]} />
         ))}
       </span>
       <Help>
@@ -105,22 +104,22 @@ function Infer<T extends ModelFieldType>({
 }
 
 function Default<T extends ModelFieldType>({
-  field,
-  model,
-  setModel,
+  fieldType,
+  fields,
+  setFields,
 }: {
-  field: T;
-  model: Model;
-  setModel: (model: Model) => void;
+  fieldType: T;
+  fields: ModelFields;
+  setFields: (model: ModelFields) => void;
 }) {
-  const parameterSpec = PARAMETERS[field]!;
+  const parameterSpec = PARAMETERS[fieldType]!;
   return (
     <div className='m-1'>
       <SetValueButton
         value={parameterSpec.default}
-        field={field}
-        model={model}
-        setModel={setModel}
+        field={fieldType}
+        fields={fields}
+        setFields={setFields}
       />
       <span className='text-sm'>&nbsp;from default</span>
     </div>
@@ -145,22 +144,22 @@ function ValueTag<T extends ModelFieldType>({
 function SetValueButton<T extends ModelFieldType>({
   value,
   field,
-  model,
-  setModel,
+  fields: fields,
+  setFields: setFields,
 }: {
   value: ModelValueType | undefined;
   field: T;
-  model: Model;
-  setModel: (model: Model) => void;
+  fields: ModelFields;
+  setFields: (model: ModelFields) => void;
 }) {
   return (
     <button
       disabled={value === undefined}
       className={`rounded px-1 ${value !== undefined ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
       onClick={() =>
-        setModel({
-          ...model,
-          fields: { ...model.fields, [field]: { value, source: 'manual' } },
+        setFields({
+          ...fields,
+          [field]: { value, source: 'manual' },
         })
       }
     >

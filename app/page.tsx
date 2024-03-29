@@ -2,22 +2,19 @@
 
 import ModelPlot from './modelPlot';
 import { useState } from 'react';
-import { Model } from '@/lib/model';
+import { Model, ModelFields } from '@/lib/model';
 import CustomModelEditor from './customModelEditor';
 import { MODELS } from '@/lib/dataset';
 
 export default function PlotView() {
-  const [customModel, setCustomModel] = useState<Model>({
-    name: 'Custom',
-    fields: {},
-  });
+  const [customFields, setCustomFields] = useState<ModelFields>({});
   return (
     <div className='flex flex-row flex-wrap items-stretch justify-center'>
       <div className='max-w-screen-md m-2 p-2 border-2'>
-        <ModelPlot customModel={customModel} models={MODELS} />
+        <ModelPlot customFields={customFields} models={MODELS} />
       </div>
       <div className='max-w-screen-md m-2 p-2 border-2'>
-        <CustomModelEditor model={customModel} setModel={setCustomModel} />
+        <CustomModelEditor fields={customFields} setFields={setCustomFields} />
       </div>
     </div>
   );

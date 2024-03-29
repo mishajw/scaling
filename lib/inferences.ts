@@ -17,12 +17,12 @@ type RemoveUndefined<T> = {
 };
 
 export function constructInferInput<T extends ModelFieldType>(
-  model: Model,
-  fields: T[]
+  modelFields: ModelFields,
+  fieldTypes: T[]
 ): RemoveUndefined<Pick<ModelFields, T>> | undefined {
   const result: any = {};
-  for (const field of fields) {
-    const value = model.fields[field];
+  for (const field of fieldTypes) {
+    const value = modelFields[field];
     if (value === undefined) {
       return undefined;
     }
