@@ -1,8 +1,10 @@
 'use client';
 
-import { Model, ModelFieldType } from '@/lib/model';
-import { PARAMETERS } from '@/lib/parameters';
+import { FieldSource, Model, ModelFieldType } from '@/lib/model';
+import { siFormat } from '@/lib/numberFormat';
+import { PARAMETERS, ParameterSpec } from '@/lib/parameters';
 import dynamic from 'next/dynamic';
+import { useState } from 'react';
 
 // @ts-ignore
 const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
@@ -11,10 +13,17 @@ interface Props {
   customModel: Model;
   models: Model[];
 }
+interface ModelData {
+  releaseDate: Date;
+  field: number;
+  name: string;
+  source: FieldSource;
+  citation: string | undefined;
+}
 
 export default function ModelPlot({ customModel, models }: Props) {
   return (
-    <div className='flex flex-col' style={{ width: 600 }}>
+    <div className='flex flex-col'>
       <ModelFieldPlot
         field={'flops'}
         customModel={customModel}
@@ -49,46 +58,60 @@ function ModelFieldPlot<T extends ModelFieldType>({
       releaseDate: model.fields.releaseDate?.value,
       field: model.fields[field]?.value,
       name: model.name,
+      citation: model.fields[field]?.citation,
+      source: model.fields[field]?.source,
     }))
     .filter(
       model => model.releaseDate !== undefined && model.field !== undefined
-    ) as { releaseDate: Date; field: number; name: string }[];
-
+    ) as ModelData[];
+  const [focusedModel, setFocusedModel] = useState<ModelData | undefined>(
+    undefined
+  );
   const [minDate, maxDate] = getMinMaxDates(
     plotModels.map(model => model.releaseDate)
   );
   return (
-    <Plot
-      // @ts-ignore
-      data={[
-        {
-          x: plotModels.map(model => model.releaseDate),
-          y: plotModels.map(model => model.field),
-          mode: 'markers',
-          type: 'scatter',
-          text: plotModels.map(model => model.name),
-        },
-        {
-          x: [minDate, maxDate],
-          y: [
-            customModel.fields[field]?.value,
-            customModel.fields[field]?.value,
-          ],
-          mode: 'lines',
-          type: 'scatter',
-          line: { color: 'orange', dash: 'dash' },
-        },
-      ]}
-      layout={{
-        title: parameterSpec.name,
-        showlegend: false,
-        xaxis: { type: 'date' },
-        yaxis: { type: 'log' },
-        width: 600,
-        height: 400,
-        margin: { l: 40, r: 40, b: 40, t: 40 },
-      }}
-    />
+    <div style={{ width: 600, height: 400 }}>
+      <Plot
+        // @ts-ignore
+        data={[
+          {
+            x: plotModels.map(model => model.releaseDate),
+            y: plotModels.map(model => model.field),
+            mode: 'markers',
+            type: 'scatter',
+            text: plotModels.map(model => model.name),
+          },
+          {
+            x: [minDate, maxDate],
+            y: [
+              customModel.fields[field]?.value,
+              customModel.fields[field]?.value,
+            ],
+            mode: 'lines',
+            type: 'scatter',
+            line: { color: 'orange', dash: 'dash' },
+          },
+        ]}
+        layout={{
+          title: parameterSpec.name,
+          showlegend: false,
+          xaxis: { type: 'date' },
+          yaxis: { type: 'log' },
+          width: 600,
+          height: 400,
+          // We set r:80 to make room for plotly's menu.
+          margin: { l: 40, r: 80, b: 40, t: 40 },
+        }}
+        onHover={(event: any) => {
+          setFocusedModel(plotModels[event.points[0].pointIndex]);
+        }}
+        onUnhover={() => {
+          setFocusedModel(undefined);
+        }}
+      />
+      <Citation model={focusedModel} parameterSpec={parameterSpec} />
+    </div>
   );
 }
 
@@ -102,4 +125,49 @@ function getMinMaxDates(dates: Date[]): [Date, Date] {
     dates[0]
   );
   return [minDate, maxDate];
+}
+
+function Citation({
+  model,
+  parameterSpec,
+}: {
+  model: ModelData | undefined;
+  parameterSpec: ParameterSpec;
+}) {
+  return (
+    <div
+      className={`absolute z-50 border border-gray-400 p-2 rounded max-w-80 bg-white text-sm ${
+        model !== undefined ? '' : 'hidden'
+      }`}
+    >
+      <div>
+        <b>{model?.name}</b> {parameterSpec.name} ={' '}
+        {siFormat(model?.field ?? 0)}.
+      </div>
+      <div>From {model ? sourceString(model?.source) : ''}.</div>
+      {model?.citation && (
+        <div>
+          Citation:{' '}
+          <span className='italic'>{model.citation.replace('\n', '<br>')}</span>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function sourceString(source: FieldSource): string {
+  switch (source) {
+    case 'custom':
+      return 'Custom';
+    case 'scaling':
+      return 'Manual';
+    case 'epoch':
+      return 'Epoch AI';
+    default:
+      assertNever();
+  }
+}
+
+function assertNever(): never {
+  throw new Error('Unexpected source');
 }

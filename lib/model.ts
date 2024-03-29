@@ -6,11 +6,12 @@ const DataTypeSchema = z.union([
   z.literal('fp32'),
   z.literal('bf16'),
 ]);
+const FieldSourceSchema = z.enum(['custom', 'scaling', 'epoch']);
 
 const ModelFieldSchemaFn = <T extends z.ZodTypeAny>(dataType: T) =>
   z.object({
     value: dataType,
-    source: z.enum(['custom', 'scaling', 'epoch']),
+    source: FieldSourceSchema,
     citation: z.string().optional(),
   });
 const ModelValueTypeSchema = z.union([
@@ -49,3 +50,4 @@ export type ModelField = z.infer<typeof ModelFieldSchema>;
 export type DataType = z.infer<typeof DataTypeSchema>;
 export type ModelFieldType = keyof ModelFields;
 export type ModelValueType = z.infer<typeof ModelValueTypeSchema>;
+export type FieldSource = z.infer<typeof FieldSourceSchema>;
