@@ -47,7 +47,7 @@ function Field<T extends ModelFieldType>({
       <div className='m-2'>{parameterSpec.name}</div>
       <div className='m-2 col-span-3'>
         <NumberInput
-          value={fieldValue?.value}
+          value={fieldValue?.value as number | undefined}
           setValue={value => {
             setFields({
               ...fields,
