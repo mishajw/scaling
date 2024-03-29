@@ -24,6 +24,7 @@ _SHEET_IDS: dict[Source, str] = {
     "epoch": "1990802743",
 }
 _OUTPUT_PATH = Path("data/all.json")
+_NUMBER_FIELDS = {"numParams", "numTokens", "gpuCount", "flops"}
 
 print("Fetching data from Google Sheets...")
 model_data: dict[str, dict[str, FieldValue]] = defaultdict(dict)
@@ -38,6 +39,8 @@ for source in _SHEET_IDS.keys():
         model_name = row["model_name"]
         field = row["attribute"]
         value = row["value"]
+        if field in _NUMBER_FIELDS:
+            value = float(value)
         citation = row["citation"]
         model_data[model_name][field] = FieldValue(value, source, citation)
 
