@@ -10,7 +10,7 @@ export interface Inference<
   explanation: InferenceExplanationType;
 }
 
-export type InferenceExplanationType = 'simple-flops';
+export type InferenceExplanationType = 'megatron';
 
 type RemoveUndefined<T> = {
   [P in keyof T]-?: Exclude<T[P], undefined>;
@@ -41,7 +41,7 @@ export const FLOP_FROM_TOKENS_AND_PARAMS: Inference<
   infer: fields => {
     return fields.numTokens.value * fields.numParams.value * 6;
   },
-  explanation: 'simple-flops',
+  explanation: 'megatron',
 };
 export const TOKENS_FROM_FLOPS_AND_PARAMS: Inference<
   'numTokens',
@@ -52,7 +52,7 @@ export const TOKENS_FROM_FLOPS_AND_PARAMS: Inference<
   infer: fields => {
     return fields.flops.value / (fields.numParams.value * 6);
   },
-  explanation: 'simple-flops',
+  explanation: 'megatron',
 };
 export const PARAMS_FROM_FLOPS_AND_TOKENS: Inference<
   'numParams',
@@ -63,5 +63,5 @@ export const PARAMS_FROM_FLOPS_AND_TOKENS: Inference<
   infer: fields => {
     return fields.flops.value / (fields.numTokens.value * 6);
   },
-  explanation: 'simple-flops',
+  explanation: 'megatron',
 };

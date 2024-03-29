@@ -12,6 +12,8 @@ import { useState } from 'react';
 import InferenceExplanation from './inferenceExplanation';
 import NumberInput from './numberInput';
 import ScaleExplanation from './scaleExplanation';
+import { INFERENCE_IDS, INFERENCE_TITLES } from './methodDescriptions';
+import Link from './link';
 
 interface Props {
   fields: ModelFields;
@@ -20,13 +22,10 @@ interface Props {
 
 export default function CustomModelEditor({ fields, setFields }: Props) {
   return (
-    <div>
-      <div className='grid grid-cols-4'>
-        <Field field={'flops'} fields={fields} setFields={setFields} />
-        <Field field={'numParams'} fields={fields} setFields={setFields} />
-        <Field field={'numTokens'} fields={fields} setFields={setFields} />
-      </div>
-      <ScaleExplanation />
+    <div className='grid grid-cols-4'>
+      <Field field={'flops'} fields={fields} setFields={setFields} />
+      <Field field={'numParams'} fields={fields} setFields={setFields} />
+      <Field field={'numTokens'} fields={fields} setFields={setFields} />
     </div>
   );
 }
@@ -91,14 +90,15 @@ function Infer<T extends ModelFieldType>({
         setFields={setModel}
       />
       <span className='text-sm ml-2'>
-        inferred from&nbsp;
+        using{' '}
+        <Link href={'#' + INFERENCE_IDS[inference.explanation]} target='_self'>
+          {INFERENCE_TITLES[inference.explanation]}
+        </Link>
+        &nbsp;
         {inference.requires.map((requirement, i) => (
           <ValueTag key={i} field={requirement} value={fields[requirement]} />
         ))}
       </span>
-      <Help>
-        <InferenceExplanation type={inference.explanation} />
-      </Help>
     </div>
   );
 }
