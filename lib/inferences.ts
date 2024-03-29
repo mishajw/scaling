@@ -1,4 +1,4 @@
-import Model, { ModelFieldType, ModelFields } from './model';
+import { Model, ModelFieldType, ModelFields } from './model';
 
 export interface Inference<
   FieldT extends ModelFieldType,

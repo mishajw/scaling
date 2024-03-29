@@ -2,7 +2,7 @@
 
 import ModelPlot from './modelPlot';
 import { useState } from 'react';
-import Model from '@/lib/model';
+import { Model } from '@/lib/model';
 import CustomModelEditor from './customModelEditor';
 import { MODELS } from '@/lib/dataset';
 

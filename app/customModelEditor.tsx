@@ -1,5 +1,5 @@
 import { Inference, constructInferInput } from '@/lib/inferences';
-import Model, { ModelField, ModelFieldType, ModelValueType } from '@/lib/model';
+import { Model, ModelField, ModelFieldType, ModelValueType } from '@/lib/model';
 import { siFormat, siParse } from '@/lib/numberFormat';
 import { PARAMETERS } from '@/lib/parameters';
 import { useState } from 'react';
@@ -127,12 +127,12 @@ function Default<T extends ModelFieldType>({
   );
 }
 
-function ValueTag<T extends ModelFieldType, ValueT extends ModelValueType>({
+function ValueTag<T extends ModelFieldType>({
   field,
   value,
 }: {
   field: T;
-  value: ModelField<ValueT> | undefined;
+  value: ModelField | undefined;
 }) {
   const parameterSpec = PARAMETERS[field]!;
   return (
@@ -169,11 +169,7 @@ function SetValueButton<T extends ModelFieldType>({
   );
 }
 
-function Value<T extends ModelValueType>({
-  field,
-}: {
-  field: ModelField<T> | undefined;
-}) {
+function Value({ field }: { field: ModelField | undefined }) {
   if (field !== undefined) {
     if (typeof field.value === 'number') {
       return <span>{siFormat(field.value)}</span>;

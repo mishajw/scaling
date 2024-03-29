@@ -1,6 +1,6 @@
 'use client';
 
-import Model, { ModelFieldType } from '@/lib/model';
+import { Model, ModelFieldType } from '@/lib/model';
 import { PARAMETERS } from '@/lib/parameters';
 import dynamic from 'next/dynamic';
 
