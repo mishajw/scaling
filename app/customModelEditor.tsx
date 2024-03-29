@@ -1,17 +1,14 @@
 import { Inference, constructInferInput } from '@/lib/inferences';
 import {
-  Model,
   ModelField,
   ModelFieldType,
   ModelFields,
   ModelValueType,
 } from '@/lib/model';
-import { siFormat, siParse } from '@/lib/numberFormat';
+import { siFormat } from '@/lib/numberFormat';
 import { PARAMETERS } from '@/lib/parameters';
 import { useState } from 'react';
-import InferenceExplanation from './inferenceExplanation';
 import NumberInput from './numberInput';
-import ScaleExplanation from './scaleExplanation';
 import { INFERENCE_IDS, INFERENCE_TITLES } from './methodDescriptions';
 import Link from './link';
 
