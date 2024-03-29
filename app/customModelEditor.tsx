@@ -90,11 +90,11 @@ function Infer<T extends ModelFieldType>({
         setFields={setModel}
       />
       <span className='text-sm ml-2'>
-        using{' '}
+        from{' '}
         <Link href={'#' + INFERENCE_IDS[inference.explanation]} target='_self'>
           {INFERENCE_TITLES[inference.explanation]}
         </Link>
-        &nbsp;
+        &nbsp;with
         {inference.requires.map((requirement, i) => (
           <ValueTag key={i} field={requirement} value={fields[requirement]} />
         ))}
