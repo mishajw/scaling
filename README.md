@@ -4,11 +4,14 @@ Tool for inspecting and comparing the high-level statistics of language models, 
 
 ## TODO
 
-- [ ] Add graphs for tokens & params.
-- [ ] Clean up graphs.
-- [ ] Clean up design.
-- [ ] Add citations.
-- [ ] Ensure datasets are complete.
+### Today
+
+- [ ] Rename fields/parameters to attributes.
+- [ ] Rename inferences to calculations.
+- [ ] Move rule links into rule file.
+- [ ] Add N/D from scaling law + C inferences.
+
+### Misc
 
 - [ ] Add more attributes and more inferences.
 - [ ] Add option to inspect other model attributes.
