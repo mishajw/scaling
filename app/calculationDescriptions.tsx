@@ -33,8 +33,8 @@ export default function CalculationDescriptions() {
           This ignores simple sub-leading terms such as activation function
           FLOPs and layer norm, but also surprisingly ignores the calculation of
           the attention mask. This is because the mask takes up a small percent
-          of the total FLOPs when
-          <Latex>{'$d_{model} \\gg d_{ctx}/12$'}</Latex>.
+          of the total FLOPs when <Latex>{'$d_{model} \\gg d_{ctx}/12$'}</Latex>
+          .
         </div>
       </div>
     </div>
