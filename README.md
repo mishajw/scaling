@@ -21,6 +21,7 @@ Tool for inspecting and comparing the high-level statistics of language models, 
 - [ ] Add cost.
 - [ ] Add Chinchilla scaling laws.
 - [ ] Experiment with new graph layout.
+- [ ] Add percentage formatting.
 
 ### When we have WiFi
 

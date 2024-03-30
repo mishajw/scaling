@@ -34,9 +34,7 @@ export default function FieldDescription({ type }: { type: ModelFieldType }) {
       );
     case 'trainingTimeDays':
       return (
-        <div className='text-sm'>
-          The number of days it took to train the model.
-        </div>
+        <div className='text-sm'>The time you have to train the model.</div>
       );
     case 'flopsPerSecond':
       return (
@@ -62,6 +60,10 @@ export default function FieldDescription({ type }: { type: ModelFieldType }) {
           The number of GPUs we're running on. Use this to account for
           algorithmic (in)efficiency, especially for running models at scale.
         </div>
+      );
+    case 'costDollars':
+      return (
+        <div className='text-sm'>The money you have to train the model.</div>
       );
     default:
       // assertNever(type);

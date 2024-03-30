@@ -4,7 +4,7 @@ import { siParse } from './numberFormat';
 export default interface Gpu {
   type: GpuType;
   flopsPerSecond: number;
-  costDollarsPerDay: number;
+  costDollarsPerHour: number;
   memoryGb: number;
 }
 
@@ -31,25 +31,25 @@ export const GPU_TYPES: Partial<Record<GpuType, Gpu>> = {
   'Google TPU v4': {
     type: 'Google TPU v4',
     flopsPerSecond: siParse('1T')!,
-    costDollarsPerDay: 20000,
+    costDollarsPerHour: 2,
     memoryGb: 40,
   },
   'NVIDIA A100': {
     type: 'NVIDIA A100',
     flopsPerSecond: siParse('1T')!,
-    costDollarsPerDay: 20000,
+    costDollarsPerHour: 2,
     memoryGb: 40,
   },
   'NVIDIA V100': {
     type: 'NVIDIA V100',
     flopsPerSecond: siParse('1T')!,
-    costDollarsPerDay: 20000,
+    costDollarsPerHour: 2,
     memoryGb: 40,
   },
   'NVIDIA H100 SXM5': {
     type: 'NVIDIA H100 SXM5',
     flopsPerSecond: siParse('1T')!,
-    costDollarsPerDay: 20000,
+    costDollarsPerHour: 2,
     memoryGb: 40,
   },
 };

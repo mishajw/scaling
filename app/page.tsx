@@ -5,19 +5,17 @@ import { useState } from 'react';
 import { ModelFields } from '@/lib/model';
 import CustomModelEditor from './customModelEditor';
 import { MODELS } from '@/lib/dataset';
-import { FIELD_SPECS } from '@/lib/fields';
 import ScaleExplanation from './scaleExplanation';
 import CalculationDescriptions from './calculationDescriptions';
 
 export default function PlotView() {
   const [customFields, setCustomFields] = useState<ModelFields>({
-    flops: { value: FIELD_SPECS['flops']!.default as number, source: 'custom' },
-    numTokens: {
-      value: FIELD_SPECS['numTokens']!.default as number,
+    gpuType: {
+      value: 'NVIDIA A100',
       source: 'custom',
     },
-    numParams: {
-      value: FIELD_SPECS['numParams']!.default as number,
+    gpuUtilization: {
+      value: 0.3,
       source: 'custom',
     },
   });

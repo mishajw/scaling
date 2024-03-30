@@ -1,4 +1,5 @@
 import { flopsCalculation } from './calculations/flops';
+import { gpuCost } from './calculations/gpuCost';
 import { gpuFlops } from './calculations/gpuFlops';
 import { openAiComputeSplit } from './calculations/openAiComputeSplit';
 import { openAiLoss } from './calculations/openAiLoss';
@@ -26,13 +27,13 @@ export const FIELD_SPECS: Partial<Record<ModelFieldType, FieldSpec>> = {
   flops: {
     name: 'FLOPs',
     valueType: 'number',
-    default: 1e20,
+    default: undefined,
     calculations: [flopsCalculation('flops'), trainingTime('flops')],
   },
   numParams: {
     name: '# params',
     valueType: 'number',
-    default: 1e9,
+    default: undefined,
     calculations: [
       flopsCalculation('numParams'),
       openAiComputeSplit('numParams'),
@@ -41,7 +42,7 @@ export const FIELD_SPECS: Partial<Record<ModelFieldType, FieldSpec>> = {
   numTokens: {
     name: '# tokens',
     valueType: 'number',
-    default: 1e12,
+    default: undefined,
     calculations: [
       flopsCalculation('numTokens'),
       openAiComputeSplit('numTokens'),
@@ -50,14 +51,17 @@ export const FIELD_SPECS: Partial<Record<ModelFieldType, FieldSpec>> = {
   lossNats: {
     name: 'Loss',
     valueType: 'number',
-    default: 1.96,
+    default: undefined,
     calculations: [openAiLoss('lossNats')],
   },
   trainingTimeDays: {
     name: 'Training time (days)',
     valueType: 'number',
     default: undefined,
-    calculations: [trainingTime('trainingTimeDays')],
+    calculations: [
+      trainingTime('trainingTimeDays'),
+      gpuCost('trainingTimeDays'),
+    ],
   },
   flopsPerSecond: {
     name: 'FLOP/S',
@@ -75,12 +79,18 @@ export const FIELD_SPECS: Partial<Record<ModelFieldType, FieldSpec>> = {
     name: '# GPUs',
     valueType: 'number',
     default: undefined,
-    calculations: [gpuFlops('gpuCount')],
+    calculations: [gpuFlops('gpuCount'), gpuCost('gpuCount')],
   },
   gpuUtilization: {
     name: 'GPU utilization (%)',
     valueType: 'number',
     default: undefined,
     calculations: [gpuFlops('gpuUtilization')],
+  },
+  costDollars: {
+    name: 'Cost ($)',
+    valueType: 'number',
+    default: undefined,
+    calculations: [gpuCost('costDollars')],
   },
 };

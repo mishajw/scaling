@@ -21,15 +21,28 @@ interface Props {
 export default function CustomModelEditor({ fields, setFields }: Props) {
   return (
     <div className='grid grid-cols-3'>
+      <SectionTitle>Resources</SectionTitle>
+      <Field field={'costDollars'} fields={fields} setFields={setFields} />
+      <Field field={'trainingTimeDays'} fields={fields} setFields={setFields} />
+      <SectionTitle>GPUs</SectionTitle>
+      <Field field={'gpuCount'} fields={fields} setFields={setFields} />
+      <Field field={'gpuType'} fields={fields} setFields={setFields} />
+      <Field field={'gpuUtilization'} fields={fields} setFields={setFields} />
+      <SectionTitle>Perf</SectionTitle>
+      <Field field={'flopsPerSecond'} fields={fields} setFields={setFields} />
       <Field field={'flops'} fields={fields} setFields={setFields} />
+      <SectionTitle>Model</SectionTitle>
       <Field field={'numParams'} fields={fields} setFields={setFields} />
       <Field field={'numTokens'} fields={fields} setFields={setFields} />
       <Field field={'lossNats'} fields={fields} setFields={setFields} />
-      <Field field={'trainingTimeDays'} fields={fields} setFields={setFields} />
-      <Field field={'flopsPerSecond'} fields={fields} setFields={setFields} />
-      <Field field={'gpuType'} fields={fields} setFields={setFields} />
-      <Field field={'gpuCount'} fields={fields} setFields={setFields} />
-      <Field field={'gpuUtilization'} fields={fields} setFields={setFields} />
+    </div>
+  );
+}
+
+function SectionTitle({ children }: { children: React.ReactNode }) {
+  return (
+    <div className='flex justify-center font-bold text-xl col-span-3 mt-4'>
+      {children}
     </div>
   );
 }
