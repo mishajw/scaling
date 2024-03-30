@@ -1,10 +1,10 @@
 import { Calculation, CalculationType } from './types';
 
-const type: CalculationType = 'megatron';
+const type: CalculationType = 'flops';
 
-export function megatronCalculation<
-  T extends 'flops' | 'numParams' | 'numTokens',
->(fieldType: T): Calculation<T, any> {
+export function flopsCalculation<T extends 'flops' | 'numParams' | 'numTokens'>(
+  fieldType: T
+): Calculation<T, any> {
   switch (fieldType) {
     case 'flops':
       return {

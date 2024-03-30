@@ -8,7 +8,8 @@ Tool for inspecting and comparing the high-level statistics of language models, 
 
 - [x] Rename parameters/attributes to fields.
 - [x] Rename inferences to calculations.
-- [ ] Move rule links into rule file.
+- [x] Move rule links into rule file.
+- [x] Rename & re-write megatron
 - [ ] Add N/D from scaling law + C inferences.
 
 ### Misc

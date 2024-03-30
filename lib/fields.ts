@@ -1,4 +1,4 @@
-import { megatronCalculation } from './calculations/megatron';
+import { flopsCalculation } from './calculations/flops';
 import { Calculation } from './calculations/types';
 import { ModelFieldType, ModelFields } from './model';
 
@@ -12,16 +12,16 @@ export const FIELD_SPECS: Partial<Record<ModelFieldType, FieldSpec>> = {
   flops: {
     name: 'FLOPs',
     default: 1e20,
-    calculations: [megatronCalculation('flops')],
+    calculations: [flopsCalculation('flops')],
   },
   numParams: {
     name: '# params',
     default: 1e9,
-    calculations: [megatronCalculation('numParams')],
+    calculations: [flopsCalculation('numParams')],
   },
   numTokens: {
     name: '# tokens',
     default: 1e12,
-    calculations: [megatronCalculation('numTokens')],
+    calculations: [flopsCalculation('numTokens')],
   },
 };

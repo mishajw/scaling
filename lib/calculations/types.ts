@@ -1,6 +1,6 @@
 import { ModelFieldType, ModelFields } from '../model';
 
-export type CalculationType = 'megatron';
+export type CalculationType = 'flops';
 
 export interface Calculation<
   FieldT extends ModelFieldType,
