@@ -12,6 +12,8 @@ import Link from './link';
 import { Calculation, calculate } from '@/lib/calculations/types';
 import { CalculationLink } from './calculationDescriptions';
 import FieldDescription from './fieldDescription';
+import DropDownInput from './dropDownInput';
+import { GPU_TYPES, GpuType } from '@/lib/gpu';
 
 interface Props {
   fields: ModelFields;
@@ -27,6 +29,7 @@ export default function CustomModelEditor({ fields, setFields }: Props) {
       <Field field={'lossNats'} fields={fields} setFields={setFields} />
       <Field field={'trainingTimeDays'} fields={fields} setFields={setFields} />
       <Field field={'flopsPerSecond'} fields={fields} setFields={setFields} />
+      <Field field={'gpuType'} fields={fields} setFields={setFields} />
     </div>
   );
 }
@@ -42,6 +45,12 @@ function Field<T extends ModelFieldType>({
 }) {
   const fieldSpec = FIELD_SPECS[field]!;
   const fieldValue = fields[field];
+  const setValue = (value: ModelValueType) => {
+    setFields({
+      ...fields,
+      [field]: { ...fields[field], value },
+    });
+  };
   return (
     <div className='contents'>
       <div className='m-2'>
@@ -49,15 +58,19 @@ function Field<T extends ModelFieldType>({
         <FieldDescription type={field} />
       </div>
       <div className='m-2 col-span-2'>
-        <NumberInput
-          value={fieldValue?.value as number | undefined}
-          setValue={value => {
-            setFields({
-              ...fields,
-              [field]: { ...fields[field], value },
-            });
-          }}
-        />
+        {fieldSpec.valueType === 'number' && (
+          <NumberInput
+            value={fieldValue?.value as number | undefined}
+            setValue={setValue}
+          />
+        )}
+        {fieldSpec.valueType === 'gpu-type' && (
+          <DropDownInput
+            value={fieldValue?.value as GpuType}
+            options={GPU_TYPES}
+            setValue={setValue}
+          />
+        )}
         <div className='ml-4'>
           {fieldSpec.calculations.map((calculation, i) => (
             <Calculate
@@ -161,9 +174,17 @@ function SetValueButton<T extends ModelFieldType>({
   canConflict: boolean;
 }) {
   let color: string;
-  if (canConflict && hasConflict(value, fields[field]?.value)) {
+  if (
+    canConflict &&
+    hasConflict(value, fields[field]?.value) &&
+    value !== undefined
+  ) {
     color = 'bg-orange-500';
-  } else if (canConflict && !hasConflict(value, fields[field]?.value)) {
+  } else if (
+    canConflict &&
+    !hasConflict(value, fields[field]?.value) &&
+    value !== undefined
+  ) {
     color = 'bg-blue-500 text-white';
   } else {
     color = 'bg-gray-200';
@@ -189,10 +210,10 @@ function Value({ field }: { field: ModelField | undefined }) {
     if (typeof field.value === 'number') {
       return <span>{siFormat(field.value)}</span>;
     } else {
-      return <span>{field.toString()}</span>;
+      return <span>{field.value.toString()}</span>;
     }
   } else {
-    return <span className='bg-red-400'>???</span>;
+    return <span className='bg-gray-200 italic'>N/A</span>;
   }
 }
 
@@ -200,7 +221,6 @@ function hasConflict(
   value1: ModelValueType | undefined,
   value2: ModelValueType | undefined
 ): boolean {
-  console.log('a', value1, value2);
   if (
     typeof value1 !== 'number' ||
     typeof value2 !== 'number' ||
@@ -210,6 +230,5 @@ function hasConflict(
   ) {
     return value1 !== value2;
   }
-  console.log(value1, value2);
   return Math.abs((value1 - value2) / value1) > 0.001;
 }
