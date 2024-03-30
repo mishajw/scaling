@@ -28,6 +28,7 @@ const ModelFieldsSchema = z.object({
   numParams: ModelFieldSchemaFn(z.coerce.number()).optional(),
   sequenceLength: ModelFieldSchemaFn(z.coerce.number()).optional(),
   numTokens: ModelFieldSchemaFn(z.coerce.number()).optional(),
+  lossNats: ModelFieldSchemaFn(z.coerce.number()).optional(),
   batchSize: ModelFieldSchemaFn(z.coerce.number()).optional(),
   dataType: ModelFieldSchemaFn(DataTypeSchema).optional(),
   costDollars: ModelFieldSchemaFn(z.coerce.number()).optional(),

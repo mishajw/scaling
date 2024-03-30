@@ -13,6 +13,9 @@ export const SI_SYMBOLS = [
 ];
 
 export function siFormat(n: number): string {
+  if (n < 10 && n % 1 !== 0) {
+    return n.toFixed(3);
+  }
   const power = Math.floor(Math.log10(n) / 3);
   const scaled = n / Math.pow(10, power * 3);
   if (power >= SI_SYMBOLS.length) {

@@ -23,6 +23,7 @@ export default function CustomModelEditor({ fields, setFields }: Props) {
       <Field field={'flops'} fields={fields} setFields={setFields} />
       <Field field={'numParams'} fields={fields} setFields={setFields} />
       <Field field={'numTokens'} fields={fields} setFields={setFields} />
+      <Field field={'lossNats'} fields={fields} setFields={setFields} />
     </div>
   );
 }

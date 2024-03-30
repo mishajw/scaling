@@ -10,7 +10,9 @@ Tool for inspecting and comparing the high-level statistics of language models, 
 - [x] Rename inferences to calculations.
 - [x] Move rule links into rule file.
 - [x] Rename & re-write megatron
-- [ ] Add N/D from scaling law + C inferences.
+- [x] Add N/D from scaling law + C inferences.
+- [x] Add loss from scaling law.
+- [ ] Add description of OpenAI's scaling laws.
 
 ### Misc
 

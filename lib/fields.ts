@@ -31,4 +31,9 @@ export const FIELD_SPECS: Partial<Record<ModelFieldType, FieldSpec>> = {
       openAiScalingLawCalculation('numTokens'),
     ],
   },
+  lossNats: {
+    name: 'Loss (nats)',
+    default: 1.96,
+    calculations: [openAiScalingLawCalculation('lossNats')],
+  },
 };
