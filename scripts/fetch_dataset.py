@@ -36,6 +36,7 @@ for source in _SHEET_IDS.keys():
         csv_text = response.read().decode("utf-8")
     for row in csv.DictReader(csv_text.splitlines()):
         model_name = row["model_name"]
+        # TODO: Rename attribute to field in sheets.
         field = row["attribute"]
         value = row["value"]
         citation = row["citation"]

@@ -6,7 +6,7 @@ Tool for inspecting and comparing the high-level statistics of language models, 
 
 ### Today
 
-- [ ] Rename fields/parameters to attributes.
+- [x] Rename parameters/attributes to fields.
 - [ ] Rename inferences to calculations.
 - [ ] Move rule links into rule file.
 - [ ] Add N/D from scaling law + C inferences.

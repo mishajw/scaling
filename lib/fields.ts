@@ -6,13 +6,13 @@ import {
 } from './inferences';
 import { ModelFieldType } from './model';
 
-export interface ParameterSpec {
+export interface FieldSpec {
   name: string;
   default: number;
   inferences: Inference<any, any>[];
 }
 
-export const PARAMETERS: Partial<Record<ModelFieldType, ParameterSpec>> = {
+export const FIELD_SPECS: Partial<Record<ModelFieldType, FieldSpec>> = {
   flops: {
     name: 'FLOPs',
     default: 1e20,

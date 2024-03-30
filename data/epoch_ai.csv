@@ -1,4 +1,4 @@
-model_name,attribute,value,citation
+model_name,field,value,citation
 Claude,releaseDate,2023-03-14,
 Japanese-LM-3.6B,numParams,3600000000.0,
 Japanese-LM-3.6B,numTokens,72000000000.0,"650GB per huggingfaceour guide says 111M Japanese words per GB, which would be ~72B wordshttps://docs.google.com/document/d/1G3vvQkn4x_W71MKg0GmHVtzfd9m0y3_Ofcoew0v902Q/edit#heading=h.ieihc08p8dn0"

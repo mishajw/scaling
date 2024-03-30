@@ -6,7 +6,7 @@ import {
   ModelValueType,
 } from '@/lib/model';
 import { siFormat } from '@/lib/numberFormat';
-import { PARAMETERS } from '@/lib/parameters';
+import { FIELD_SPECS } from '@/lib/fields';
 import { useState } from 'react';
 import NumberInput from './numberInput';
 import { INFERENCE_IDS, INFERENCE_TITLES } from './methodDescriptions';
@@ -36,11 +36,11 @@ function Field<T extends ModelFieldType>({
   fields: ModelFields;
   setFields: (fields: ModelFields) => void;
 }) {
-  const parameterSpec = PARAMETERS[field]!;
+  const fieldSpec = FIELD_SPECS[field]!;
   const fieldValue = fields[field];
   return (
     <div className='contents'>
-      <div className='m-2'>{parameterSpec.name}</div>
+      <div className='m-2'>{fieldSpec.name}</div>
       <div className='m-2 col-span-3'>
         <NumberInput
           value={fieldValue?.value as number | undefined}
@@ -52,7 +52,7 @@ function Field<T extends ModelFieldType>({
           }}
         />
         <div className='ml-4'>
-          {parameterSpec.inferences.map((inference, i) => (
+          {fieldSpec.inferences.map((inference, i) => (
             <Infer
               key={i}
               fields={fields}
@@ -87,7 +87,8 @@ function Infer<T extends ModelFieldType>({
         setFields={setModel}
       />
       <span className='text-sm'>
-       {' '}from{' '}
+        {' '}
+        from{' '}
         <Link href={'#' + INFERENCE_IDS[inference.explanation]} target='_self'>
           {INFERENCE_TITLES[inference.explanation]}
         </Link>
@@ -109,11 +110,11 @@ function Default<T extends ModelFieldType>({
   fields: ModelFields;
   setFields: (model: ModelFields) => void;
 }) {
-  const parameterSpec = PARAMETERS[fieldType]!;
+  const fieldSpec = FIELD_SPECS[fieldType]!;
   return (
     <div className='m-1'>
       <SetValueButton
-        value={parameterSpec.default}
+        value={fieldSpec.default}
         field={fieldType}
         fields={fields}
         setFields={setFields}
@@ -130,10 +131,10 @@ function ValueTag<T extends ModelFieldType>({
   field: T;
   value: ModelField | undefined;
 }) {
-  const parameterSpec = PARAMETERS[field]!;
+  const fieldSpec = FIELD_SPECS[field]!;
   return (
     <span className='whitespace-nowrap rounded m-1 p-1 bg-green-200'>
-      {parameterSpec.name}=<Value field={value} />
+      {fieldSpec.name}=<Value field={value} />
     </span>
   );
 }

@@ -2,7 +2,7 @@
 
 import { FieldSource, Model, ModelFieldType, ModelFields } from '@/lib/model';
 import { siFormat } from '@/lib/numberFormat';
-import { PARAMETERS, ParameterSpec } from '@/lib/parameters';
+import { FIELD_SPECS, FieldSpec } from '@/lib/fields';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 
@@ -55,7 +55,7 @@ function ModelFieldPlot<T extends ModelFieldType>({
   customFields: ModelFields;
   models: Model[];
 }) {
-  const parameterSpec = PARAMETERS[field]!;
+  const fieldSpec = FIELD_SPECS[field]!;
   const plotModels = models
     .map(model => ({
       releaseDate: model.fields.releaseDate?.value,
@@ -94,7 +94,7 @@ function ModelFieldPlot<T extends ModelFieldType>({
           },
         ]}
         layout={{
-          title: parameterSpec.name,
+          title: fieldSpec.name,
           showlegend: false,
           xaxis: { type: 'date' },
           yaxis: { type: 'log' },
@@ -110,7 +110,7 @@ function ModelFieldPlot<T extends ModelFieldType>({
           setFocusedModel(undefined);
         }}
       />
-      <Citation model={focusedModel} parameterSpec={parameterSpec} />
+      <Citation model={focusedModel} fieldSpec={fieldSpec} />
     </div>
   );
 }
@@ -129,10 +129,10 @@ function getMinMaxDates(dates: Date[]): [Date, Date] {
 
 function Citation({
   model,
-  parameterSpec,
+  fieldSpec,
 }: {
   model: ModelData | undefined;
-  parameterSpec: ParameterSpec;
+  fieldSpec: FieldSpec;
 }) {
   return (
     <div
@@ -141,8 +141,7 @@ function Citation({
       }`}
     >
       <div>
-        <b>{model?.name}</b> {parameterSpec.name} ={' '}
-        {siFormat(model?.field ?? 0)}.
+        <b>{model?.name}</b> {fieldSpec.name} = {siFormat(model?.field ?? 0)}.
       </div>
       <div>From {model ? sourceString(model?.source) : ''}.</div>
       {model?.citation && (

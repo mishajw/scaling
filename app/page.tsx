@@ -5,15 +5,15 @@ import { useState } from 'react';
 import { ModelFields } from '@/lib/model';
 import CustomModelEditor from './customModelEditor';
 import { MODELS } from '@/lib/dataset';
-import { PARAMETERS } from '@/lib/parameters';
+import { FIELD_SPECS } from '@/lib/fields';
 import ScaleExplanation from './scaleExplanation';
 import MethodDescriptions from './methodDescriptions';
 
 export default function PlotView() {
   const [customFields, setCustomFields] = useState<ModelFields>({
-    flops: { value: PARAMETERS['flops']!.default, source: 'custom' },
-    numTokens: { value: PARAMETERS['numTokens']!.default, source: 'custom' },
-    numParams: { value: PARAMETERS['numParams']!.default, source: 'custom' },
+    flops: { value: FIELD_SPECS['flops']!.default, source: 'custom' },
+    numTokens: { value: FIELD_SPECS['numTokens']!.default, source: 'custom' },
+    numParams: { value: FIELD_SPECS['numParams']!.default, source: 'custom' },
   });
   return (
     <div className='flex flex-col items-center'>
