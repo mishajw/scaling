@@ -1,4 +1,5 @@
 import { flopsCalculation } from './calculations/flops';
+import { openAiScalingLawCalculation } from './calculations/openAiScalingLaw';
 import { Calculation } from './calculations/types';
 import { ModelFieldType, ModelFields } from './model';
 
@@ -17,11 +18,17 @@ export const FIELD_SPECS: Partial<Record<ModelFieldType, FieldSpec>> = {
   numParams: {
     name: '# params',
     default: 1e9,
-    calculations: [flopsCalculation('numParams')],
+    calculations: [
+      flopsCalculation('numParams'),
+      openAiScalingLawCalculation('numParams'),
+    ],
   },
   numTokens: {
     name: '# tokens',
     default: 1e12,
-    calculations: [flopsCalculation('numTokens')],
+    calculations: [
+      flopsCalculation('numTokens'),
+      openAiScalingLawCalculation('numTokens'),
+    ],
   },
 };

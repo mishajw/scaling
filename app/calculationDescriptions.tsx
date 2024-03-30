@@ -2,7 +2,6 @@ import Link from './link';
 import Latex from 'react-latex-next';
 import 'katex/dist/katex.min.css';
 import { CalculationType } from '@/lib/calculations/types';
-import { Asset } from 'next/font/google';
 
 const OAI_SCALING = 'https://TODO';
 
@@ -37,6 +36,10 @@ export default function CalculationDescriptions() {
           .
         </div>
       </div>
+      <div className='text-lg mt-2' id='open-ai-scaling-law'>
+        OpenAI's scaling laws
+      </div>
+      <div>TODO</div>
     </div>
   );
 }
@@ -44,9 +47,11 @@ export default function CalculationDescriptions() {
 export function CalculationLink({ type }: { type: CalculationType }) {
   const id = {
     flops: 'flops',
+    'open-ai-scaling-law': 'open-ai-scaling-law',
   }[type];
   const title = {
     flops: 'FLOPs',
+    'open-ai-scaling-law': 'OpenAI scaling law',
   }[type];
   return (
     <Link href={'#' + id} target='_self'>

@@ -34,6 +34,6 @@ export function flopsCalculation<T extends 'flops' | 'numParams' | 'numTokens'>(
         },
       };
     default:
-      assertNever();
+      assertNever(fieldType);
   }
 }

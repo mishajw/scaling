@@ -1,6 +1,6 @@
 import { ModelFieldType, ModelFields } from '../model';
 
-export type CalculationType = 'flops';
+export type CalculationType = 'flops' | 'open-ai-scaling-law';
 
 export interface Calculation<
   FieldT extends ModelFieldType,
