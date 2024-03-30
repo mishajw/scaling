@@ -163,6 +163,6 @@ function sourceString(source: FieldSource): string {
     case 'epoch':
       return 'Epoch AI';
     default:
-      assertNever();
+      assertNever(source);
   }
 }
