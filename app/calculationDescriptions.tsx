@@ -84,9 +84,7 @@ export default function CalculationDescriptions() {
             '$$\\text{\\#tokens} = \\frac{\\text{FLOPs}}{\\text{\\#params} * 6}$$'
           }
         </Latex>
-        <div className='my-2'>
-          See section 6 for details.
-        </div>
+        <div className='my-2'>See section 6 for details.</div>
       </div>
     </div>
   );

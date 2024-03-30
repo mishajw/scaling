@@ -33,7 +33,7 @@ export const FIELD_SPECS: Partial<Record<ModelFieldType, FieldSpec>> = {
     ],
   },
   lossNats: {
-    name: 'Loss (nats)',
+    name: 'Loss',
     default: 1.96,
     calculations: [openAiLoss('lossNats')],
   },

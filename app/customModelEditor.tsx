@@ -11,6 +11,7 @@ import NumberInput from './numberInput';
 import Link from './link';
 import { Calculation, calculate } from '@/lib/calculations/types';
 import { CalculationLink } from './calculationDescriptions';
+import FieldDescription from './fieldDescription';
 
 interface Props {
   fields: ModelFields;
@@ -19,7 +20,7 @@ interface Props {
 
 export default function CustomModelEditor({ fields, setFields }: Props) {
   return (
-    <div className='grid grid-cols-4'>
+    <div className='grid grid-cols-3'>
       <Field field={'flops'} fields={fields} setFields={setFields} />
       <Field field={'numParams'} fields={fields} setFields={setFields} />
       <Field field={'numTokens'} fields={fields} setFields={setFields} />
@@ -41,8 +42,11 @@ function Field<T extends ModelFieldType>({
   const fieldValue = fields[field];
   return (
     <div className='contents'>
-      <div className='m-2'>{fieldSpec.name}</div>
-      <div className='m-2 col-span-3'>
+      <div className='m-2'>
+        <div className='text-lg'>{fieldSpec.name}</div>
+        <FieldDescription type={field} />
+      </div>
+      <div className='m-2 col-span-2'>
         <NumberInput
           value={fieldValue?.value as number | undefined}
           setValue={value => {
