@@ -85,6 +85,7 @@ function Calculate<T extends ModelFieldType>({
         field={calculation.fieldType}
         fields={fields}
         setFields={setModel}
+        canConflict={true}
       />
       <span className='text-sm'>
         {' '}
@@ -115,6 +116,7 @@ function Default<T extends ModelFieldType>({
         field={fieldType}
         fields={fields}
         setFields={setFields}
+        canConflict={false}
       />
       <span className='text-sm'>&nbsp;from default</span>
     </div>
@@ -140,17 +142,27 @@ function SetValueButton<T extends ModelFieldType>({
   value,
   field,
   fields: fields,
-  setFields: setFields,
+  setFields,
+  canConflict,
 }: {
   value: ModelValueType | undefined;
   field: T;
   fields: ModelFields;
   setFields: (model: ModelFields) => void;
+  canConflict: boolean;
 }) {
+  let color: string;
+  if (canConflict && hasConflict(value, fields[field]?.value)) {
+    color = 'bg-orange-500';
+  } else if (canConflict && !hasConflict(value, fields[field]?.value)) {
+    color = 'bg-blue-500 text-white';
+  } else {
+    color = 'bg-gray-200';
+  }
   return (
     <button
       disabled={value === undefined}
-      className={`rounded px-1 ${value !== undefined ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+      className={`rounded px-1 ${color}`}
       onClick={() =>
         setFields({
           ...fields,
@@ -175,22 +187,20 @@ function Value({ field }: { field: ModelField | undefined }) {
   }
 }
 
-function Help({ children }: { children: JSX.Element }): JSX.Element {
-  const [show, setShow] = useState(false);
-  return (
-    <span
-      onMouseEnter={() => setShow(true)}
-      onMouseLeave={() => setShow(false)}
-      className='cursor-pointer'
-    >
-      &#9432;
-      <span
-        className={`absolute bg-white border border-gray-400 p-2 rounded max-w-80 ${
-          show ? '' : 'hidden'
-        }`}
-      >
-        {children}
-      </span>
-    </span>
-  );
+function hasConflict(
+  value1: ModelValueType | undefined,
+  value2: ModelValueType | undefined
+): boolean {
+  console.log('a', value1, value2);
+  if (
+    typeof value1 !== 'number' ||
+    typeof value2 !== 'number' ||
+    value1 === undefined ||
+    value2 === undefined ||
+    value1 === 0
+  ) {
+    return value1 !== value2;
+  }
+  console.log(value1, value2);
+  return Math.abs((value1 - value2) / value1) > 0.001;
 }

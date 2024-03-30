@@ -13,6 +13,7 @@ Tool for inspecting and comparing the high-level statistics of language models, 
 - [x] Add N/D from scaling law + C inferences.
 - [x] Add loss from scaling law.
 - [ ] Add description of OpenAI's scaling laws.
+- [x] Show conflicts clearly in the value tags.
 
 ### Misc
 
