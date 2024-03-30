@@ -19,12 +19,10 @@ Tool for inspecting and comparing the high-level statistics of language models, 
 - [x] Add clear button to number inputs.
 - [x] Add link to mishajw.com.
 - [x] Add cost.
-- [ ] Add Chinchilla scaling laws.
 - [x] Experiment with new graph layout.
+- [ ] Validate scaling laws.
+- [ ] Add Chinchilla scaling laws.
 - [ ] Add percentage formatting.
-
-### When we have WiFi
-
 - [ ] Set sensible defaults (GPT-3?).
 - [ ] Fix whitespace wrapping.
 - [ ] Clean up bold text stuff.
