@@ -86,6 +86,16 @@ export default function CalculationDescriptions() {
         </Latex>
         <div className='my-2'>See section 6 for details.</div>
       </div>
+      <CalculationTitle type='training-time'>Training time</CalculationTitle>
+      <div>
+        <div className='my-2'>
+          We have a simple relationship between FLOPs, FLOP/S, and training
+          time:
+        </div>
+        <Latex>
+          {'$$\\text{FLOPs} = \\text{FLOP/S} * \\text{Training time seconds}$$'}
+        </Latex>
+      </div>
     </div>
   );
 }
@@ -109,6 +119,7 @@ export function CalculationLink({ type }: { type: CalculationType }) {
     flops: 'FLOPs',
     'open-ai-loss': "OpenAI's loss law",
     'open-ai-compute-split': "OpenAI's compute split",
+    'training-time': 'training time',
   }[type];
   return (
     <Link href={'#' + type} target='_self'>

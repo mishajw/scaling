@@ -3,7 +3,8 @@ import { ModelFieldType, ModelFields } from '../model';
 export type CalculationType =
   | 'flops'
   | 'open-ai-loss'
-  | 'open-ai-compute-split';
+  | 'open-ai-compute-split'
+  | 'training-time';
 
 export interface Calculation<
   FieldT extends ModelFieldType,

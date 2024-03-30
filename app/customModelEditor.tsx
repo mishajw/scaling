@@ -25,6 +25,8 @@ export default function CustomModelEditor({ fields, setFields }: Props) {
       <Field field={'numParams'} fields={fields} setFields={setFields} />
       <Field field={'numTokens'} fields={fields} setFields={setFields} />
       <Field field={'lossNats'} fields={fields} setFields={setFields} />
+      <Field field={'trainingTimeDays'} fields={fields} setFields={setFields} />
+      <Field field={'flopsPerSecond'} fields={fields} setFields={setFields} />
     </div>
   );
 }
@@ -113,6 +115,9 @@ function Default<T extends ModelFieldType>({
   setFields: (model: ModelFields) => void;
 }) {
   const fieldSpec = FIELD_SPECS[fieldType]!;
+  if (fieldSpec.default === undefined) {
+    return undefined;
+  }
   return (
     <div className='m-1'>
       <SetValueButton

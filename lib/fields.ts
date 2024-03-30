@@ -1,6 +1,7 @@
 import { flopsCalculation } from './calculations/flops';
 import { openAiComputeSplit } from './calculations/openAiComputeSplit';
 import { openAiLoss } from './calculations/openAiLoss';
+import { trainingTime } from './calculations/trainingTime';
 import { Calculation } from './calculations/types';
 import { ModelFieldType } from './model';
 
@@ -14,7 +15,7 @@ export const FIELD_SPECS: Partial<Record<ModelFieldType, FieldSpec>> = {
   flops: {
     name: 'FLOPs',
     default: 1e20,
-    calculations: [flopsCalculation('flops')],
+    calculations: [flopsCalculation('flops'), trainingTime('flops')],
   },
   numParams: {
     name: '# params',
@@ -40,6 +41,11 @@ export const FIELD_SPECS: Partial<Record<ModelFieldType, FieldSpec>> = {
   trainingTimeDays: {
     name: 'Training time (days)',
     default: undefined,
-    calculations: [],
+    calculations: [trainingTime('trainingTimeDays')],
+  },
+  flopsPerSecond: {
+    name: 'FLOP/S',
+    default: undefined,
+    calculations: [trainingTime('flopsPerSecond')],
   },
 };

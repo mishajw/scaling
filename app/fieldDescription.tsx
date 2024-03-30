@@ -32,6 +32,20 @@ export default function FieldDescription({ type }: { type: ModelFieldType }) {
           a held-out evaluation set.
         </div>
       );
+    case 'trainingTimeDays':
+      return (
+        <div className='text-sm'>
+          The number of days it took to train the model.
+        </div>
+      );
+    case 'flopsPerSecond':
+      return (
+        <div className='text-sm'>
+          The number of <i>effective</i> FLOPs per second while training the
+          model. By effective, we mean the number of FLOPs actually done by the
+          hardware, not the theoretical maximum FLOPs of the hardware.
+        </div>
+      );
     default:
       // assertNever(type);
       return <div>??</div>;
