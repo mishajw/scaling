@@ -28,21 +28,19 @@ export default function PlotView() {
         attributes. This should help you get a feel for them, for example how
         dataset size and FLOPs are related.
       </div>
-      <div className='flex flex-row flex-wrap justify-center items-start max-w-screen-md'>
-        <div>
-          <div className='m-2 p-2 border-2'>
-            <CustomModelEditor
-              fields={customFields}
-              setFields={setCustomFields}
-            />
-          </div>
-          <div className='m-2 p-2 border-2'>
-            <CalculationDescriptions />
-            <ScaleExplanation />
-          </div>
+      <div className='flex flex-row flex-wrap justify-center items-start'>
+        <div className='m-2 p-2 border-2 max-w-screen-sm'>
+          <CustomModelEditor
+            fields={customFields}
+            setFields={setCustomFields}
+          />
+          <ScaleExplanation />
         </div>
         <div className='m-2 p-2 border-2'>
           <ModelPlot customFields={customFields} models={MODELS} />
+        </div>
+        <div className='m-2 p-2 border-2 max-w-screen-md'>
+          <CalculationDescriptions />
         </div>
       </div>
     </div>
