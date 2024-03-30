@@ -9,9 +9,7 @@ export default function CalculationDescriptions() {
   return (
     <div>
       <div className='text-xl'>Methods</div>
-      <div className='text-lg mt-2' id='flops'>
-        FLOPs
-      </div>
+      <CalculationTitle type='flops'>FLOPs</CalculationTitle>
       <div>
         <div className='my-2'>
           OpenAI's <Link href={OAI_SCALING}>scaling laws paper</Link> simplifies
@@ -36,25 +34,83 @@ export default function CalculationDescriptions() {
           .
         </div>
       </div>
-      <div className='text-lg mt-2' id='open-ai-scaling-law'>
-        OpenAI's scaling laws
+      <CalculationTitle type='open-ai-loss'>
+        OpenAI's loss power law
+      </CalculationTitle>
+      <div>
+        <div className='my-2'>
+          OpenAI's <Link href={OAI_SCALING}>scaling laws paper</Link> fits a
+          power law to estimate the loss (in nats) given a fixed number of
+          parameters and tokens:
+        </div>
+        <div className='my-2'></div>
+        <Latex>
+          {/* TODO: Fix latex. */}
+          {'$$L(\\text{\\#params}, \\text{\\#tokens}) = (' +
+            '(\\frac{N_c}{\\text{\\#params}})^{\\frac{\\alpha_N}{\\alpha_D}} + ' +
+            '\\frac{D_c}{\\text{\\#tokens}}' +
+            ')^{\\alpha_D}$$'}
+        </Latex>
+        <div className='my-2'>
+          Where <Latex>{'$\\alpha_N = 0.076$'}</Latex>,{' '}
+          <Latex>{'$\\alpha_D = 0.103$'}</Latex>,{' '}
+          <Latex>{'$N_c = 6.4 * 10^{13}$'}</Latex>,{' '}
+          <Latex>{'$N_c = 1.8 * 10^{13}$'}</Latex>. See section 4 for details.
+        </div>
       </div>
-      <div>TODO</div>
+      <CalculationTitle type='open-ai-compute-split'>
+        OpenAI's optimal compute split
+      </CalculationTitle>
+      <div>
+        <div className='my-2'>
+          Given a fixed amount of FLOPs, OpenAI's{' '}
+          <Link href={OAI_SCALING}>scaling laws paper</Link> derives a way to
+          calculate the best way to invest it: Do you scale up model size, or
+          scale up dataset size?
+        </div>
+        <div className='my-2'>
+          Again, they fit a power law for this. If you want to infer the optimal
+          number of parameters for a fixed compute size, you can use:
+        </div>
+        <Latex>
+          {'$$\\text{\\#params} = 9 * 10^{-7} * (\\text{FLOPs})^{0.7}$$'}
+        </Latex>
+        <div className='my-2'>
+          To then pick the best number of parameter, simply rearrange the{' '}
+          <CalculationLink type='flops' /> equation:
+        </div>
+        <Latex>
+          {
+            '$$\\text{\\#tokens} = \\frac{\\text{FLOPs}}{\\text{\\#params} * 6}$$'
+          }
+        </Latex>
+      </div>
+    </div>
+  );
+}
+
+function CalculationTitle({
+  type,
+  children,
+}: {
+  type: CalculationType;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className='text-lg mt-2 font-bold' id={type}>
+      {children}
     </div>
   );
 }
 
 export function CalculationLink({ type }: { type: CalculationType }) {
-  const id = {
-    flops: 'flops',
-    'open-ai-scaling-law': 'open-ai-scaling-law',
-  }[type];
   const title = {
     flops: 'FLOPs',
-    'open-ai-scaling-law': 'OpenAI scaling law',
+    'open-ai-loss': "OpenAI's loss law",
+    'open-ai-compute-split': "OpenAI's compute split",
   }[type];
   return (
-    <Link href={'#' + id} target='_self'>
+    <Link href={'#' + type} target='_self'>
       {title}
     </Link>
   );

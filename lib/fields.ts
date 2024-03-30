@@ -1,5 +1,6 @@
 import { flopsCalculation } from './calculations/flops';
-import { openAiScalingLawCalculation } from './calculations/openAiScalingLaw';
+import { openAiComputeSplit } from './calculations/openAiComputeSplit';
+import { openAiLoss } from './calculations/openAiLoss';
 import { Calculation } from './calculations/types';
 import { ModelFieldType, ModelFields } from './model';
 
@@ -20,7 +21,7 @@ export const FIELD_SPECS: Partial<Record<ModelFieldType, FieldSpec>> = {
     default: 1e9,
     calculations: [
       flopsCalculation('numParams'),
-      openAiScalingLawCalculation('numParams'),
+      openAiComputeSplit('numParams'),
     ],
   },
   numTokens: {
@@ -28,12 +29,12 @@ export const FIELD_SPECS: Partial<Record<ModelFieldType, FieldSpec>> = {
     default: 1e12,
     calculations: [
       flopsCalculation('numTokens'),
-      openAiScalingLawCalculation('numTokens'),
+      openAiComputeSplit('numTokens'),
     ],
   },
   lossNats: {
     name: 'Loss (nats)',
     default: 1.96,
-    calculations: [openAiScalingLawCalculation('lossNats')],
+    calculations: [openAiLoss('lossNats')],
   },
 };
