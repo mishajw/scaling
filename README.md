@@ -12,18 +12,19 @@ Tool for inspecting and comparing the high-level statistics of language models, 
 - [x] Rename & re-write megatron
 - [x] Add N/D from scaling law + C inferences.
 - [x] Add loss from scaling law.
-- [ ] Add description of OpenAI's scaling laws.
+- [x] Add description of OpenAI's scaling laws.
 - [x] Show conflicts clearly in the value tags.
+- [ ] Set sensible defaults (GPT-3?).
+- [ ] Fix side-by-side layout.
+- [ ] Improve bio, mention compute caps.
+- [ ] Experiment with new graph layout.
+- [ ] Add Chinchilla scaling laws.
+- [ ] Add cost.
+- [ ] Add clear button to number inputs.
 
-### Misc
+### When we have WiFi
 
-- [ ] Add more attributes and more inferences.
-- [ ] Add option to inspect other model attributes.
-- [ ] Fix number formatting.
-- [ ] Add graphs for other attributes.
-- [ ] Show text for some key players on the graphs, e.g. GPT-4 and Claude-3.
-- [ ] Add table view of data.
-- [ ] Add attribute descriptions.
-- [ ] Improve graph styling.
-- [ ] Improve site layout.
-- [ ] Clear button.
+- [ ] Fix whitespace wrapping.
+- [ ] Clean up bold text stuff.
+- [ ] Add model parameters.
+- [ ] Add GET params for storing values.
