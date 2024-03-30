@@ -199,7 +199,7 @@ function SetValueButton<T extends ModelFieldType>({
     hasConflict(value, fields[field]?.value) &&
     value !== undefined
   ) {
-    color = 'bg-orange-500';
+    color = 'bg-orange-500 text-white';
   } else if (
     canConflict &&
     !hasConflict(value, fields[field]?.value) &&
