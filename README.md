@@ -14,17 +14,19 @@ Tool for inspecting and comparing the high-level statistics of language models, 
 - [x] Add loss from scaling law.
 - [x] Add description of OpenAI's scaling laws.
 - [x] Show conflicts clearly in the value tags.
-- [ ] Set sensible defaults (GPT-3?).
-- [ ] Fix side-by-side layout.
+- [x] Fix side-by-side layout.
 - [ ] Improve bio, mention compute caps.
 - [ ] Add clear button to number inputs.
+- [ ] Add link to mishajw.com.
 - [ ] Add cost.
 - [ ] Add Chinchilla scaling laws.
 - [ ] Experiment with new graph layout.
 
 ### When we have WiFi
 
+- [ ] Set sensible defaults (GPT-3?).
 - [ ] Fix whitespace wrapping.
 - [ ] Clean up bold text stuff.
 - [ ] Add model parameters.
 - [ ] Add GET params for storing values.
+- [ ] Pick favicon.
