@@ -1,3 +1,4 @@
+import { assertNever } from '../util';
 import { Calculation, CalculationType } from './types';
 
 const type: CalculationType = 'flops';

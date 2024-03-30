@@ -11,9 +11,9 @@ import CalculationDescriptions from './calculationDescriptions';
 
 export default function PlotView() {
   const [customFields, setCustomFields] = useState<ModelFields>({
-    flops: { value: FIELD_SPECS['flops']!.default, source: 'custom' },
-    numTokens: { value: FIELD_SPECS['numTokens']!.default, source: 'custom' },
-    numParams: { value: FIELD_SPECS['numParams']!.default, source: 'custom' },
+    flops: { value: FIELD_SPECS['flops']!.default!, source: 'custom' },
+    numTokens: { value: FIELD_SPECS['numTokens']!.default!, source: 'custom' },
+    numParams: { value: FIELD_SPECS['numParams']!.default!, source: 'custom' },
   });
   return (
     <div className='flex flex-col items-center'>

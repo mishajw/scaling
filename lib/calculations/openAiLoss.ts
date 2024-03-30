@@ -1,4 +1,5 @@
 import { ModelFieldType } from '../model';
+import { assertNever } from '../util';
 import { Calculation, CalculationType } from './types';
 
 const type: CalculationType = 'open-ai-loss';

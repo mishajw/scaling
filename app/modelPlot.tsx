@@ -5,6 +5,7 @@ import { siFormat } from '@/lib/numberFormat';
 import { FIELD_SPECS, FieldSpec } from '@/lib/fields';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
+import { assertNever } from '@/lib/util';
 
 // @ts-ignore
 const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });

@@ -2,11 +2,11 @@ import { flopsCalculation } from './calculations/flops';
 import { openAiComputeSplit } from './calculations/openAiComputeSplit';
 import { openAiLoss } from './calculations/openAiLoss';
 import { Calculation } from './calculations/types';
-import { ModelFieldType, ModelFields } from './model';
+import { ModelFieldType } from './model';
 
 export interface FieldSpec {
   name: string;
-  default: number;
+  default: number | undefined;
   calculations: Calculation<any, any>[];
 }
 
@@ -36,5 +36,10 @@ export const FIELD_SPECS: Partial<Record<ModelFieldType, FieldSpec>> = {
     name: 'Loss',
     default: 1.96,
     calculations: [openAiLoss('lossNats')],
+  },
+  trainingTimeDays: {
+    name: 'Training time (days)',
+    default: undefined,
+    calculations: [],
   },
 };

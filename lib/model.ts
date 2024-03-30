@@ -24,18 +24,23 @@ const ModelValueTypeSchema = z.union([
 const ModelFieldSchema = ModelFieldSchemaFn(ModelValueTypeSchema);
 
 const ModelFieldsSchema = z.object({
+  // Compute:
   flops: ModelFieldSchemaFn(z.coerce.number()).optional(),
   numParams: ModelFieldSchemaFn(z.coerce.number()).optional(),
-  sequenceLength: ModelFieldSchemaFn(z.coerce.number()).optional(),
   numTokens: ModelFieldSchemaFn(z.coerce.number()).optional(),
   lossNats: ModelFieldSchemaFn(z.coerce.number()).optional(),
-  batchSize: ModelFieldSchemaFn(z.coerce.number()).optional(),
-  dataType: ModelFieldSchemaFn(DataTypeSchema).optional(),
-  costDollars: ModelFieldSchemaFn(z.coerce.number()).optional(),
+  // Time:
+  flopsPerSecond: ModelFieldSchemaFn(z.coerce.number()).optional(),
   trainingTimeDays: ModelFieldSchemaFn(z.coerce.number()).optional(),
+  // GPUs:
   gpuType: ModelFieldSchemaFn(GpuTypeSchema).optional(),
   gpuCount: ModelFieldSchemaFn(z.coerce.number()).optional(),
   gpuUtilization: ModelFieldSchemaFn(z.coerce.number()).optional(),
+  // Unused:
+  sequenceLength: ModelFieldSchemaFn(z.coerce.number()).optional(),
+  batchSize: ModelFieldSchemaFn(z.coerce.number()).optional(),
+  dataType: ModelFieldSchemaFn(DataTypeSchema).optional(),
+  costDollars: ModelFieldSchemaFn(z.coerce.number()).optional(),
   releaseDate: ModelFieldSchemaFn(z.coerce.date()).optional(),
   isOpenWeights: ModelFieldSchemaFn(z.boolean()).optional(),
 });
