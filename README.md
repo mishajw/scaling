@@ -18,7 +18,7 @@ Tool for inspecting and comparing the high-level statistics of language models, 
 - [x] Improve bio, mention compute caps.
 - [x] Add clear button to number inputs.
 - [x] Add link to mishajw.com.
-- [ ] Add cost.
+- [x] Add cost.
 - [ ] Add Chinchilla scaling laws.
 - [ ] Experiment with new graph layout.
 - [ ] Add percentage formatting.
