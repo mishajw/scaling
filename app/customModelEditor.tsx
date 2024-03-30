@@ -6,9 +6,7 @@ import {
 } from '@/lib/model';
 import { siFormat } from '@/lib/numberFormat';
 import { FIELD_SPECS } from '@/lib/fields';
-import { useState } from 'react';
 import NumberInput from './numberInput';
-import Link from './link';
 import { Calculation, calculate } from '@/lib/calculations/types';
 import { CalculationLink } from './calculationDescriptions';
 import FieldDescription from './fieldDescription';
@@ -30,6 +28,8 @@ export default function CustomModelEditor({ fields, setFields }: Props) {
       <Field field={'trainingTimeDays'} fields={fields} setFields={setFields} />
       <Field field={'flopsPerSecond'} fields={fields} setFields={setFields} />
       <Field field={'gpuType'} fields={fields} setFields={setFields} />
+      <Field field={'gpuCount'} fields={fields} setFields={setFields} />
+      <Field field={'gpuUtilization'} fields={fields} setFields={setFields} />
     </div>
   );
 }
@@ -67,7 +67,7 @@ function Field<T extends ModelFieldType>({
         {fieldSpec.valueType === 'gpu-type' && (
           <DropDownInput
             value={fieldValue?.value as GpuType}
-            options={GPU_TYPES}
+            options={Object.keys(GPU_TYPES) as GpuType[]}
             setValue={setValue}
           />
         )}

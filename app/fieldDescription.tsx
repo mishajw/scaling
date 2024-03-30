@@ -46,6 +46,23 @@ export default function FieldDescription({ type }: { type: ModelFieldType }) {
           hardware, not the theoretical maximum FLOPs of the hardware.
         </div>
       );
+    case 'gpuType':
+      return (
+        <div className='text-sm'>
+          The type of GPU we're training the model on.
+        </div>
+      );
+    case 'gpuCount':
+      return (
+        <div className='text-sm'>The number of GPUs we're running on.</div>
+      );
+    case 'gpuUtilization':
+      return (
+        <div className='text-sm'>
+          The number of GPUs we're running on. Use this to account for
+          algorithmic (in)efficiency, especially for running models at scale.
+        </div>
+      );
     default:
       // assertNever(type);
       return <div>??</div>;

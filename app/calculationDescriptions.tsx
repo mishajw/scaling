@@ -96,6 +96,22 @@ export default function CalculationDescriptions() {
           {'$$\\text{FLOPs} = \\text{FLOP/S} * \\text{Training time seconds}$$'}
         </Latex>
       </div>
+      <CalculationTitle type='gpu-flops'>GPU FLOP/S</CalculationTitle>
+      <div>
+        <div className='my-2'>
+          We can derive the FLOP/S from the hardware we have:
+        </div>
+        <Latex>
+          {
+            '$$\\text{FLOP/S} = \\text{GPU FLOP/S} * \\text{\\#GPUs} * \\text{\\% GPU util}$$'
+          }
+        </Latex>
+        <div className='my-2'>
+          N.B.: We don't take into account the memory required by the model
+          anywhere, so keep in mind that constraint when calculating (I'd love
+          to add this soon!).
+        </div>
+      </div>
     </div>
   );
 }
@@ -120,6 +136,7 @@ export function CalculationLink({ type }: { type: CalculationType }) {
     'open-ai-loss': "OpenAI's loss law",
     'open-ai-compute-split': "OpenAI's compute split",
     'training-time': 'training time',
+    'gpu-flops': 'GPU FLOP/S',
   }[type];
   return (
     <Link href={'#' + type} target='_self'>

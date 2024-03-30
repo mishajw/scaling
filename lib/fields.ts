@@ -1,4 +1,5 @@
 import { flopsCalculation } from './calculations/flops';
+import { gpuFlops } from './calculations/gpuFlops';
 import { openAiComputeSplit } from './calculations/openAiComputeSplit';
 import { openAiLoss } from './calculations/openAiLoss';
 import { trainingTime } from './calculations/trainingTime';
@@ -62,12 +63,24 @@ export const FIELD_SPECS: Partial<Record<ModelFieldType, FieldSpec>> = {
     name: 'FLOP/S',
     valueType: 'number',
     default: undefined,
-    calculations: [trainingTime('flopsPerSecond')],
+    calculations: [trainingTime('flopsPerSecond'), gpuFlops('flopsPerSecond')],
   },
   gpuType: {
     name: 'GPU type',
     valueType: 'gpu-type',
     default: 'NVIDIA A100',
     calculations: [],
+  },
+  gpuCount: {
+    name: '# GPUs',
+    valueType: 'number',
+    default: undefined,
+    calculations: [gpuFlops('gpuCount')],
+  },
+  gpuUtilization: {
+    name: 'GPU utilization (%)',
+    valueType: 'number',
+    default: undefined,
+    calculations: [gpuFlops('gpuUtilization')],
   },
 };

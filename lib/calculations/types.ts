@@ -4,7 +4,8 @@ export type CalculationType =
   | 'flops'
   | 'open-ai-loss'
   | 'open-ai-compute-split'
-  | 'training-time';
+  | 'training-time'
+  | 'gpu-flops';
 
 export interface Calculation<
   FieldT extends ModelFieldType,
