@@ -2,7 +2,7 @@
 
 import ModelPlot from './modelPlot';
 import { useState } from 'react';
-import { ModelFields } from '@/lib/model';
+import { ModelFieldType, ModelFields } from '@/lib/model';
 import CustomModelEditor from './customModelEditor';
 import { MODELS } from '@/lib/dataset';
 import ScaleExplanation from './scaleExplanation';
@@ -10,15 +10,21 @@ import CalculationDescriptions from './calculationDescriptions';
 import Link from './link';
 
 export default function PlotView() {
-  const [customFields, setCustomFields] = useState<ModelFields>({
-    gpuType: {
-      value: 'NVIDIA A100',
-      source: 'custom',
+  const [state, setState] = useState<{
+    customFields: ModelFields;
+    plotField: ModelFieldType;
+  }>({
+    customFields: {
+      gpuType: {
+        value: 'NVIDIA A100',
+        source: 'custom',
+      },
+      gpuUtilization: {
+        value: 0.3,
+        source: 'custom',
+      },
     },
-    gpuUtilization: {
-      value: 0.3,
-      source: 'custom',
-    },
+    plotField: 'flops',
   });
   return (
     <div className='flex flex-col items-center'>
@@ -47,13 +53,17 @@ export default function PlotView() {
       <div className='flex flex-row flex-wrap justify-center items-start'>
         <div className='m-2 p-2 border-2 max-w-screen-sm'>
           <CustomModelEditor
-            fields={customFields}
-            setFields={setCustomFields}
+            fields={state.customFields}
+            setFields={customFields => setState({ ...state, customFields })}
           />
           <ScaleExplanation />
         </div>
         <div className='m-2 p-2 border-2'>
-          <ModelPlot customFields={customFields} models={MODELS} />
+          <ModelPlot
+            plotField={state.plotField}
+            customFields={state.customFields}
+            models={MODELS}
+          />
         </div>
         <div className='m-2 p-2 border-2 max-w-screen-md'>
           <CalculationDescriptions />

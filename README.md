@@ -20,7 +20,7 @@ Tool for inspecting and comparing the high-level statistics of language models, 
 - [x] Add link to mishajw.com.
 - [x] Add cost.
 - [ ] Add Chinchilla scaling laws.
-- [ ] Experiment with new graph layout.
+- [x] Experiment with new graph layout.
 - [ ] Add percentage formatting.
 
 ### When we have WiFi

@@ -6,11 +6,13 @@ import { FIELD_SPECS, FieldSpec } from '@/lib/fields';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import { assertNever } from '@/lib/util';
+import { CalculationType, calculate } from '@/lib/calculations/types';
 
 // @ts-ignore
 const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
 
 interface Props {
+  plotField: ModelFieldType;
   customFields: ModelFields;
   models: Model[];
 }
@@ -22,27 +24,17 @@ interface ModelData {
   citation: string | undefined;
 }
 
-export default function ModelPlot({
-  customFields: customFields,
-  models,
-}: Props) {
+export default function ModelPlot({ plotField, customFields, models }: Props) {
+  const fieldSpec = FIELD_SPECS[plotField]!;
   return (
     <div className='flex flex-col'>
+      <div className='text-center text-xl'>{fieldSpec.name}</div>
       <ModelFieldPlot
-        field={'flops'}
+        field={plotField}
         customFields={customFields}
         models={models}
       />
-      <ModelFieldPlot
-        field={'numParams'}
-        customFields={customFields}
-        models={models}
-      />
-      <ModelFieldPlot
-        field={'numTokens'}
-        customFields={customFields}
-        models={models}
-      />
+      <VaryRequirementsPlot field={plotField} customFields={customFields} />
     </div>
   );
 }
@@ -95,7 +87,7 @@ function ModelFieldPlot<T extends ModelFieldType>({
           },
         ]}
         layout={{
-          title: fieldSpec.name,
+          title: `Comparing ${fieldSpec.name} with other models`,
           showlegend: false,
           xaxis: { type: 'date' },
           yaxis: { type: 'log' },
@@ -112,6 +104,78 @@ function ModelFieldPlot<T extends ModelFieldType>({
         }}
       />
       <Citation model={focusedModel} fieldSpec={fieldSpec} />
+    </div>
+  );
+}
+
+function VaryRequirementsPlot<T extends ModelFieldType>({
+  field,
+  customFields,
+}: {
+  field: T;
+  customFields: ModelFields;
+}) {
+  const fieldSpec = FIELD_SPECS[field]!;
+
+  const maybeRequirementValues = fieldSpec.calculations.flatMap(calculation => {
+    return calculation.requires.map((requirement: ModelFieldType) => {
+      const requirementSpec = FIELD_SPECS[requirement]!;
+      if (requirementSpec.valueType !== 'number') {
+        return undefined;
+      }
+      const [min, max] = requirementSpec.minMax;
+      const results = range(10).map(i => {
+        const requirementValue = i * (max - min) + min;
+        const result = calculate(
+          {
+            ...customFields,
+            [requirement]: { value: requirementValue, source: 'custom' },
+          },
+          calculation
+        );
+        return { result, requirementValue };
+      });
+      if (results.find(({ result }) => result !== undefined) == undefined) {
+        return undefined;
+      }
+      return { calculation: calculation.type, requirement, results };
+    });
+  });
+  const requirementValues = maybeRequirementValues.filter(
+    (
+      values
+    ): values is {
+      calculation: CalculationType;
+      requirement: ModelFieldType;
+      results: {
+        result: number;
+        requirementValue: number;
+      }[];
+    } => values !== undefined
+  );
+  return (
+    <div style={{ width: 600, height: 400 }}>
+      <Plot
+        // @ts-ignore
+        data={requirementValues.map(
+          ({ calculation, requirement, results }) => ({
+            name: `${FIELD_SPECS[requirement]?.name} (${calculation})`,
+            x: results.map(({ requirementValue }) => requirementValue)!,
+            y: results.map(({ result }) => result)!,
+            mode: 'line',
+            type: 'scatter',
+          })
+        )}
+        layout={{
+          title: `Varying ${fieldSpec.name} with its dependencies`,
+          // showlegend: false,
+          yaxis: { type: 'log' },
+          width: 600,
+          height: 400,
+          // We set r:80 to make room for plotly's menu.
+          margin: { l: 40, r: 80, b: 40, t: 40 },
+        }}
+      />
     </div>
   );
 }
@@ -166,4 +230,12 @@ function sourceString(source: FieldSource): string {
     default:
       assertNever(source);
   }
+}
+
+function range(n: number): number[] {
+  let result = [];
+  for (let i = 0; i < n; i++) {
+    result.push(i / (n - 1));
+  }
+  return result;
 }

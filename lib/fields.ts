@@ -16,6 +16,7 @@ export type FieldSpec = {
   | {
       valueType: 'number';
       default: number | undefined;
+      minMax: [number, number];
     }
   | {
       valueType: 'gpu-type';
@@ -29,6 +30,7 @@ export const FIELD_SPECS: Partial<Record<ModelFieldType, FieldSpec>> = {
     valueType: 'number',
     default: undefined,
     calculations: [flopsCalculation('flops'), trainingTime('flops')],
+    minMax: [1e3, 1e10],
   },
   numParams: {
     name: '# params',
@@ -38,6 +40,7 @@ export const FIELD_SPECS: Partial<Record<ModelFieldType, FieldSpec>> = {
       flopsCalculation('numParams'),
       openAiComputeSplit('numParams'),
     ],
+    minMax: [100e6, 2e12],
   },
   numTokens: {
     name: '# tokens',
@@ -47,12 +50,14 @@ export const FIELD_SPECS: Partial<Record<ModelFieldType, FieldSpec>> = {
       flopsCalculation('numTokens'),
       openAiComputeSplit('numTokens'),
     ],
+    minMax: [1e9, 100e12],
   },
   lossNats: {
     name: 'Loss',
     valueType: 'number',
     default: undefined,
     calculations: [openAiLoss('lossNats')],
+    minMax: [1e3, 1e10],
   },
   trainingTimeDays: {
     name: 'Training time (days)',
@@ -62,12 +67,14 @@ export const FIELD_SPECS: Partial<Record<ModelFieldType, FieldSpec>> = {
       trainingTime('trainingTimeDays'),
       gpuCost('trainingTimeDays'),
     ],
+    minMax: [1e3, 1e10],
   },
   flopsPerSecond: {
     name: 'FLOP/S',
     valueType: 'number',
     default: undefined,
     calculations: [trainingTime('flopsPerSecond'), gpuFlops('flopsPerSecond')],
+    minMax: [1e3, 1e10],
   },
   gpuType: {
     name: 'GPU type',
@@ -80,17 +87,20 @@ export const FIELD_SPECS: Partial<Record<ModelFieldType, FieldSpec>> = {
     valueType: 'number',
     default: undefined,
     calculations: [gpuFlops('gpuCount'), gpuCost('gpuCount')],
+    minMax: [1e3, 1e10],
   },
   gpuUtilization: {
     name: 'GPU utilization (%)',
     valueType: 'number',
     default: undefined,
     calculations: [gpuFlops('gpuUtilization')],
+    minMax: [1e3, 1e10],
   },
   costDollars: {
     name: 'Cost ($)',
     valueType: 'number',
     default: undefined,
     calculations: [gpuCost('costDollars')],
+    minMax: [1e3, 1e10],
   },
 };
