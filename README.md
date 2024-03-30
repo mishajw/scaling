@@ -15,9 +15,9 @@ Tool for inspecting and comparing the high-level statistics of language models, 
 - [x] Add description of OpenAI's scaling laws.
 - [x] Show conflicts clearly in the value tags.
 - [x] Fix side-by-side layout.
-- [ ] Improve bio, mention compute caps.
+- [x] Improve bio, mention compute caps.
 - [ ] Add clear button to number inputs.
-- [ ] Add link to mishajw.com.
+- [x] Add link to mishajw.com.
 - [ ] Add cost.
 - [ ] Add Chinchilla scaling laws.
 - [ ] Experiment with new graph layout.

@@ -24,9 +24,12 @@ export default function PlotView() {
   return (
     <div className='flex flex-col items-center'>
       <div className='m-2 p-2 border-2 max-w-screen-md'>
-        A tool for exploring the relationships between large language model
-        attributes. This should help you get a feel for them, for example how
-        dataset size and FLOPs are related.
+        <span className='font-bold'>
+          A calculator for language model scaling.
+        </span>{' '}
+        How many FLOPs do you need to train a 13B model? How much does it cost
+        to scale to 1T tokens? If the we cap training runs at one yetaflop, how
+        many GPUs do you need to break that?
       </div>
       <div className='flex flex-row flex-wrap justify-center items-start'>
         <div className='m-2 p-2 border-2 max-w-screen-sm'>
