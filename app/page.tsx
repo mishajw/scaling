@@ -7,7 +7,7 @@ import CustomModelEditor from './customModelEditor';
 import { MODELS } from '@/lib/dataset';
 import { FIELD_SPECS } from '@/lib/fields';
 import ScaleExplanation from './scaleExplanation';
-import MethodDescriptions from './methodDescriptions';
+import CalculationDescriptions from './calculationDescriptions';
 
 export default function PlotView() {
   const [customFields, setCustomFields] = useState<ModelFields>({
@@ -31,7 +31,7 @@ export default function PlotView() {
             />
           </div>
           <div className='m-2 p-2 border-2'>
-            <MethodDescriptions />
+            <CalculationDescriptions />
             <ScaleExplanation />
           </div>
         </div>

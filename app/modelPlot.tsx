@@ -166,7 +166,3 @@ function sourceString(source: FieldSource): string {
       assertNever();
   }
 }
-
-function assertNever(): never {
-  throw new Error('Unexpected source');
-}

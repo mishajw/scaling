@@ -1,4 +1,3 @@
-import { Inference, constructInferInput } from '@/lib/inferences';
 import {
   ModelField,
   ModelFieldType,
@@ -9,8 +8,9 @@ import { siFormat } from '@/lib/numberFormat';
 import { FIELD_SPECS } from '@/lib/fields';
 import { useState } from 'react';
 import NumberInput from './numberInput';
-import { INFERENCE_IDS, INFERENCE_TITLES } from './methodDescriptions';
 import Link from './link';
+import { Calculation, calculate } from '@/lib/calculations/types';
+import { CalculationLink } from './calculationDescriptions';
 
 interface Props {
   fields: ModelFields;
@@ -52,12 +52,12 @@ function Field<T extends ModelFieldType>({
           }}
         />
         <div className='ml-4'>
-          {fieldSpec.inferences.map((inference, i) => (
-            <Infer
+          {fieldSpec.calculations.map((calculation, i) => (
+            <Calculate
               key={i}
               fields={fields}
               setFields={setFields}
-              inference={inference}
+              calculation={calculation}
             />
           ))}
           <Default fieldType={field} fields={fields} setFields={setFields} />
@@ -67,33 +67,29 @@ function Field<T extends ModelFieldType>({
   );
 }
 
-function Infer<T extends ModelFieldType>({
+function Calculate<T extends ModelFieldType>({
   fields,
   setFields: setModel,
-  inference,
+  calculation,
 }: {
   fields: ModelFields;
   setFields: (model: ModelFields) => void;
-  inference: Inference<any, T>;
+  calculation: Calculation<any, T>;
 }) {
-  const inferInput = constructInferInput(fields, inference.requires);
-  const inferredValue = inferInput ? inference.infer(inferInput) : undefined;
+  const calculatedValue = calculate(fields, calculation);
   return (
     <div className='m-1'>
       <SetValueButton
-        value={inferredValue}
-        field={inference.field}
+        value={calculatedValue}
+        field={calculation.fieldType}
         fields={fields}
         setFields={setModel}
       />
       <span className='text-sm'>
         {' '}
-        from{' '}
-        <Link href={'#' + INFERENCE_IDS[inference.explanation]} target='_self'>
-          {INFERENCE_TITLES[inference.explanation]}
-        </Link>
+        from <CalculationLink type={calculation.type} />
         &nbsp;with
-        {inference.requires.map((requirement, i) => (
+        {calculation.requires.map((requirement, i) => (
           <ValueTag key={i} field={requirement} value={fields[requirement]} />
         ))}
       </span>

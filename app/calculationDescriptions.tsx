@@ -1,9 +1,10 @@
 import Link from './link';
 import Latex from 'react-latex-next';
 import 'katex/dist/katex.min.css';
-import { InferenceExplanationType } from '@/lib/inferences';
+import { CalculationType } from '@/lib/calculations/types';
+import { Asset } from 'next/font/google';
 
-export default function MethodDescriptions() {
+export default function CalculationDescriptions() {
   return (
     <div>
       <div className='text-xl'>Methods</div>
@@ -24,9 +25,25 @@ export default function MethodDescriptions() {
   );
 }
 
-export const INFERENCE_TITLES: Record<InferenceExplanationType, string> = {
-  megatron: 'Megatron-LM equation',
-};
-export const INFERENCE_IDS: Record<InferenceExplanationType, string> = {
-  megatron: 'megatron',
-};
+export function CalculationLink({ type }: { type: CalculationType }) {
+  // let id: string;
+  // switch (type) {
+  //   case 'megatron':
+  //     id = 'megatron';
+  //   default:
+  //     assertNever(type);
+  // }
+
+  const id = {
+    megatron: 'megatron',
+  }[type];
+  const title = {
+    megatron: 'Megatron-LM equation',
+  }[type];
+
+  return (
+    <Link href={'#' + id} target='_self'>
+      {title}
+    </Link>
+  );
+}
