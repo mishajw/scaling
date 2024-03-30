@@ -86,8 +86,8 @@ function Infer<T extends ModelFieldType>({
         fields={fields}
         setFields={setModel}
       />
-      <span className='text-sm ml-2'>
-        from{' '}
+      <span className='text-sm'>
+       {' '}from{' '}
         <Link href={'#' + INFERENCE_IDS[inference.explanation]} target='_self'>
           {INFERENCE_TITLES[inference.explanation]}
         </Link>
