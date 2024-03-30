@@ -17,10 +17,10 @@ Tool for inspecting and comparing the high-level statistics of language models, 
 - [ ] Set sensible defaults (GPT-3?).
 - [ ] Fix side-by-side layout.
 - [ ] Improve bio, mention compute caps.
-- [ ] Experiment with new graph layout.
-- [ ] Add Chinchilla scaling laws.
-- [ ] Add cost.
 - [ ] Add clear button to number inputs.
+- [ ] Add cost.
+- [ ] Add Chinchilla scaling laws.
+- [ ] Experiment with new graph layout.
 
 ### When we have WiFi
 
