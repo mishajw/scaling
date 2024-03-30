@@ -45,11 +45,18 @@ function Field<T extends ModelFieldType>({
 }) {
   const fieldSpec = FIELD_SPECS[field]!;
   const fieldValue = fields[field];
-  const setValue = (value: ModelValueType) => {
-    setFields({
-      ...fields,
-      [field]: { ...fields[field], value },
-    });
+  const setValue = (value: ModelValueType | undefined) => {
+    if (value === undefined) {
+      setFields({
+        ...fields,
+        [field]: undefined,
+      });
+    } else {
+      setFields({
+        ...fields,
+        [field]: { ...fields[field], value },
+      });
+    }
   };
   return (
     <div className='contents'>
