@@ -16,25 +16,80 @@ import { GPU_TYPES, GpuType } from '@/lib/gpu';
 interface Props {
   fields: ModelFields;
   setFields: (fields: ModelFields) => void;
+  setPlotField: (plotField: ModelFieldType) => void;
 }
 
-export default function CustomModelEditor({ fields, setFields }: Props) {
+export default function CustomModelEditor({
+  fields,
+  setFields,
+  setPlotField,
+}: Props) {
   return (
     <div className='grid grid-cols-3'>
       <SectionTitle>Resources</SectionTitle>
-      <Field field={'costDollars'} fields={fields} setFields={setFields} />
-      <Field field={'trainingTimeDays'} fields={fields} setFields={setFields} />
+      <Field
+        field={'costDollars'}
+        fields={fields}
+        setFields={setFields}
+        setPlotField={setPlotField}
+      />
+      <Field
+        field={'trainingTimeDays'}
+        fields={fields}
+        setFields={setFields}
+        setPlotField={setPlotField}
+      />
       <SectionTitle>GPUs</SectionTitle>
-      <Field field={'gpuCount'} fields={fields} setFields={setFields} />
-      <Field field={'gpuType'} fields={fields} setFields={setFields} />
-      <Field field={'gpuUtilization'} fields={fields} setFields={setFields} />
+      <Field
+        field={'gpuCount'}
+        fields={fields}
+        setFields={setFields}
+        setPlotField={setPlotField}
+      />
+      <Field
+        field={'gpuType'}
+        fields={fields}
+        setFields={setFields}
+        setPlotField={setPlotField}
+      />
+      <Field
+        field={'gpuUtilization'}
+        fields={fields}
+        setFields={setFields}
+        setPlotField={setPlotField}
+      />
       <SectionTitle>Perf</SectionTitle>
-      <Field field={'flopsPerSecond'} fields={fields} setFields={setFields} />
-      <Field field={'flops'} fields={fields} setFields={setFields} />
+      <Field
+        field={'flopsPerSecond'}
+        fields={fields}
+        setFields={setFields}
+        setPlotField={setPlotField}
+      />
+      <Field
+        field={'flops'}
+        fields={fields}
+        setFields={setFields}
+        setPlotField={setPlotField}
+      />
       <SectionTitle>Model</SectionTitle>
-      <Field field={'numParams'} fields={fields} setFields={setFields} />
-      <Field field={'numTokens'} fields={fields} setFields={setFields} />
-      <Field field={'lossNats'} fields={fields} setFields={setFields} />
+      <Field
+        field={'numParams'}
+        fields={fields}
+        setFields={setFields}
+        setPlotField={setPlotField}
+      />
+      <Field
+        field={'numTokens'}
+        fields={fields}
+        setFields={setFields}
+        setPlotField={setPlotField}
+      />
+      <Field
+        field={'lossNats'}
+        fields={fields}
+        setFields={setFields}
+        setPlotField={setPlotField}
+      />
     </div>
   );
 }
@@ -51,10 +106,12 @@ function Field<T extends ModelFieldType>({
   field,
   fields,
   setFields,
+  setPlotField,
 }: {
   field: T;
   fields: ModelFields;
   setFields: (fields: ModelFields) => void;
+  setPlotField: (plotField: ModelFieldType) => void;
 }) {
   const fieldSpec = FIELD_SPECS[field]!;
   const fieldValue = fields[field];
@@ -74,7 +131,17 @@ function Field<T extends ModelFieldType>({
   return (
     <div className='contents'>
       <div className='m-2'>
-        <div className='text-lg'>{fieldSpec.name}</div>
+        <div className='flex flex-row items-center'>
+          <div className='text-lg'>{fieldSpec.name}</div>
+          {fieldSpec.valueType === 'number' && (
+            <button
+              className='ml-2 text-sm rounded bg-gray-200 px-2'
+              onClick={() => setPlotField(field)}
+            >
+              Plot
+            </button>
+          )}
+        </div>
         <FieldDescription type={field} />
       </div>
       <div className='m-2 col-span-2'>

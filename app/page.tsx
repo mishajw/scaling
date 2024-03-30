@@ -55,6 +55,7 @@ export default function PlotView() {
           <CustomModelEditor
             fields={state.customFields}
             setFields={customFields => setState({ ...state, customFields })}
+            setPlotField={plotField => setState({ ...state, plotField })}
           />
           <ScaleExplanation />
         </div>
