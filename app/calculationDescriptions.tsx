@@ -12,9 +12,9 @@ export default function CalculationDescriptions() {
       <CalculationTitle type='flops'>FLOPs</CalculationTitle>
       <div>
         <div className='my-2'>
-          OpenAI's <Link href={OAI_SCALING}>scaling laws paper</Link> simplifies
-          the calculation of FLOPs to be dependent on only the number of tokens
-          trained on and number of parameters in the model:
+          OpenAI&apos;s <Link href={OAI_SCALING}>scaling laws paper</Link>{' '}
+          simplifies the calculation of FLOPs to be dependent on only the number
+          of tokens trained on and number of parameters in the model:
         </div>
         <Latex>
           {'$$\\text{FLOPs} = \\text{\\#tokens} * \\text{\\#params} * 6$$'}
@@ -35,12 +35,12 @@ export default function CalculationDescriptions() {
         </div>
       </div>
       <CalculationTitle type='open-ai-loss'>
-        OpenAI's loss power law
+        OpenAI&apos;s loss power law
       </CalculationTitle>
       <div>
         <div className='my-2'>
-          OpenAI's <Link href={OAI_SCALING}>scaling laws paper</Link> fits a
-          power law to estimate the loss (in nats) given a fixed number of
+          OpenAI&apos;s <Link href={OAI_SCALING}>scaling laws paper</Link> fits
+          a power law to estimate the loss (in nats) given a fixed number of
           parameters and tokens:
         </div>
         <div className='my-2'></div>
@@ -59,11 +59,11 @@ export default function CalculationDescriptions() {
         </div>
       </div>
       <CalculationTitle type='open-ai-compute-split'>
-        OpenAI's optimal compute split
+        OpenAI&apos;s optimal compute split
       </CalculationTitle>
       <div>
         <div className='my-2'>
-          Given a fixed amount of FLOPs, OpenAI's{' '}
+          Given a fixed amount of FLOPs, OpenAI&apos;s{' '}
           <Link href={OAI_SCALING}>scaling laws paper</Link> derives a way to
           calculate the best way to invest it: Do you scale up model size, or
           scale up dataset size?
@@ -108,8 +108,8 @@ export default function CalculationDescriptions() {
         </Latex>
         <div className='my-2'>
           N.B.: We don't take into account the memory required by the model
-          anywhere, so keep in mind that constraint when calculating (I'd love
-          to add this soon!).
+          anywhere, so keep in mind that constraint when calculating (I&apos;d
+          love to add this soon!).
         </div>
       </div>
     </div>
@@ -137,6 +137,7 @@ export function CalculationLink({ type }: { type: CalculationType }) {
     'open-ai-compute-split': "OpenAI's compute split",
     'training-time': 'training time',
     'gpu-flops': 'GPU FLOP/S',
+    'gpu-cost': 'GPU cost',
   }[type];
   return (
     <Link href={'#' + type} target='_self'>
