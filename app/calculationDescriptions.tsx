@@ -107,7 +107,7 @@ export default function CalculationDescriptions() {
           }
         </Latex>
         <div className='my-2'>
-          N.B.: We don't take into account the memory required by the model
+          N.B.: We don&apos;t take into account the memory required by the model
           anywhere, so keep in mind that constraint when calculating (I&apos;d
           love to add this soon!).
         </div>
