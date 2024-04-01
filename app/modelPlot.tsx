@@ -7,6 +7,7 @@ import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import { assertNever } from '@/lib/util';
 import { CalculationType, calculate } from '@/lib/calculations/types';
+import { CALCULATION_TITLES } from './calculationDescriptions';
 
 // @ts-ignore
 const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
@@ -123,7 +124,8 @@ function VaryRequirementsPlot<T extends ModelFieldType>({
       if (requirementSpec.valueType !== 'number') {
         return undefined;
       }
-      const [min, max] = requirementSpec.minMax;
+      const min = (customFields[requirement]?.value as number) * 0.1;
+      const max = (customFields[requirement]?.value as number) * 2;
       const results = range(10).map(i => {
         const requirementValue = i * (max - min) + min;
         const result = calculate(
@@ -153,28 +155,43 @@ function VaryRequirementsPlot<T extends ModelFieldType>({
       }[];
     } => values !== undefined
   );
+  console.log(requirementValues);
   return (
-    <div style={{ width: 600, height: 400 }}>
-      <Plot
-        // @ts-ignore
-        data={requirementValues.map(
-          ({ calculation, requirement, results }) => ({
-            name: `${FIELD_SPECS[requirement]?.name} (${calculation})`,
-            x: results.map(({ requirementValue }) => requirementValue)!,
-            y: results.map(({ result }) => result)!,
-            mode: 'line',
-            type: 'scatter',
-          })
-        )}
-        layout={{
-          title: `Varying ${fieldSpec.name} with its dependencies`,
-          yaxis: { type: 'log' },
-          width: 600,
-          height: 400,
-          // We set r:80 to make room for plotly's menu.
-          margin: { l: 40, r: 80, b: 40, t: 40 },
-        }}
-      />
+    <div>
+      {requirementValues.map(({ calculation, requirement, results }, i) => (
+        <div key={i}>
+          <Plot
+            // @ts-ignore
+            data={[
+              {
+                x: results.map(({ requirementValue }) => requirementValue)!,
+                y: results.map(({ result }) => result)!,
+                type: 'scatter',
+              },
+              {
+                x: [
+                  results[0].requirementValue,
+                  results.at(-1)!.requirementValue,
+                ],
+                y: [customFields[field]?.value, customFields[field]?.value],
+                mode: 'lines',
+                type: 'scatter',
+                line: { color: 'orange', dash: 'dash' },
+              },
+            ]}
+            layout={{
+              title: `${CALCULATION_TITLES[calculation]}: <b>${fieldSpec.name}</b> vs. <b>${FIELD_SPECS[requirement]?.name}</b>`,
+              showlegend: false,
+              xaxis: { title: FIELD_SPECS[requirement]?.name },
+              yaxis: { title: fieldSpec.name },
+              width: 600,
+              height: 200,
+              // We set r:80 to make room for plotly's menu.
+              margin: { l: 40, r: 80, b: 40, t: 40 },
+            }}
+          />
+        </div>
+      ))}
     </div>
   );
 }

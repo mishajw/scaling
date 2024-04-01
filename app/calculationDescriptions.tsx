@@ -126,6 +126,15 @@ export default function CalculationDescriptions() {
   );
 }
 
+export const CALCULATION_TITLES: Record<CalculationType, string> = {
+  flops: 'FLOPs',
+  'open-ai-loss': "OpenAI's loss law",
+  'open-ai-compute-split': "OpenAI's compute split",
+  'training-time': 'training time',
+  'gpu-flops': 'GPU FLOP/S',
+  'gpu-cost': 'GPU cost',
+};
+
 function CalculationTitle({
   type,
   children,
@@ -141,14 +150,7 @@ function CalculationTitle({
 }
 
 export function CalculationLink({ type }: { type: CalculationType }) {
-  const title = {
-    flops: 'FLOPs',
-    'open-ai-loss': "OpenAI's loss law",
-    'open-ai-compute-split': "OpenAI's compute split",
-    'training-time': 'training time',
-    'gpu-flops': 'GPU FLOP/S',
-    'gpu-cost': 'GPU cost',
-  }[type];
+  const title = CALCULATION_TITLES[type];
   return (
     <Link href={'#' + type} target='_self'>
       {title}
