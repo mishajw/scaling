@@ -201,7 +201,7 @@ function Calculate<T extends ModelFieldType>({
           &nbsp;with{' '}
         </span>
         {calculation.requires.map((requirement, i) => (
-          <span className='text-sm'>
+          <span key={i} className='text-sm'>
             <ValueTag key={i} field={requirement} value={fields[requirement]} />{' '}
           </span>
         ))}

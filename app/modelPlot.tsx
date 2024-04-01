@@ -168,7 +168,6 @@ function VaryRequirementsPlot<T extends ModelFieldType>({
         )}
         layout={{
           title: `Varying ${fieldSpec.name} with its dependencies`,
-          // showlegend: false,
           yaxis: { type: 'log' },
           width: 600,
           height: 400,
