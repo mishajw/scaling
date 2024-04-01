@@ -11,7 +11,7 @@ export default function Link({
     <a
       href={href}
       target={target ?? '_blank'}
-      className='text-blue-500 underline'
+      className='text-blue-500 underline whitespace-nowrap'
     >
       {children}
     </a>

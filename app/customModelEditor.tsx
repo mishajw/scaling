@@ -196,11 +196,13 @@ function Calculate<T extends ModelFieldType>({
       <span className='text-sm'>
         {' '}
         from <CalculationLink type={calculation.type} />
-        &nbsp;with
-        {calculation.requires.map((requirement, i) => (
-          <ValueTag key={i} field={requirement} value={fields[requirement]} />
-        ))}
+        &nbsp;with{' '}
       </span>
+      {calculation.requires.map((requirement, i) => (
+        <span className='text-sm'>
+          <ValueTag key={i} field={requirement} value={fields[requirement]} />{' '}
+        </span>
+      ))}
     </div>
   );
 }
@@ -241,7 +243,7 @@ function ValueTag<T extends ModelFieldType>({
 }) {
   const fieldSpec = FIELD_SPECS[field]!;
   return (
-    <span className='whitespace-nowrap rounded m-1 p-1 bg-green-200'>
+    <span className='inline-block whitespace-nowrap rounded px-1 bg-green-200'>
       {fieldSpec.name}=<Value field={value} />
     </span>
   );
