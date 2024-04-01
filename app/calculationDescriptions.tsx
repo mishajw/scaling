@@ -45,11 +45,10 @@ export default function CalculationDescriptions() {
         </div>
         <div className='my-2'></div>
         <Latex>
-          {/* TODO: Fix latex. */}
-          {'$$L(\\text{\\#params}, \\text{\\#tokens}) = (' +
-            '(\\frac{N_c}{\\text{\\#params}})^{\\frac{\\alpha_N}{\\alpha_D}} + ' +
+          {'$$L(\\text{\\#params}, \\text{\\#tokens}) = \\left(' +
+            '\\left(\\frac{N_c}{\\text{\\#params}}\\right)^{\\frac{\\alpha_N}{\\alpha_D}} + ' +
             '\\frac{D_c}{\\text{\\#tokens}}' +
-            ')^{\\alpha_D}$$'}
+            '\\right)^{\\alpha_D}$$'}
         </Latex>
         <div className='my-2'>
           Where <Latex>{'$\\alpha_N = 0.076$'}</Latex>,{' '}
