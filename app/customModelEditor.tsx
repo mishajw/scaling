@@ -158,7 +158,7 @@ function Field<T extends ModelFieldType>({
             setValue={setValue}
           />
         )}
-        <div className='ml-4'>
+        <div>
           {fieldSpec.calculations.map((calculation, i) => (
             <Calculate
               key={i}
@@ -185,24 +185,27 @@ function Calculate<T extends ModelFieldType>({
 }) {
   const calculatedValue = calculate(fields, calculation);
   return (
-    <div className='m-1'>
-      <SetValueButton
-        value={calculatedValue}
-        field={calculation.fieldType}
-        fields={fields}
-        setFields={setModel}
-        canConflict={true}
-      />
-      <span className='text-sm'>
-        {' '}
-        from <CalculationLink type={calculation.type} />
-        &nbsp;with{' '}
-      </span>
-      {calculation.requires.map((requirement, i) => (
+    <div className='m-1 flex flex-row'>
+      <div className='flex-grow'>
+        <SetValueButton
+          value={calculatedValue}
+          field={calculation.fieldType}
+          fields={fields}
+          setFields={setModel}
+          canConflict={true}
+        />
+      </div>
+      <div className='ml-1'>
         <span className='text-sm'>
-          <ValueTag key={i} field={requirement} value={fields[requirement]} />{' '}
+          from <CalculationLink type={calculation.type} />
+          &nbsp;with{' '}
         </span>
-      ))}
+        {calculation.requires.map((requirement, i) => (
+          <span className='text-sm'>
+            <ValueTag key={i} field={requirement} value={fields[requirement]} />{' '}
+          </span>
+        ))}
+      </div>
     </div>
   );
 }
@@ -281,7 +284,7 @@ function SetValueButton<T extends ModelFieldType>({
   return (
     <button
       disabled={value === undefined}
-      className={`rounded px-1 ${color}`}
+      className={`rounded px-1 whitespace-nowrap ${color}`}
       onClick={() =>
         setFields({
           ...fields,
@@ -289,7 +292,7 @@ function SetValueButton<T extends ModelFieldType>({
         })
       }
     >
-      &#x2196; <Value field={value ? { value, source: 'custom' } : undefined} />
+      = <Value field={value ? { value, source: 'custom' } : undefined} />
     </button>
   );
 }
