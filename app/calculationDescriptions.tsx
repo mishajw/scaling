@@ -112,6 +112,17 @@ export default function CalculationDescriptions() {
           love to add this soon!).
         </div>
       </div>
+      <CalculationTitle type='gpu-cost'>GPU cost</CalculationTitle>
+      <div>
+        <div className='my-2'>
+          We calculate the cost of the GPUs from their hourly cost:
+        </div>
+        <Latex>
+          {
+            '$$\\$ = \\text{\\$/GPU/hour} * \\text{\\#GPUs} * \\text{Training time hours}$$'
+          }
+        </Latex>
+      </div>
     </div>
   );
 }
