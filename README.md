@@ -6,7 +6,7 @@ Tool for inspecting and comparing the high-level statistics of language models, 
 
 ### Today
 
-- [ ] Fix whitespace wrapping.
+- [x] Fix whitespace wrapping.
 - [ ] Validate scaling laws.
 - [ ] Add Chinchilla scaling laws.
 - [ ] Add percentage formatting.
@@ -15,3 +15,5 @@ Tool for inspecting and comparing the high-level statistics of language models, 
 - [ ] Add model parameters.
 - [ ] Add GET params for storing values.
 - [ ] Pick favicon.
+- [ ] Get proper GPU values.
+- [ ] Present GPU values somehow.

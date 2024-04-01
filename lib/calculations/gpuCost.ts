@@ -6,8 +6,6 @@ import { Calculation, CalculationType } from './types';
 
 const type: CalculationType = 'gpu-cost';
 
-// cost = $/gpu/day * #gpus * days
-
 export function gpuCost<T extends ModelFieldType>(
   fieldType: T & ('costDollars' | 'gpuCount' | 'trainingTimeDays')
 ): Calculation<T, any> {
