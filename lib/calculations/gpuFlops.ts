@@ -29,7 +29,9 @@ export function gpuFlops<T extends ModelFieldType>(
         calculate: fields => {
           const gpuFlops =
             GPU_TYPES[fields.gpuType.value as GpuType]!.flopsPerSecond;
-          return fields.flopsPerSecond.value / gpuFlops / fields.gpuUtilization.value;
+          return (
+            fields.flopsPerSecond.value / gpuFlops / fields.gpuUtilization.value
+          );
         },
       };
     case 'gpuUtilization':

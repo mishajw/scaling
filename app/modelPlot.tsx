@@ -180,7 +180,9 @@ function VaryRequirementsPlot<T extends ModelFieldType>({
               },
             ]}
             layout={{
-              title: `${CALCULATION_TITLES[calculation]}: <b>${fieldSpec.name}</b> vs. <b>${FIELD_SPECS[requirement]?.name}</b>`,
+              title:
+                `<b>${fieldSpec.name}</b> vs. <b>${FIELD_SPECS[requirement]?.name}</b>` +
+                ` (from ${CALCULATION_TITLES[calculation]})`,
               showlegend: false,
               xaxis: { title: FIELD_SPECS[requirement]?.name },
               yaxis: { title: fieldSpec.name },
