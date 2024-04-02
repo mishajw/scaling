@@ -138,7 +138,7 @@ export default function CalculationDescriptions() {
             <li>
               NVIDIA costs are taken from{' '}
               <Link href='https://docs.coreweave.com/welcome-to-coreweave/resource-based-pricing'>
-                Coreweave's pricing.
+                Coreweave&apos;s pricing.
               </Link>
             </li>
             <li>
@@ -151,7 +151,7 @@ export default function CalculationDescriptions() {
             <li>
               TPU costs are taken from{' '}
               <Link href='https://cloud.google.com/tpu/pricing'>
-                Google Cloud's pricing
+                Google Cloud&apos;s pricing
               </Link>
               .
             </li>
