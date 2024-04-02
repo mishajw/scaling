@@ -1,5 +1,5 @@
 import { ModelFieldType } from '../model';
-import { ScalingLawType } from '../scalingLaw';
+import { ScalingLaw, ScalingLawType } from '../scalingLaw';
 import { assertNever } from '../util';
 import { Calculation } from './types';
 
@@ -32,13 +32,13 @@ export function chinchillaComputeSplit<T extends ModelFieldType>(
       return {
         type: 'chinchilla-compute-split',
         fieldType,
-        requires: ['flops'],
+        requires: ['flops', 'scalingLaw'],
         calculate: fields => {
           return (
-            NUM_PARAMS_COEFFICIENTS['chinchilla-1'] *
+            NUM_PARAMS_COEFFICIENTS[fields.scalingLaw.value as ScalingLawType] *
             Math.pow(
               fields.flops.value / 6,
-              NUM_PARAMS_EXPONENTS['chinchilla-1']
+              NUM_PARAMS_EXPONENTS[fields.scalingLaw.value as ScalingLawType]
             )
           );
         },
@@ -48,13 +48,13 @@ export function chinchillaComputeSplit<T extends ModelFieldType>(
       return {
         type: 'chinchilla-compute-split',
         fieldType,
-        requires: ['flops'],
+        requires: ['flops', 'scalingLaw'],
         calculate: fields => {
           return (
-            NUM_TOKENS_COEFFICIENTS['chinchilla-1'] *
+            NUM_TOKENS_COEFFICIENTS[fields.scalingLaw.value as ScalingLawType] *
             Math.pow(
               fields.flops.value / 6,
-              NUM_TOKENS_EXPONENTS['chinchilla-1']
+              NUM_TOKENS_EXPONENTS[fields.scalingLaw.value as ScalingLawType]
             )
           );
         },

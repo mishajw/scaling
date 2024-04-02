@@ -65,6 +65,14 @@ export default function FieldDescription({ type }: { type: ModelFieldType }) {
       return (
         <div className='text-sm'>The money you have to train the model.</div>
       );
+    case 'scalingLaw':
+      return (
+        <div className='text-sm'>
+          The scaling law used to select the best compute allocation for the
+          model. N.B.: We always use chinchilla-3 for estimating the loss, as
+          the other laws don&apos;t have a direct way to do this.
+        </div>
+      );
     default:
       // assertNever(type);
       return <div>??</div>;

@@ -21,6 +21,7 @@ const ModelValueTypeSchema = z.union([
   z.date(),
   GpuTypeSchema,
   DataTypeSchema,
+  ScalingLawTypeSchema,
 ]);
 const ModelFieldSchema = ModelFieldSchemaFn(ModelValueTypeSchema);
 

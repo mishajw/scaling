@@ -12,6 +12,7 @@ import { CalculationLink } from './calculationDescriptions';
 import FieldDescription from './fieldDescription';
 import DropDownInput from './dropDownInput';
 import { GPU_TYPES, GpuType } from '@/lib/gpu';
+import { SCALING_LAWS, ScalingLawType } from '@/lib/scalingLaw';
 
 interface Props {
   fields: ModelFields;
@@ -90,6 +91,12 @@ export default function CustomModelEditor({
         setFields={setFields}
         setPlotField={setPlotField}
       />
+      <Field
+        field={'scalingLaw'}
+        fields={fields}
+        setFields={setFields}
+        setPlotField={setPlotField}
+      />
     </div>
   );
 }
@@ -155,6 +162,13 @@ function Field<T extends ModelFieldType>({
           <DropDownInput
             value={fieldValue?.value as GpuType}
             options={Object.keys(GPU_TYPES) as GpuType[]}
+            setValue={setValue}
+          />
+        )}
+        {fieldSpec.valueType === 'scaling-law' && (
+          <DropDownInput
+            value={fieldValue?.value as ScalingLawType}
+            options={SCALING_LAWS}
             setValue={setValue}
           />
         )}

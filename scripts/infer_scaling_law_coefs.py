@@ -64,9 +64,6 @@ def estimate_coefficients(
     )
 
 
-print((10e21**kaplan_a))
-print((10e21**kaplan_b))
-
 chinchilla_1_alpha, chinchilla_1_beta = estimate_coefficients(
     chinchilla_1_nd[:, 0],
     chinchilla_1_nd[:, 1],
