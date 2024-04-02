@@ -1,8 +1,8 @@
+import { chinchillaLoss } from './calculations/chinchillaLoss';
+import { chinchillaComputeSplit } from './calculations/chinchillaComputeSplit';
 import { flopsCalculation } from './calculations/flops';
 import { gpuCost } from './calculations/gpuCost';
 import { gpuFlops } from './calculations/gpuFlops';
-import { openAiComputeSplit } from './calculations/openAiComputeSplit';
-import { openAiLoss } from './calculations/openAiLoss';
 import { trainingTime } from './calculations/trainingTime';
 import { Calculation } from './calculations/types';
 import { GpuType } from './gpu';
@@ -36,27 +36,21 @@ export const FIELD_SPECS: Partial<Record<ModelFieldType, FieldSpec>> = {
     name: '# params',
     valueType: 'number',
     default: undefined,
-    calculations: [
-      flopsCalculation('numParams'),
-      openAiComputeSplit('numParams'),
-    ],
+    calculations: [flopsCalculation('numParams'), chinchillaComputeSplit('numParams')],
     minMax: [100e6, 2e12],
   },
   numTokens: {
     name: '# tokens',
     valueType: 'number',
     default: undefined,
-    calculations: [
-      flopsCalculation('numTokens'),
-      openAiComputeSplit('numTokens'),
-    ],
+    calculations: [flopsCalculation('numTokens'), chinchillaComputeSplit('numTokens')],
     minMax: [1e9, 100e12],
   },
   lossNats: {
     name: 'Loss',
     valueType: 'number',
     default: undefined,
-    calculations: [openAiLoss('lossNats')],
+    calculations: [chinchillaLoss('lossNats')],
     minMax: [1e3, 1e10],
   },
   trainingTimeDays: {

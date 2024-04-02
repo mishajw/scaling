@@ -23,7 +23,6 @@ export const GpuTypeSchema = z.union([
   z.literal('NVIDIA Tesla V100 DGXS 32 GB'),
   z.literal('NVIDIA Tesla V100 SXM2'),
   z.literal('NVIDIA Tesla V100S PCIe 32 GB'),
-  z.literal('TODO'),
 ]);
 export type GpuType = z.infer<typeof GpuTypeSchema>;
 

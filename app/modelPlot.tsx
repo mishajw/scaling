@@ -155,7 +155,6 @@ function VaryRequirementsPlot<T extends ModelFieldType>({
       }[];
     } => values !== undefined
   );
-  console.log(requirementValues);
   return (
     <div>
       {requirementValues.map(({ calculation, requirement, results }, i) => (

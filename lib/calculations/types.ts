@@ -4,6 +4,8 @@ export type CalculationType =
   | 'flops'
   | 'open-ai-loss'
   | 'open-ai-compute-split'
+  | 'chinchilla-loss'
+  | 'chinchilla-compute-split'
   | 'training-time'
   | 'gpu-flops'
   | 'gpu-cost';

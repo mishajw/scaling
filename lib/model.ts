@@ -1,5 +1,6 @@
 import { GpuTypeSchema } from './gpu';
 import { z } from 'zod';
+import { ScalingLawTypeSchema } from './scalingLaw';
 
 const DataTypeSchema = z.union([
   z.literal('fp16'),
@@ -43,6 +44,7 @@ const ModelFieldsSchema = z.object({
   costDollars: ModelFieldSchemaFn(z.coerce.number()).optional(),
   releaseDate: ModelFieldSchemaFn(z.coerce.date()).optional(),
   isOpenWeights: ModelFieldSchemaFn(z.boolean()).optional(),
+  scalingLaw: ModelFieldSchemaFn(ScalingLawTypeSchema).optional(),
 });
 
 export const ModelSchema = z.object({
