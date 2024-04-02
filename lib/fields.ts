@@ -101,7 +101,7 @@ export const FIELD_SPECS: Partial<Record<ModelFieldType, FieldSpec>> = {
   scalingLaw: {
     name: 'Scaling law',
     valueType: 'scaling-law',
-    default: undefined,
+    default: 'chinchilla-1',
     calculations: [],
   },
 };
