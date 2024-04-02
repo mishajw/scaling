@@ -72,7 +72,7 @@ export default function CalculationDescriptions() {
         </div>
         <Latex>
           {
-            '$$\\text{\\#params} \\propto (\\text{FLOPs})^a \\\\ \\text{\\#tokens} \\propto (\\text{FLOPs})^b$$'
+            '$$\\text{\\#params} \\propto (\\text{FLOPs})^a, \\text{\\#tokens} \\propto (\\text{FLOPs})^b$$'
           }
         </Latex>
         <div className='my-2'>
