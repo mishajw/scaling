@@ -30,7 +30,7 @@ export function gpuFlops<T extends ModelFieldType>(
         calculate: fields => {
           return (
             fields.flopsPerSecond.value /
-            fields.gpuFlopsPerSecond /
+            fields.gpuFlopsPerSecond.value /
             fields.gpuUtilization.value
           );
         },
@@ -39,9 +39,13 @@ export function gpuFlops<T extends ModelFieldType>(
       return {
         type,
         fieldType,
-        requires: ['gpuType', 'flopsPerSecond', 'gpuCount'],
+        requires: ['gpuFlopsPerSecond', 'flopsPerSecond', 'gpuCount'],
         calculate: fields => {
-          return fields.flopsPerSecond.value / gpuFlops / fields.gpuCount.value;
+          return (
+            fields.flopsPerSecond.value /
+            fields.gpuFlopsPerSecond.value /
+            fields.gpuCount.value
+          );
         },
       };
     default:
