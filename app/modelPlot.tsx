@@ -244,6 +244,8 @@ function sourceString(source: FieldSource): string {
       return 'Manual';
     case 'epoch':
       return 'Epoch AI';
+    case 'default':
+      return 'Default';
     default:
       assertNever(source);
   }

@@ -2,30 +2,81 @@
 
 import ModelPlot from './modelPlot';
 import { useState } from 'react';
-import { ModelFieldType, ModelFields } from '@/lib/model';
+import { ModelField, ModelFieldType, ModelFields } from '@/lib/model';
 import CustomModelEditor from './customModelEditor';
 import { MODELS } from '@/lib/dataset';
 import ScaleExplanation from './scaleExplanation';
 import CalculationDescriptions from './calculationDescriptions';
 import Link from './link';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { FIELD_SPECS } from '@/lib/fields';
+import { siFormat, siParse } from '@/lib/numberFormat';
 
 export default function PlotView() {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const createQueryString = (name: string, value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set(name, value);
+    return params.toString();
+  };
+  function getFieldValue(field: ModelFieldType): ModelField | undefined {
+    const fieldSpec = FIELD_SPECS[field]!;
+    const valueRaw = searchParams.get(field);
+    if (valueRaw === null) {
+      return fieldSpec.default !== undefined
+        ? { value: fieldSpec.default, source: 'default' }
+        : undefined;
+    }
+    if (valueRaw === '') {
+      return undefined;
+    }
+    if (fieldSpec.valueType === 'number') {
+      const value = siParse(valueRaw);
+      if (value === undefined) {
+        return undefined;
+      }
+      return {
+        value,
+        source: 'custom',
+      };
+    }
+    return {
+      // @ts-ignore
+      value: valueRaw,
+      source: 'custom',
+    };
+  }
+
   const [state, setState] = useState<{
     customFields: ModelFields;
     plotField: ModelFieldType;
   }>({
-    customFields: {
-      gpuType: {
-        value: 'NVIDIA A100',
-        source: 'custom',
-      },
-      gpuUtilization: {
-        value: 0.3,
-        source: 'custom',
-      },
-    },
+    customFields: Object.fromEntries(
+      Object.keys(FIELD_SPECS).map(field => [
+        field,
+        getFieldValue(field as ModelFieldType),
+      ])
+    ) as ModelFields,
     plotField: 'flops',
   });
+
+  function setField(field: ModelFieldType, value: ModelField | undefined) {
+    setState(state => ({
+      ...state,
+      customFields: {
+        ...state.customFields,
+        [field]: value,
+      },
+    }));
+    const valueString = value === undefined ? '' : value.value.toString();
+    router.push(pathname + '?' + createQueryString(field, valueString), {
+      scroll: false,
+    });
+  }
+
   return (
     <div className='flex flex-col items-center'>
       <div className='m-2 p-2 border-2 max-w-screen-md'>
@@ -54,7 +105,7 @@ export default function PlotView() {
         <div className='m-2 p-2 border-2 max-w-screen-sm'>
           <CustomModelEditor
             fields={state.customFields}
-            setFields={customFields => setState({ ...state, customFields })}
+            setField={setField}
             setPlotField={plotField => setState({ ...state, plotField })}
           />
           <ScaleExplanation />

@@ -7,7 +7,7 @@ const DataTypeSchema = z.union([
   z.literal('fp32'),
   z.literal('bf16'),
 ]);
-const FieldSourceSchema = z.enum(['custom', 'scaling', 'epoch']);
+const FieldSourceSchema = z.enum(['custom', 'scaling', 'epoch', 'default']);
 
 const ModelFieldSchemaFn = <T extends z.ZodTypeAny>(dataType: T) =>
   z.object({

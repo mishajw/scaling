@@ -16,13 +16,13 @@ import { SCALING_LAWS, ScalingLawType } from '@/lib/scalingLaw';
 
 interface Props {
   fields: ModelFields;
-  setFields: (fields: ModelFields) => void;
+  setField: (field: ModelFieldType, value: ModelField | undefined) => void;
   setPlotField: (plotField: ModelFieldType) => void;
 }
 
 export default function CustomModelEditor({
   fields,
-  setFields,
+  setField,
   setPlotField,
 }: Props) {
   return (
@@ -31,70 +31,70 @@ export default function CustomModelEditor({
       <Field
         field={'costDollars'}
         fields={fields}
-        setFields={setFields}
+        setField={setField}
         setPlotField={setPlotField}
       />
       <Field
         field={'trainingTimeDays'}
         fields={fields}
-        setFields={setFields}
+        setField={setField}
         setPlotField={setPlotField}
       />
       <SectionTitle>GPUs</SectionTitle>
       <Field
         field={'gpuCount'}
         fields={fields}
-        setFields={setFields}
+        setField={setField}
         setPlotField={setPlotField}
       />
       <Field
         field={'gpuType'}
         fields={fields}
-        setFields={setFields}
+        setField={setField}
         setPlotField={setPlotField}
       />
       <Field
         field={'gpuUtilization'}
         fields={fields}
-        setFields={setFields}
+        setField={setField}
         setPlotField={setPlotField}
       />
       <SectionTitle>Perf</SectionTitle>
       <Field
         field={'flopsPerSecond'}
         fields={fields}
-        setFields={setFields}
+        setField={setField}
         setPlotField={setPlotField}
       />
       <Field
         field={'flops'}
         fields={fields}
-        setFields={setFields}
+        setField={setField}
         setPlotField={setPlotField}
       />
       <SectionTitle>Model</SectionTitle>
       <Field
         field={'numParams'}
         fields={fields}
-        setFields={setFields}
+        setField={setField}
         setPlotField={setPlotField}
       />
       <Field
         field={'numTokens'}
         fields={fields}
-        setFields={setFields}
+        setField={setField}
         setPlotField={setPlotField}
       />
       <Field
         field={'lossNats'}
         fields={fields}
-        setFields={setFields}
+        setField={setField}
         setPlotField={setPlotField}
       />
       <Field
         field={'scalingLaw'}
         fields={fields}
-        setFields={setFields}
+        setField={setField}
         setPlotField={setPlotField}
       />
     </div>
@@ -112,27 +112,21 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
 function Field<T extends ModelFieldType>({
   field,
   fields,
-  setFields,
+  setField,
   setPlotField,
 }: {
   field: T;
   fields: ModelFields;
-  setFields: (fields: ModelFields) => void;
+  setField: (field: ModelFieldType, value: ModelField | undefined) => void;
   setPlotField: (plotField: ModelFieldType) => void;
 }) {
   const fieldSpec = FIELD_SPECS[field]!;
   const fieldValue = fields[field];
   const setValue = (value: ModelValueType | undefined) => {
     if (value === undefined) {
-      setFields({
-        ...fields,
-        [field]: undefined,
-      });
+      setField(field, undefined);
     } else {
-      setFields({
-        ...fields,
-        [field]: { ...fields[field], value },
-      });
+      setField(field, { ...fields[field], value, source: 'custom' });
     }
   };
   return (
@@ -177,11 +171,11 @@ function Field<T extends ModelFieldType>({
             <Calculate
               key={i}
               fields={fields}
-              setFields={setFields}
+              setField={setField}
               calculation={calculation}
             />
           ))}
-          <Default fieldType={field} fields={fields} setFields={setFields} />
+          <Default fieldType={field} fields={fields} setField={setField} />
         </div>
       </div>
     </div>
@@ -190,11 +184,11 @@ function Field<T extends ModelFieldType>({
 
 function Calculate<T extends ModelFieldType>({
   fields,
-  setFields: setModel,
+  setField: setField,
   calculation,
 }: {
   fields: ModelFields;
-  setFields: (model: ModelFields) => void;
+  setField: (field: ModelFieldType, value: ModelField | undefined) => void;
   calculation: Calculation<any, T>;
 }) {
   const calculatedValue = calculate(fields, calculation);
@@ -205,7 +199,7 @@ function Calculate<T extends ModelFieldType>({
           value={calculatedValue}
           field={calculation.fieldType}
           fields={fields}
-          setFields={setModel}
+          setField={setField}
           canConflict={true}
         />
       </div>
@@ -227,11 +221,11 @@ function Calculate<T extends ModelFieldType>({
 function Default<T extends ModelFieldType>({
   fieldType,
   fields,
-  setFields,
+  setField,
 }: {
   fieldType: T;
   fields: ModelFields;
-  setFields: (model: ModelFields) => void;
+  setField: (field: ModelFieldType, value: ModelField | undefined) => void;
 }) {
   const fieldSpec = FIELD_SPECS[fieldType]!;
   if (fieldSpec.default === undefined) {
@@ -243,7 +237,7 @@ function Default<T extends ModelFieldType>({
         value={fieldSpec.default}
         field={fieldType}
         fields={fields}
-        setFields={setFields}
+        setField={setField}
         canConflict={false}
       />
       <span className='text-sm'>&nbsp;from default</span>
@@ -269,14 +263,14 @@ function ValueTag<T extends ModelFieldType>({
 function SetValueButton<T extends ModelFieldType>({
   value,
   field,
-  fields: fields,
-  setFields,
+  fields,
+  setField,
   canConflict,
 }: {
   value: ModelValueType | undefined;
   field: T;
   fields: ModelFields;
-  setFields: (model: ModelFields) => void;
+  setField: (field: ModelFieldType, value: ModelField | undefined) => void;
   canConflict: boolean;
 }) {
   let color: string;
@@ -299,12 +293,11 @@ function SetValueButton<T extends ModelFieldType>({
     <button
       disabled={value === undefined}
       className={`rounded px-1 whitespace-nowrap ${color}`}
-      onClick={() =>
-        setFields({
-          ...fields,
-          [field]: { value, source: 'manual' },
-        })
-      }
+      onClick={() => {
+        if (value !== undefined) {
+          setField(field, { value, source: 'custom' });
+        }
+      }}
     >
       = <Value field={value ? { value, source: 'custom' } : undefined} />
     </button>

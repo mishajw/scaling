@@ -37,7 +37,7 @@ export function chinchillaComputeSplit<T extends ModelFieldType>(
           return (
             NUM_PARAMS_COEFFICIENTS[fields.scalingLaw.value as ScalingLawType] *
             Math.pow(
-              fields.flops.value / 6,
+              fields.flops.value,
               NUM_PARAMS_EXPONENTS[fields.scalingLaw.value as ScalingLawType]
             )
           );
@@ -53,7 +53,7 @@ export function chinchillaComputeSplit<T extends ModelFieldType>(
           return (
             NUM_TOKENS_COEFFICIENTS[fields.scalingLaw.value as ScalingLawType] *
             Math.pow(
-              fields.flops.value / 6,
+              fields.flops.value,
               NUM_TOKENS_EXPONENTS[fields.scalingLaw.value as ScalingLawType]
             )
           );

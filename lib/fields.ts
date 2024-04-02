@@ -89,7 +89,7 @@ export const FIELD_SPECS: Partial<Record<ModelFieldType, FieldSpec>> = {
   gpuUtilization: {
     name: 'GPU utilization (%)',
     valueType: 'number',
-    default: undefined,
+    default: 0.3,
     calculations: [gpuFlops('gpuUtilization')],
   },
   costDollars: {
