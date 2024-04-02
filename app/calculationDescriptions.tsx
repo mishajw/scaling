@@ -3,7 +3,8 @@ import Latex from 'react-latex-next';
 import 'katex/dist/katex.min.css';
 import { CalculationType } from '@/lib/calculations/types';
 
-const OAI_SCALING = 'https://TODO';
+const OAI_SCALING = 'https://arxiv.org/abs/2001.08361';
+const CHINCHILLA_SCALING = 'https://arxiv.org/abd/2203.15556';
 
 export default function CalculationDescriptions() {
   return (
@@ -34,56 +35,54 @@ export default function CalculationDescriptions() {
           .
         </div>
       </div>
-      <CalculationTitle type='open-ai-loss'>
-        OpenAI&apos;s loss power law
+      <CalculationTitle type='chinchilla-loss'>
+        Loss scaling law
       </CalculationTitle>
       <div>
         <div className='my-2'>
-          OpenAI&apos;s <Link href={OAI_SCALING}>scaling laws paper</Link> fits
-          a power law to estimate the loss (in nats) given a fixed number of
-          parameters and tokens:
+          DeepMind&apos;s{' '}
+          <Link href={CHINCHILLA_SCALING}>Chinchilla scaling laws paper</Link>{' '}
+          fits a power law to estimate the loss (in nats) given a fixed number
+          of parameters and tokens:
         </div>
         <div className='my-2'></div>
         <Latex>
-          {'$$L(\\text{\\#params}, \\text{\\#tokens}) = \\left(' +
-            '\\left(\\frac{N_c}{\\text{\\#params}}\\right)^{\\frac{\\alpha_N}{\\alpha_D}} + ' +
-            '\\frac{D_c}{\\text{\\#tokens}}' +
-            '\\right)^{\\alpha_D}$$'}
+          {
+            '$$L(\\text{\\#params}, \\text{\\#tokens}) = E + \\frac{A}{\\text{\\#params}^\\alpha} + \\frac{B}{\\text{\\#tokens}^\\beta}$$'
+          }
         </Latex>
         <div className='my-2'>
-          Where <Latex>{'$\\alpha_N = 0.076$'}</Latex>,{' '}
-          <Latex>{'$\\alpha_D = 0.103$'}</Latex>,{' '}
-          <Latex>{'$N_c = 6.4 * 10^{13}$'}</Latex>,{' '}
-          <Latex>{'$N_c = 1.8 * 10^{13}$'}</Latex>. See section 4 for details.
+          Unfortunately, this is only described for the third approach, so all
+          loss calculations use the coefficients from section D.2.
         </div>
       </div>
-      <CalculationTitle type='open-ai-compute-split'>
-        OpenAI&apos;s optimal compute split
+      <CalculationTitle type='chinchilla-compute-split'>
+        Optimal compute split
       </CalculationTitle>
       <div>
         <div className='my-2'>
-          Given a fixed amount of FLOPs, OpenAI&apos;s{' '}
-          <Link href={OAI_SCALING}>scaling laws paper</Link> derives a way to
-          calculate the best way to invest it: Do you scale up model size, or
-          scale up dataset size?
+          Given a fixed amount of FLOPs, DeepMind&apos;s{' '}
+          <Link href={CHINCHILLA_SCALING}>Chinchilla scaling laws paper</Link>{' '}
+          derives a way to calculate the best way to invest it: Do you scale up
+          model size, or scale up dataset size?
         </div>
         <div className='my-2'>
           Again, they fit a power law for this. If you want to infer the optimal
-          number of parameters for a fixed compute size, you can use:
-        </div>
-        <Latex>
-          {'$$\\text{\\#params} = 9 * 10^{-7} * (\\text{FLOPs})^{0.7}$$'}
-        </Latex>
-        <div className='my-2'>
-          To then pick the best number of parameter, simply rearrange the{' '}
-          <CalculationLink type='flops' /> equation:
+          number of parameters or tokens for a fixed compute size, you can use:
         </div>
         <Latex>
           {
-            '$$\\text{\\#tokens} = \\frac{\\text{FLOPs}}{\\text{\\#params} * 6}$$'
+            '$$\\text{\\#params} \\propto (\\text{FLOPs})^a \\\\ \\text{\\#tokens} \\propto (\\text{FLOPs})^b$$'
           }
         </Latex>
-        <div className='my-2'>See section 6 for details.</div>
+        <div className='my-2'>
+          To figure out the exact proportionality, we can fit coefficients using
+          the examples given in the paper. See{' '}
+          <Link href='https://github.com/mishajw/scaling/blob/main/scripts/infer_scaling_law_coefs.py'>
+            this script
+          </Link>{' '}
+          for details.
+        </div>
       </div>
       <CalculationTitle type='training-time'>Training time</CalculationTitle>
       <div>
@@ -128,8 +127,8 @@ export default function CalculationDescriptions() {
 
 export const CALCULATION_TITLES: Record<CalculationType, string> = {
   flops: 'FLOPs',
-  'open-ai-loss': "OpenAI's loss law",
-  'open-ai-compute-split': "OpenAI's compute split",
+  'chinchilla-loss': 'loss scaling law',
+  'chinchilla-compute-split': 'optimal compute split',
   'training-time': 'training time',
   'gpu-flops': 'GPU FLOP/S',
   'gpu-cost': 'GPU cost',
