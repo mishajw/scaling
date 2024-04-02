@@ -1,19 +1,5 @@
 # Scaling
 
-Tool for inspecting and comparing the high-level statistics of language models, for example parameter count and FLOPS.
+**A calculator for language model scaling.** How many FLOPs do you need to train a 13B model? How much does it cost to scale to 1T tokens? If the we cap training runs at one yetaflop, how many GPUs do you need to break that?
 
-## TODO
-
-### Today
-
-- [x] Fix whitespace wrapping.
-- [ ] Validate scaling laws.
-- [ ] Add Chinchilla scaling laws.
-- [ ] Add percentage formatting.
-- [ ] Set sensible defaults (GPT-3?).
-- [ ] Clean up bold text stuff.
-- [ ] Add model parameters.
-- [ ] Add GET params for storing values.
-- [ ] Pick favicon.
-- [ ] Get proper GPU values.
-- [ ] Present GPU values somehow.
+https://scaling.mishajw.com
