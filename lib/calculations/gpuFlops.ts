@@ -1,4 +1,3 @@
-import { getDefaultAutoSelectFamilyAttemptTimeout } from 'net';
 import { GPU_TYPES, GpuType } from '../gpu';
 import { ModelFieldType } from '../model';
 import { assertNever } from '../util';
@@ -14,23 +13,25 @@ export function gpuFlops<T extends ModelFieldType>(
       return {
         type,
         fieldType,
-        requires: ['gpuType', 'gpuCount', 'gpuUtilization'],
+        requires: ['gpuFlopsPerSecond', 'gpuCount', 'gpuUtilization'],
         calculate: fields => {
-          const gpuFlops =
-            GPU_TYPES[fields.gpuType.value as GpuType]!.flopsPerSecond;
-          return gpuFlops * fields.gpuCount.value * fields.gpuUtilization.value;
+          return (
+            fields.gpuFlopsPerSecond.value *
+            fields.gpuCount.value *
+            fields.gpuUtilization.value
+          );
         },
       };
     case 'gpuCount':
       return {
         type,
         fieldType,
-        requires: ['gpuType', 'flopsPerSecond', 'gpuUtilization'],
+        requires: ['gpuFlopsPerSecond', 'flopsPerSecond', 'gpuUtilization'],
         calculate: fields => {
-          const gpuFlops =
-            GPU_TYPES[fields.gpuType.value as GpuType]!.flopsPerSecond;
           return (
-            fields.flopsPerSecond.value / gpuFlops / fields.gpuUtilization.value
+            fields.flopsPerSecond.value /
+            fields.gpuFlopsPerSecond /
+            fields.gpuUtilization.value
           );
         },
       };
@@ -40,8 +41,6 @@ export function gpuFlops<T extends ModelFieldType>(
         fieldType,
         requires: ['gpuType', 'flopsPerSecond', 'gpuCount'],
         calculate: fields => {
-          const gpuFlops =
-            GPU_TYPES[fields.gpuType.value as GpuType]!.flopsPerSecond;
           return fields.flopsPerSecond.value / gpuFlops / fields.gpuCount.value;
         },
       };

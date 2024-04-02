@@ -59,6 +59,18 @@ export default function CustomModelEditor({
         setField={setField}
         setPlotField={setPlotField}
       />
+      <Field
+        field={'gpuCostDollarsPerHour'}
+        fields={fields}
+        setField={setField}
+        setPlotField={setPlotField}
+      />
+      <Field
+        field={'gpuFlopsPerSecond'}
+        fields={fields}
+        setField={setField}
+        setPlotField={setPlotField}
+      />
       <SectionTitle>Perf</SectionTitle>
       <Field
         field={'flopsPerSecond'}

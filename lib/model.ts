@@ -38,6 +38,8 @@ const ModelFieldsSchema = z.object({
   gpuType: ModelFieldSchemaFn(GpuTypeSchema).optional(),
   gpuCount: ModelFieldSchemaFn(z.coerce.number()).optional(),
   gpuUtilization: ModelFieldSchemaFn(z.coerce.number()).optional(),
+  gpuFlopsPerSecond: ModelFieldSchemaFn(z.coerce.number()).optional(),
+  gpuCostDollarsPerHour: ModelFieldSchemaFn(z.coerce.number()).optional(),
   // Unused:
   sequenceLength: ModelFieldSchemaFn(z.coerce.number()).optional(),
   batchSize: ModelFieldSchemaFn(z.coerce.number()).optional(),

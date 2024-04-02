@@ -1,5 +1,3 @@
-import { getDefaultAutoSelectFamilyAttemptTimeout } from 'net';
-import { GPU_TYPES, GpuType } from '../gpu';
 import { ModelFieldType } from '../model';
 import { assertNever } from '../util';
 import { Calculation, CalculationType } from './types';
@@ -14,13 +12,13 @@ export function gpuCost<T extends ModelFieldType>(
       return {
         type,
         fieldType,
-        requires: ['gpuType', 'gpuCount', 'trainingTimeDays'],
+        requires: ['gpuCostDollarsPerHour', 'gpuCount', 'trainingTimeDays'],
         calculate: fields => {
-          const gpuCostPerDollarsPerHour =
-            GPU_TYPES[fields.gpuType.value as GpuType]!.costDollarsPerHour;
           const trainingTimeHours = fields.trainingTimeDays.value * 24;
           return (
-            gpuCostPerDollarsPerHour * fields.gpuCount.value * trainingTimeHours
+            fields.gpuCostDollarsPerHour.value *
+            fields.gpuCount.value *
+            trainingTimeHours
           );
         },
       };
@@ -28,14 +26,12 @@ export function gpuCost<T extends ModelFieldType>(
       return {
         type,
         fieldType,
-        requires: ['gpuType', 'costDollars', 'trainingTimeDays'],
+        requires: ['costDollars', 'trainingTimeDays', 'gpuCostDollarsPerHour'],
         calculate: fields => {
-          const gpuCostPerDollarsPerHour =
-            GPU_TYPES[fields.gpuType.value as GpuType]!.costDollarsPerHour;
           const trainingTimeHours = fields.trainingTimeDays.value * 24;
           return (
             fields.costDollars.value /
-            (gpuCostPerDollarsPerHour * trainingTimeHours)
+            (fields.gpuCostDollarsPerHour.value * trainingTimeHours)
           );
         },
       };
@@ -43,13 +39,11 @@ export function gpuCost<T extends ModelFieldType>(
       return {
         type,
         fieldType,
-        requires: ['gpuType', 'costDollars', 'gpuCount'],
+        requires: ['gpuCostDollarsPerHour', 'costDollars', 'gpuCount'],
         calculate: fields => {
-          const gpuCostPerDollarsPerHour =
-            GPU_TYPES[fields.gpuType.value as GpuType]!.costDollarsPerHour;
           const trainingTimeHours =
             fields.costDollars.value /
-            (gpuCostPerDollarsPerHour * fields.gpuCount.value);
+            (fields.gpuCostDollarsPerHour.value * fields.gpuCount.value);
           return trainingTimeHours / 24;
         },
       };

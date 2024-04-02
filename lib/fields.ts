@@ -5,9 +5,10 @@ import { gpuCost } from './calculations/gpuCost';
 import { gpuFlops } from './calculations/gpuFlops';
 import { trainingTime } from './calculations/trainingTime';
 import { Calculation } from './calculations/types';
-import { GpuType } from './gpu';
+import { GPU_TYPES, GpuType } from './gpu';
 import { ModelFieldType, ModelValueType } from './model';
 import { ScalingLawType } from './scalingLaw';
+import { gpuAttributes } from './calculations/gpuAttributes';
 
 // TODO: Make the `default` type depend on the field.
 export type FieldSpec = {
@@ -103,5 +104,17 @@ export const FIELD_SPECS: Partial<Record<ModelFieldType, FieldSpec>> = {
     valueType: 'scaling-law',
     default: 'chinchilla-1',
     calculations: [],
+  },
+  gpuFlopsPerSecond: {
+    name: 'GPU FLOP/S',
+    valueType: 'number',
+    default: GPU_TYPES['NVIDIA A100']!.flopsPerSecond,
+    calculations: [gpuAttributes('gpuFlopsPerSecond')],
+  },
+  gpuCostDollarsPerHour: {
+    name: 'GPU cost ($/hour)',
+    valueType: 'number',
+    default: GPU_TYPES['NVIDIA A100']!.costDollarsPerHour,
+    calculations: [gpuAttributes('gpuCostDollarsPerHour')],
   },
 };

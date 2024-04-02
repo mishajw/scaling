@@ -73,6 +73,19 @@ export default function FieldDescription({ type }: { type: ModelFieldType }) {
           the other laws don&apos;t have a direct way to do this.
         </div>
       );
+    case 'gpuFlopsPerSecond':
+      return (
+        <div className='text-sm'>
+          The number of FLOPs per second the GPU can do. This is the theoretical
+          maximum, not the effective FLOPs.
+        </div>
+      );
+    case 'gpuCostDollarsPerHour':
+      return (
+        <div className='text-sm'>
+          The cost of renting a single GPU per hour.{' '}
+        </div>
+      );
     default:
       // assertNever(type);
       return <div>??</div>;

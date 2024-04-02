@@ -121,6 +121,44 @@ export default function CalculationDescriptions() {
           }
         </Latex>
       </div>
+      <CalculationTitle type='gpu-cost'>GPU attributes</CalculationTitle>
+      <div>
+        <div className='my-2'>
+          We give hard-coded values for the GPU attributes, taken from:
+        </div>
+        <div className='my-2'>
+          <ul className='list-disc list-inside'>
+            <li>
+              NVIDIA FLOP/S are taken from the{' '}
+              <Link href='https://en.wikipedia.org/wiki/List_of_Nvidia_graphics_processing_units'>
+                Wikipedia page
+              </Link>
+              .
+            </li>
+            <li>
+              NVIDIA costs are taken from{' '}
+              <Link href='https://docs.coreweave.com/welcome-to-coreweave/resource-based-pricing'>
+                Coreweave's pricing.
+              </Link>
+            </li>
+            <li>
+              TPU FLOP/S are taken from the{' '}
+              <Link href='https://en.wikipedia.org/wiki/Tensor_Processing_Unit'>
+                Wikipedia page
+              </Link>
+              .
+            </li>
+            <li>
+              TPU costs are taken from{' '}
+              <Link href='https://cloud.google.com/tpu/pricing'>
+                Google Cloud's pricing
+              </Link>
+              .
+            </li>
+          </ul>
+        </div>
+        <div className='my-2'>For FLOP/S, we take half-precision values.</div>
+      </div>
     </div>
   );
 }
@@ -132,6 +170,7 @@ export const CALCULATION_TITLES: Record<CalculationType, string> = {
   'training-time': 'training time',
   'gpu-flops': 'GPU FLOP/S',
   'gpu-cost': 'GPU cost',
+  'gpu-attributes': 'GPU attributes',
 };
 
 function CalculationTitle({

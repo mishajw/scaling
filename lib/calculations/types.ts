@@ -6,7 +6,8 @@ export type CalculationType =
   | 'chinchilla-compute-split'
   | 'training-time'
   | 'gpu-flops'
-  | 'gpu-cost';
+  | 'gpu-cost'
+  | 'gpu-attributes';
 
 export interface Calculation<
   FieldT extends ModelFieldType,

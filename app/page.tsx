@@ -10,7 +10,7 @@ import CalculationDescriptions from './calculationDescriptions';
 import Link from './link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { FIELD_SPECS } from '@/lib/fields';
-import { siFormat, siParse } from '@/lib/numberFormat';
+import { siParse } from '@/lib/numberFormat';
 
 export default function PlotView() {
   const searchParams = useSearchParams();
