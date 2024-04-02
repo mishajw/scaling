@@ -22,7 +22,8 @@ export function siFormat(n: number): string {
     return sciFormat(n);
   }
   const symbol = SI_SYMBOLS[power];
-  return `${scaled.toFixed(0)}${symbol}`;
+  // Lord forgive me for I have sinned
+  return `${scaled.toFixed(2).replace('.00', '')}${symbol}`;
 }
 
 export function siParse(s: string): number | undefined {
